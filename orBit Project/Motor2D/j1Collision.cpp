@@ -5,6 +5,7 @@
 #include "j1Player.h"
 #include "p2Log.h"
 #include "j1Window.h"
+#include "j1Orb.h"
 
 
 j1Collision::j1Collision()

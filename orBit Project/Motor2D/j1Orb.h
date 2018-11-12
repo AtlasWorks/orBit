@@ -51,6 +51,7 @@ public:
 	int OrbY = NULL;
 
 	Collider * orbcollider = nullptr;
+	Collider * orbcolliderMoving = nullptr;
 
 	SDL_Texture* orbText = nullptr;
 

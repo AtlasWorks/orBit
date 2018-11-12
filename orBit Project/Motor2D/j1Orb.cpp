@@ -71,6 +71,7 @@ bool j1Orb::PreUpdate()
 	{
 		App->orb->haveOrb = true;
 		CurrentAnimation = appear;
+		
 	}
 
 	if (haveOrb)
@@ -80,7 +81,12 @@ bool j1Orb::PreUpdate()
 		finishedAppearing = true;
 
 	if (finishedAppearing && haveOrb)
+	{
 		CurrentAnimation = iddle;
+		orbcolliderMoving->SetPos((int)App->player->pos.x - 15, (int)App->player->pos.y - 15);
+	}
+
+	
 
 	return true;
 }
@@ -234,7 +240,9 @@ void j1Orb::AddCollider() {
 	if (!haveOrb && App->scene->firstStage)
 		orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
 	
-
+	else if (haveOrb)
+	orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - 15, (int)App->player->pos.y - 15,
+		Orbwidth, Orbheight }, COLLIDER_ORB, this);
 
 
 }
