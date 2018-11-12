@@ -60,6 +60,7 @@ bool j1Orb::Start()
 
 	orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
 
+	orbRect = { (int)App->player->pos.x, (int)App->player->pos.y-15,Orbwidth,Orbheight };
 	return ret;
 }
 
@@ -74,8 +75,11 @@ bool j1Orb::PreUpdate()
 		
 	}
 
-	if (haveOrb)
+	if (haveOrb) {
 		iddle->speed = 0.01f;
+
+		orbcolliderMoving->SetPos(orbRect.x, orbRect.y);
+	}
 
 	if (haveOrb && finishedAppearing == false && CurrentAnimation->Finished())
 		finishedAppearing = true;
@@ -83,7 +87,16 @@ bool j1Orb::PreUpdate()
 	if (finishedAppearing && haveOrb)
 	{
 		CurrentAnimation = iddle;
-		orbcolliderMoving->SetPos((int)App->player->pos.x - 15, (int)App->player->pos.y - 15);
+	}
+
+	orbRect.y = (int)App->player->pos.y - 15;
+	if (App->player->going_right)
+	{
+		orbRect.x = (int)App->player->pos.x - 10;
+	}
+	else 
+	{
+		orbRect.x = (int)App->player->pos.x + App->player->playercollider->rect.w;
 	}
 
 	
@@ -180,8 +193,10 @@ bool j1Orb::PostUpdate()
 	if (!haveOrb && App->scene->firstStage)
 	App->render->Blit(orbText, OrbX, OrbY, &CurrentAnimation->GetCurrentFrame()); //orb
 	else if (haveOrb)
-	App->render->Blit(orbText, App->player->pos.x - 15, App->player->pos.y - 15, &CurrentAnimation->GetCurrentFrame());
-
+	{
+		App->render->Blit(orbText,orbRect.x,orbRect.y, &CurrentAnimation->GetCurrentFrame());
+		
+	}
 	return ret;
 }
 

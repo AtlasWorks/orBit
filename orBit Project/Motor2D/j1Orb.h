@@ -54,6 +54,7 @@ public:
 	Collider * orbcolliderMoving = nullptr;
 
 	SDL_Texture* orbText = nullptr;
+	SDL_Rect orbRect;
 
 	Animation* CurrentAnimation = nullptr;
 	Animation* iddle = nullptr;
