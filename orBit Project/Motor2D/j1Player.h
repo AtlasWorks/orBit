@@ -93,7 +93,7 @@ public:
 private:
 
 	p2SString folder = nullptr;
-	p2SString Texture = nullptr;;
+	p2SString Texture = nullptr;
 };
 
 #endif // __j1Player_H__

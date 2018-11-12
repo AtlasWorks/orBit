@@ -9,6 +9,8 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 #include "j1Audio.h"
+#include "j1Orb.h"
+
 
 bool j1Player::Awake(pugi::xml_node& config) {
 
@@ -489,6 +491,13 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 
 
+		}
+		else if (c2->type == COLLIDER_ORB && App->orb->once==false) //orb
+		{
+			App->orb->once = true;
+			App->orb->CurrentAnimation = App->orb->disappear;
+
+			
 		}
 
 		else if (c2->type == COLLIDER_PLATFORM)

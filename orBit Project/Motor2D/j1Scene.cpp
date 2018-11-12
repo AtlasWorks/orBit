@@ -11,6 +11,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1PathFinding.h"
+#include "j1Orb.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -46,6 +47,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	camera1.y = config.child("startcamera1").attribute("y").as_int();
 	camera2.x = config.child("startcamera2").attribute("x").as_int();
 	camera2.y = config.child("startcamera2").attribute("y").as_int();
+	
+	
 	return ret;
 }
 
@@ -119,6 +122,8 @@ bool j1Scene::Start()
 
 		RELEASE_ARRAY(buffer_data);
 	}
+
+
 
 		App->map->ColliderDrawer(App->map->data);
 
@@ -380,6 +385,7 @@ bool j1Scene::PostUpdate()
 		ret = false;
 
 
+
 	return ret;
 }
 
@@ -418,7 +424,7 @@ bool j1Scene::change_scene(const char* map_name) {
 	App->coll->CleanUp();
 	App->player-> playercollider= App->coll->AddCollider(App->player->playercol, COLLIDER_PLAYER, App->player);
 	App->player->playercollider->SetPos(App->player->pos.x, App->player->pos.y);
-
+	App->orb->AddCollider();
 	
 	if (FirstStage == map_name)
 	{	

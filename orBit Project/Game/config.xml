@@ -60,5 +60,11 @@
     <colliding_offset value="1" />
    
   </player>
+  
+  <orb>
+    <animation>animation/orb.tmx</animation>
+    <texture>textures/pixel_orb.png</texture>
+    <collider x="50" y="255" width="11" height="11"/>
+  </orb>
 
 </config>

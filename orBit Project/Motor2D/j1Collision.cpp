@@ -21,6 +21,8 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_ROOF] = true;
 	matrix[COLLIDER_PLAYER][CHECKPOINT] = true;
 
+	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = true;
+
 }
 
 j1Collision::~j1Collision()
@@ -205,6 +207,9 @@ void j1Collision::DebugDraw()
 			break;
 		case CHECKPOINT: // blue
 			App->render->DrawQuad(item->data->rect, 0 , 0, 128, alpha);
+			break;
+		case COLLIDER_ORB: // dark green
+			App->render->DrawQuad(item->data->rect, 0, 122, 77, alpha);
 			break;
 			
 
