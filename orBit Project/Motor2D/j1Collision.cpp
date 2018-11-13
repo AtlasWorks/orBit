@@ -22,7 +22,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_ROOF] = true;
 	matrix[COLLIDER_PLAYER][CHECKPOINT] = true;
 
-	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = true;
 	matrix[COLLIDER_ORB][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_PLATFORM][COLLIDER_ORB] = true;
@@ -46,21 +46,6 @@ bool j1Collision::PreUpdate()
 {
 
 	bool ret = true;
-
-	// Remove all colliders scheduled for deletion
-
-	p2List_item <Collider*> *item;
-	item = colliders.start;
-
-	while (item != NULL)
-	{
-		if(item->data->to_delete==true)
-		RELEASE(item->data);
-
-		item = item->next;
-	}
-
-
 	return ret;
 }
 
@@ -99,8 +84,8 @@ bool j1Collision::Update(float dt)
 			//We skip colliders that are not in camera
 			skipcolliders = true;
 
-			if ((collider2->data->rect.x + collider2->data->rect.w)*App->win->GetScale() >= -App->render->camera.x 
-				&& collider2->data->rect.x*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w)
+			if (((collider2->data->rect.x + collider2->data->rect.w)*App->win->GetScale() >= -App->render->camera.x 
+				&& collider2->data->rect.x*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w))
 			{
 				skipcolliders = false;
 			}
@@ -147,8 +132,9 @@ bool j1Collision::Update(float dt)
 
 bool j1Collision::PostUpdate()
 {
-	DebugDraw();
 
+	DebugDraw();
+	ToRemove();
 	return true;
 }
 
@@ -241,4 +227,35 @@ bool Collider::CheckCollision(const SDL_Rect & r) const
 		rect.h + rect.y >= r.y);
 
 	// between argument "r" and property "rect"
+}
+
+void j1Collision::ToRemove()
+{
+	// Remove all colliders scheduled for deletion
+
+	p2List_item <Collider*> *item;
+	item = colliders.start;
+
+	while (item != NULL)
+	{
+		if (item->data->to_delete == true)
+		{
+			RELEASE(item->data);
+
+
+			if (item->prev == NULL) //first elment of list
+				item->next->prev = NULL;
+
+			else if (item->next == NULL) //last element
+				item->prev->next = NULL;
+
+			else if (item->next != NULL && item->prev != NULL)
+			{
+				item->prev->next = item->next;
+				item->next->prev = item->prev;
+			}
+		}
+		item = item->next;
+	}
+
 }

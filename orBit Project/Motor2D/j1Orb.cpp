@@ -95,8 +95,7 @@ bool j1Orb::PreUpdate()
 	if (haveOrb && !finishedAppearing && CurrentAnimation->Finished())
 	{
 		finishedAppearing = true;
-		/*if (orbcollider != nullptr)  //trying to delte collider
-			orbcollider->to_delete = true;*/
+		
 	}
 
 	if (finishedAppearing && haveOrb)
@@ -117,8 +116,7 @@ bool j1Orb::Update(float dt)
 		if (haveOrb) //if i have the orb-> disappear
 		{
 			haveOrb = false;
-		
-			/*orbcolliderMoving->to_delete=true;*/
+			orbcolliderMoving->to_delete=true;
 		}
 		else // if i dont have it ->appear
 		{
@@ -126,6 +124,7 @@ bool j1Orb::Update(float dt)
 			once = true;
 			finishedAppearing=false;
 			CurrentAnimation = appear;
+			orbcollider->to_delete = true;
 		}
 		AddCollider();
 		PreUpdate();
@@ -202,6 +201,7 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 	{
 		once = true;
 		CurrentAnimation = App->orb->disappear;
+		orbcollider->to_delete = true;
 		orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - OffsetY, (int)App->player->pos.y - OffsetY, Orbwidth,
 			Orbheight }, COLLIDER_ORB, this);
 	}
@@ -223,9 +223,13 @@ void j1Orb::AddCollider() {
 	if (!haveOrb && App->scene->firstStage)
 		orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
 	
-	else if (haveOrb)
+	else if (haveOrb && orbcolliderMoving==nullptr)
+
 	orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - OffsetY, (int)App->player->pos.y - OffsetY,
 		Orbwidth, Orbheight }, COLLIDER_ORB, this);
+
+	
+
 
 
 }

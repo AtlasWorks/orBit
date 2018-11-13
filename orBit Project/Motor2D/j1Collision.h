@@ -55,6 +55,7 @@ public:
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
+	void ToRemove();
 
 	p2List<Collider*> colliders;
 	int playertouched = NULL;
