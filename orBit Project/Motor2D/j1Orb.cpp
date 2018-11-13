@@ -6,7 +6,6 @@
 #include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Window.h"
-//#include "j1Map.h"
 #include "j1Orb.h"
 #include "j1Collision.h"
 #include "j1Player.h"
@@ -82,14 +81,14 @@ bool j1Orb::PreUpdate()
 	{
 		haveOrb = true;
 		CurrentAnimation = appear;
-		if (orbcolliderMoving == nullptr) 
-			AddCollider();
+		/*if (orbcolliderMoving == nullptr) 
+			AddCollider();*/
 	}
 
 	if (haveOrb) {
 		 iddle->speed = 0.15f;
 
-		orbcolliderMoving->SetPos(orbRect.x, orbRect.y);
+		orbcollider->SetPos(orbRect.x, orbRect.y);
 	}
 
 	if (haveOrb && !finishedAppearing && CurrentAnimation->Finished())
@@ -116,7 +115,9 @@ bool j1Orb::Update(float dt)
 		if (haveOrb) //if i have the orb-> disappear
 		{
 			haveOrb = false;
-			orbcolliderMoving->to_delete=true;
+			//orbcolliderMoving->to_delete=true;
+			orbcollider->SetPos(OrbX, OrbY);
+
 		}
 		else // if i dont have it ->appear
 		{
@@ -124,9 +125,9 @@ bool j1Orb::Update(float dt)
 			once = true;
 			finishedAppearing=false;
 			CurrentAnimation = appear;
-			orbcollider->to_delete = true;
+			//orbcollider->to_delete = true;
 		}
-		AddCollider();
+		/*AddCollider();*/
 		PreUpdate();
 			Movement();
 	}
@@ -201,9 +202,7 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 	{
 		once = true;
 		CurrentAnimation = App->orb->disappear;
-		orbcollider->to_delete = true;
-		orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - OffsetY, (int)App->player->pos.y - OffsetY, Orbwidth,
-			Orbheight }, COLLIDER_ORB, this);
+	
 	}
 	
 	 if ((c2->type == COLLIDER_PLATFORM || c1->type == COLLIDER_PLATFORM) && shoot) //orb
@@ -217,23 +216,6 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 	 }
 	
 }
-
-void j1Orb::AddCollider() {
-	
-	if (!haveOrb && App->scene->firstStage)
-		orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
-	
-	else if (haveOrb && orbcolliderMoving==nullptr)
-
-	orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - OffsetY, (int)App->player->pos.y - OffsetY,
-		Orbwidth, Orbheight }, COLLIDER_ORB, this);
-
-	
-
-
-
-}
-
 
 void j1Orb::Movement() 
 {
@@ -284,7 +266,7 @@ void j1Orb::Movement()
 
 
 		// 3 seconds and the ball reappear near player
-		if (timePassed > maxTime && shoot) //max time
+		if (timePassed > maxTime && shoot) 
 		{
 			touchedSomething = true;
 		}
@@ -292,11 +274,23 @@ void j1Orb::Movement()
 
 		if (shoot && touchedSomething)
 		{
-			//maybe disappear collider?
+			
 			CurrentAnimation = disappear;
 			finishedAppearing = false;
 			shoot = false;
-			touchedSomething /*= timer = shootright  */ = false;
+			touchedSomething = false;
 		}
 	}
+}
+
+void j1Orb::AddCollider() {
+
+	if (!haveOrb && App->scene->firstStage)
+		orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
+
+	
+
+
+
+
 }

@@ -24,17 +24,9 @@ j1Collision::j1Collision()
 
 	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = true;
 	matrix[COLLIDER_ORB][COLLIDER_PLAYER] = true;
-
-	matrix[COLLIDER_PLATFORM][COLLIDER_ORB] = true;
 	matrix[COLLIDER_ORB][COLLIDER_PLATFORM] = true;
-
-	matrix[COLLIDER_FLOOR][COLLIDER_ORB] = true;
 	matrix[COLLIDER_ORB][COLLIDER_FLOOR] = true;
-
-	matrix[COLLIDER_ROOF][COLLIDER_ORB] = true;
 	matrix[COLLIDER_ORB][COLLIDER_ROOF] = true;
-
-	matrix[COLLIDER_SPIKES][COLLIDER_ORB] = true;
 	matrix[COLLIDER_ORB][COLLIDER_SPIKES] = true;
 }
 
