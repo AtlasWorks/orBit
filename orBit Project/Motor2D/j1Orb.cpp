@@ -76,31 +76,77 @@ bool j1Orb::PreUpdate()
 	}
 
 	if (haveOrb) {
-		iddle->speed = 0.01f;
+		 iddle->speed = 0.15f;
 
 		orbcolliderMoving->SetPos(orbRect.x, orbRect.y);
 	}
 
 	if (haveOrb && finishedAppearing == false && CurrentAnimation->Finished())
+	{
 		finishedAppearing = true;
+		/*if (orbcollider != nullptr)  //trying to delte collider
+			orbcollider->to_delete = true;*/
+	}
 
 	if (finishedAppearing && haveOrb)
 	{
 		CurrentAnimation = iddle;
+		
+	}
+	//ball movement
+
+	if (timer)
+	{
+		start_time = SDL_GetTicks();
+		timer = false;
 	}
 
-	orbRect.y = (int)App->player->pos.y - 15;
-	if (App->player->going_right)
+	if (!shoot && !touchedSomething)
 	{
-		orbRect.x = (int)App->player->pos.x - 10;
-	}
-	else 
-	{
-		orbRect.x = (int)App->player->pos.x + App->player->playercollider->rect.w;
+		orbRect.y = (int)App->player->pos.y - 15;
+		if (App->player->going_right)
+		{
+			orbRect.x = (int)App->player->pos.x - 10;
+			shootright = true;
+		}
+		else
+		{
+			orbRect.x = (int)App->player->pos.x + App->player->playercollider->rect.w;
+			shootright = false;
+		}
 	}
 
+	 if (shoot && touchedSomething == false)
+	{
+		
+		if (shootright)
+		{
+			orbRect.x += 1; //speed
+		}
+		else
+		{
+			orbRect.x -= 1; //speed
+		}
+		timePassed = SDL_GetTicks();
+			timePassed-=  start_time;
+	}
 	
+	
+	// 3 seconds and the ball reappear near player
+	if (timePassed > 3000 && shoot ) //max time
+	{
+		touchedSomething = true;
+	}
 
+
+	if (shoot && touchedSomething)
+	{
+		//maybe disappear collider?
+		CurrentAnimation = disappear;
+		finishedAppearing = false;
+		shoot = false;
+		touchedSomething /*= timer = shootright  */ = false;
+	}
 	return true;
 }
 
@@ -108,78 +154,27 @@ bool j1Orb::PreUpdate()
 bool j1Orb::Update(float dt)
 {
 	bool ret = true;
-	//if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && firstStage == false) //can only press during second stage. goes to first stage
-	//{
-	//	change_scene(StageList.start->data->GetString());
-	//	firstStage = true;
-	//	secondStage = false;
-	//}
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN )
+	{
+		if (haveOrb)
+		{
+			haveOrb = false;
+			/*orbcolliderMoving->to_delete=true;*/
+		}
+		else
+		{
+			haveOrb = true;
+			
+		}
+		AddCollider();
+	}
 
-	//if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && secondStage == false) //can only press during first stage. goes to second stage
-	//{
-	//	change_scene(StageList.start->next->data->GetString());
-	//	firstStage = false;
-	//	secondStage = true;
-	//}
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && haveOrb)
+	{
+		timer = true;
+		shoot = true;
 
-	//if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) //test sounds
-	//{
-	//	App->audio->PlayFx(App->audio->doublejumpfx, 0);
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) //reload stage1
-	//{
-
-	//	change_scene(StageList.start->data->GetString());
-	//	firstStage = true;
-	//	secondStage = false;
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) // beginning of current level
-	//{
-	//	if (firstStage)
-	//	{
-	//		change_scene(StageList.start->data->GetString());
-	//		firstStage = true;
-	//		secondStage = false;
-	//	}
-	//	else if (secondStage)
-	//	{
-	//		change_scene(StageList.start->next->data->GetString());
-	//		firstStage = false;
-	//		secondStage = true;
-	//	}
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN) //audio down
-	//{
-	//	App->audio->ChangeVolume_music(10);
-	//	App->audio->ChangeVolume_fx(10);
-	//	LOG("volume up");
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) //audio up
-	//{
-	//	App->audio->ChangeVolume_music(-10);
-	//	App->audio->ChangeVolume_fx(-10);
-	//	LOG("volume down");
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)//load
-	//{
-
-	//	bool ret = App->LoadGame("save_game.xml");
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) //save
-	//	App->SaveGame("save_game.xml");
-
-	//if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	//	App->render->camera.y += 2;
-
-	//if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	//	App->render->camera.y -= 2;
-
+	}
 	
 
 	return ret;
@@ -192,6 +187,7 @@ bool j1Orb::PostUpdate()
 
 	if (!haveOrb && App->scene->firstStage)
 	App->render->Blit(orbText, OrbX, OrbY, &CurrentAnimation->GetCurrentFrame()); //orb
+	
 	else if (haveOrb)
 	{
 		App->render->Blit(orbText,orbRect.x,orbRect.y, &CurrentAnimation->GetCurrentFrame());
@@ -217,9 +213,9 @@ bool j1Orb::Save(pugi::xml_node &config) const
 {
 	bool ret = true;
 
-	/*config.append_child("firstStage").append_attribute("value") = firstStage;
-	config.append_child("secondStage").append_attribute("value") = secondStage;
-*/
+	config.append_child("once").append_attribute("value") = once;
+	//config.append_child("secondStage").append_attribute("value") = secondStage;
+
 	return ret;
 }
 
@@ -227,7 +223,7 @@ bool j1Orb::Load(pugi::xml_node &config)
 {
 
 	bool ret = true;
-	
+	once = config.child("once").attribute("value").as_bool();
 	
 
 
@@ -236,18 +232,19 @@ bool j1Orb::Load(pugi::xml_node &config)
 
 void j1Orb::OnCollision(Collider * c1, Collider * c2)
 {
-	if (c2->type == COLLIDER_ORB || c1->type == COLLIDER_ORB)
+	
+	
+
+	 if (c2->type == COLLIDER_ORB || c1->type == COLLIDER_ORB && App->orb->once == false) //orb
 	{
-
-		App->orb->CurrentAnimation = App->orb->disappear;
-
-		if (App->orb->CurrentAnimation->Finished())
-		{
-			App->orb->haveOrb = true;
-		}
-
-
+		once = true;
+		CurrentAnimation = App->orb->disappear;
+		orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - 15, (int)App->player->pos.y - 15, Orbwidth,
+			Orbheight }, COLLIDER_ORB, this);
 	}
+	
+
+	
 }
 
 void j1Orb::AddCollider() {
@@ -261,3 +258,5 @@ void j1Orb::AddCollider() {
 
 
 }
+
+

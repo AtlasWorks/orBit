@@ -42,6 +42,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 	void AddCollider();
+	
 
 public:
 
@@ -65,7 +66,17 @@ public:
 
 	bool finishedAppearing = false; // true when the the animation on appearing is done
 	bool once = false;  //one time touching the collider to obtain the orb
+	bool shoot = false; //used to know when the orb is shot
+	//to know the direction where the ball was initially lauched
+	bool shootright = false; 
 	
+	bool touchedSomething= false;  //true when the colliders hits something
+	bool timer = false; //set on timer
+
+
+
+	uint start_time = 0;
+	uint timePassed = 0;
 
 private:
 	p2SString animation = nullptr;

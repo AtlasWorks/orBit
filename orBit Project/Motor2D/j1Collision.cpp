@@ -22,8 +22,8 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_ROOF] = true;
 	matrix[COLLIDER_PLAYER][CHECKPOINT] = true;
 
-	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = true;
-
+	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = false;
+	matrix[COLLIDER_ORB][COLLIDER_PLAYER] = true;
 }
 
 j1Collision::~j1Collision()
