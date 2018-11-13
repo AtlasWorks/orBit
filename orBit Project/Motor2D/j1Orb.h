@@ -42,7 +42,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 	void AddCollider();
-	
+	void Movement();
 
 public:
 
@@ -65,7 +65,7 @@ public:
 	bool haveOrb = false; // true when player have orb
 
 	bool finishedAppearing = false; // true when the the animation on appearing is done
-	bool once = false;  //one time touching the collider to obtain the orb
+	bool once = false;  //one time touching the collider to obtain the orb... once i got the orb... happens
 	bool shoot = false; //used to know when the orb is shot
 	//to know the direction where the ball was initially lauched
 	bool shootright = false; 

@@ -40,6 +40,8 @@ bool j1Orb::Awake(pugi::xml_node& config)
 	iddle->speed = 0.05f;
 	disappear->speed = 0.1f;
 	appear->speed = 0.05f;
+	appear->loop = false;
+	disappear->loop = false;
 
 	OrbX = config.child("collider").attribute("x").as_int();
 	OrbY = config.child("collider").attribute("y").as_int();
@@ -68,11 +70,12 @@ bool j1Orb::Start()
 bool j1Orb::PreUpdate()
 {
 
-	if (App->orb->CurrentAnimation->Finished() && once)
+	if (CurrentAnimation->Finished() && once && !finishedAppearing)
 	{
-		App->orb->haveOrb = true;
+		haveOrb = true;
 		CurrentAnimation = appear;
-		
+		if (orbcolliderMoving == nullptr) 
+			AddCollider();
 	}
 
 	if (haveOrb) {
@@ -81,7 +84,7 @@ bool j1Orb::PreUpdate()
 		orbcolliderMoving->SetPos(orbRect.x, orbRect.y);
 	}
 
-	if (haveOrb && finishedAppearing == false && CurrentAnimation->Finished())
+	if (haveOrb && !finishedAppearing && CurrentAnimation->Finished())
 	{
 		finishedAppearing = true;
 		/*if (orbcollider != nullptr)  //trying to delte collider
@@ -93,60 +96,7 @@ bool j1Orb::PreUpdate()
 		CurrentAnimation = iddle;
 		
 	}
-	//ball movement
-
-	if (timer)
-	{
-		start_time = SDL_GetTicks();
-		timer = false;
-	}
-
-	if (!shoot && !touchedSomething)
-	{
-		orbRect.y = (int)App->player->pos.y - 15;
-		if (App->player->going_right)
-		{
-			orbRect.x = (int)App->player->pos.x - 10;
-			shootright = true;
-		}
-		else
-		{
-			orbRect.x = (int)App->player->pos.x + App->player->playercollider->rect.w;
-			shootright = false;
-		}
-	}
-
-	 if (shoot && touchedSomething == false)
-	{
-		
-		if (shootright)
-		{
-			orbRect.x += 1; //speed
-		}
-		else
-		{
-			orbRect.x -= 1; //speed
-		}
-		timePassed = SDL_GetTicks();
-			timePassed-=  start_time;
-	}
-	
-	
-	// 3 seconds and the ball reappear near player
-	if (timePassed > 3000 && shoot ) //max time
-	{
-		touchedSomething = true;
-	}
-
-
-	if (shoot && touchedSomething)
-	{
-		//maybe disappear collider?
-		CurrentAnimation = disappear;
-		finishedAppearing = false;
-		shoot = false;
-		touchedSomething /*= timer = shootright  */ = false;
-	}
+	Movement();
 	return true;
 }
 
@@ -156,17 +106,22 @@ bool j1Orb::Update(float dt)
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN )
 	{
-		if (haveOrb)
+		if (haveOrb) //if i have the orb-> disappear
 		{
 			haveOrb = false;
+		
 			/*orbcolliderMoving->to_delete=true;*/
 		}
-		else
+		else // if i dont have it ->appear
 		{
 			haveOrb = true;
-			
+			once = true;
+			finishedAppearing=false;
+			CurrentAnimation = appear;
 		}
 		AddCollider();
+		PreUpdate();
+			Movement();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && haveOrb)
@@ -260,3 +215,68 @@ void j1Orb::AddCollider() {
 }
 
 
+void j1Orb::Movement() 
+{
+	//ball movement
+	if (haveOrb)
+	{
+		if (timer)
+		{
+			start_time = SDL_GetTicks();
+			timer = false;
+		}
+
+		if (!shoot && !touchedSomething)
+		{
+			orbRect.y = (int)App->player->pos.y - 15;
+			if (App->player->going_right)
+			{
+				orbRect.x = (int)App->player->pos.x - 10;
+				shootright = true;
+			}
+			else if (App->player->going_left)
+			{
+				orbRect.x = (int)App->player->pos.x + App->player->playercollider->rect.w;
+				shootright = false;
+			}
+			else
+			{
+				orbRect.x = (int)App->player->pos.x - 10;
+				shootright = true;
+			}
+
+		}
+
+		if (shoot && touchedSomething == false)
+		{
+
+			if (shootright)
+			{
+				orbRect.x += 1; //speed
+			}
+			else
+			{
+				orbRect.x -= 1; //speed
+			}
+			timePassed = SDL_GetTicks();
+			timePassed -= start_time;
+		}
+
+
+		// 3 seconds and the ball reappear near player
+		if (timePassed > 3000 && shoot) //max time
+		{
+			touchedSomething = true;
+		}
+
+
+		if (shoot && touchedSomething)
+		{
+			//maybe disappear collider?
+			CurrentAnimation = disappear;
+			finishedAppearing = false;
+			shoot = false;
+			touchedSomething /*= timer = shootright  */ = false;
+		}
+	}
+}
