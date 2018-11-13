@@ -37,9 +37,12 @@ bool j1Orb::Awake(pugi::xml_node& config)
 	disappear = App->player->LoadAnimation(animation.GetString(), "disappear");
 	appear = App->player->LoadAnimation(animation.GetString(), "appear");
 
-	iddle->speed = 0.05f;
-	disappear->speed = 0.1f;
-	appear->speed = 0.05f;
+	//iddle->speed = animSpeed;
+	//disappear->speed = animSpeed;
+	//appear->speed = animSpeed;
+	iddle->speed = 0.15f;
+	disappear->speed = 0.15f; //is not working loading from var
+	appear->speed = 0.15f;
 	appear->loop = false;
 	disappear->loop = false;
 
@@ -47,6 +50,11 @@ bool j1Orb::Awake(pugi::xml_node& config)
 	OrbY = config.child("collider").attribute("y").as_int();
 	Orbwidth = config.child("collider").attribute("width").as_int();
 	Orbheight = config.child("collider").attribute("height").as_int();
+	OffsetY = config.child("offsetY").attribute("value").as_int();
+	OffsetX = config.child("offsetX").attribute("value").as_int();
+	animSpeed = config.child("animSpeed").attribute("value").as_float();
+	orbSpeed = config.child("orbSpeed").attribute("value").as_float();
+	maxTime = config.child("maxtime").attribute("value").as_int();
 
 	return ret;
 }
@@ -194,11 +202,19 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 	{
 		once = true;
 		CurrentAnimation = App->orb->disappear;
-		orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - 15, (int)App->player->pos.y - 15, Orbwidth,
+		orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - OffsetY, (int)App->player->pos.y - OffsetY, Orbwidth,
 			Orbheight }, COLLIDER_ORB, this);
 	}
 	
+	 if ((c2->type == COLLIDER_PLATFORM || c1->type == COLLIDER_PLATFORM) && shoot) //orb
+	 {
+		 touchedSomething = true;
+	 }
 
+	 if ((c2->type == COLLIDER_FLOOR || c1->type == COLLIDER_FLOOR) && shoot) //orb
+	 {
+		 touchedSomething = true;
+	 }
 	
 }
 
@@ -208,7 +224,7 @@ void j1Orb::AddCollider() {
 		orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
 	
 	else if (haveOrb)
-	orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - 15, (int)App->player->pos.y - 15,
+	orbcolliderMoving = App->coll->AddCollider({ (int)App->player->pos.x - OffsetY, (int)App->player->pos.y - OffsetY,
 		Orbwidth, Orbheight }, COLLIDER_ORB, this);
 
 
@@ -228,10 +244,10 @@ void j1Orb::Movement()
 
 		if (!shoot && !touchedSomething)
 		{
-			orbRect.y = (int)App->player->pos.y - 15;
+			orbRect.y = (int)App->player->pos.y - OffsetY;
 			if (App->player->going_right)
 			{
-				orbRect.x = (int)App->player->pos.x - 10;
+				orbRect.x = (int)App->player->pos.x - OffsetX;
 				shootright = true;
 			}
 			else if (App->player->going_left)
@@ -241,7 +257,7 @@ void j1Orb::Movement()
 			}
 			else
 			{
-				orbRect.x = (int)App->player->pos.x - 10;
+				orbRect.x = (int)App->player->pos.x - OffsetX;
 				shootright = true;
 			}
 
@@ -252,11 +268,11 @@ void j1Orb::Movement()
 
 			if (shootright)
 			{
-				orbRect.x += 1; //speed
+				orbRect.x += orbSpeed; //speed
 			}
 			else
 			{
-				orbRect.x -= 1; //speed
+				orbRect.x -= orbSpeed; //speed
 			}
 			timePassed = SDL_GetTicks();
 			timePassed -= start_time;
@@ -264,7 +280,7 @@ void j1Orb::Movement()
 
 
 		// 3 seconds and the ball reappear near player
-		if (timePassed > 3000 && shoot) //max time
+		if (timePassed > maxTime && shoot) //max time
 		{
 			touchedSomething = true;
 		}

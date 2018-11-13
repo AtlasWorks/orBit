@@ -492,14 +492,7 @@ void j1Player::OnCollision(Collider * c1, Collider * c2)
 
 
 		}
-		else if (c2->type == COLLIDER_ORB && App->orb->once==false) //orb
-		{
-			App->orb->once = true;
-			App->orb->CurrentAnimation = App->orb->disappear;
-			App->orb->orbcolliderMoving = App->coll->AddCollider({ (int)pos.x - 15, (int)pos.y - 15,
-				App->orb->Orbwidth, App->orb->Orbheight }, COLLIDER_ORB, App->orb);
-		}
-
+		
 		else if (c2->type == COLLIDER_PLATFORM)
 		{
 			colliding_roof = false;

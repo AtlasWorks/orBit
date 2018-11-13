@@ -65,6 +65,11 @@
     <animation>animation/orb.tmx</animation>
     <texture>textures/pixel_orb.png</texture>
     <collider x="50" y="255" width="11" height="11"/>
+    <offsetX value="10"/>
+    <offsetY value="15"/>
+    <animSpeed value="0.15"/>
+    <maxtime value="3000"/>
+    <orbSpeed value="2.5"/>
   </orb>
 
 </config>

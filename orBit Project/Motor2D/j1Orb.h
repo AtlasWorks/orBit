@@ -50,6 +50,11 @@ public:
 	int Orbheight = NULL;
 	int OrbX = NULL;
 	int OrbY = NULL;
+	int OffsetY = NULL;
+	int OffsetX = NULL;
+	float animSpeed = NULL;
+	float orbSpeed = NULL;
+	int maxTime = NULL;
 
 	Collider * orbcollider = nullptr;
 	Collider * orbcolliderMoving = nullptr;
