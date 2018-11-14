@@ -115,8 +115,7 @@ bool j1Orb::Update(float dt)
 		if (haveOrb) //if i have the orb-> disappear
 		{
 			haveOrb = false;
-			//orbcolliderMoving->to_delete=true;
-			orbcollider->SetPos(OrbX, OrbY);
+			orbcollider->to_delete = true;
 
 		}
 		else // if i dont have it ->appear
@@ -125,9 +124,9 @@ bool j1Orb::Update(float dt)
 			once = true;
 			finishedAppearing=false;
 			CurrentAnimation = appear;
-			//orbcollider->to_delete = true;
+			AddCollider();
 		}
-		/*AddCollider();*/
+		
 		PreUpdate();
 			Movement();
 	}
@@ -195,9 +194,6 @@ bool j1Orb::Load(pugi::xml_node &config)
 
 void j1Orb::OnCollision(Collider * c1, Collider * c2)
 {
-	
-	
-
 	 if (c2->type == COLLIDER_ORB || c1->type == COLLIDER_ORB && App->orb->once == false) //orb
 	{
 		once = true;
@@ -285,12 +281,7 @@ void j1Orb::Movement()
 
 void j1Orb::AddCollider() {
 
-	if (!haveOrb && App->scene->firstStage)
-		orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
-
 	
-
-
-
+		orbcollider = App->coll->AddCollider({ OrbX,OrbY,Orbwidth,Orbheight }, COLLIDER_ORB, this);
 
 }

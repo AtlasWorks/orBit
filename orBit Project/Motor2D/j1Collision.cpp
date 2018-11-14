@@ -22,12 +22,12 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_ROOF] = true;
 	matrix[COLLIDER_PLAYER][CHECKPOINT] = true;
 
-	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_ORB] = false;
 	matrix[COLLIDER_ORB][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_ORB][COLLIDER_PLATFORM] = true;
-	matrix[COLLIDER_ORB][COLLIDER_FLOOR] = true;
-	matrix[COLLIDER_ORB][COLLIDER_ROOF] = true;
-	matrix[COLLIDER_ORB][COLLIDER_SPIKES] = true;
+	matrix[COLLIDER_ORB][COLLIDER_PLATFORM] = false;
+	matrix[COLLIDER_ORB][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_ORB][COLLIDER_ROOF] = false;
+	matrix[COLLIDER_ORB][COLLIDER_SPIKES] = false;
 }
 
 j1Collision::~j1Collision()
@@ -38,6 +38,7 @@ bool j1Collision::PreUpdate()
 {
 
 	bool ret = true;
+	ToRemove();
 	return ret;
 }
 
@@ -126,7 +127,7 @@ bool j1Collision::PostUpdate()
 {
 
 	DebugDraw();
-	ToRemove();
+	
 	return true;
 }
 
@@ -232,20 +233,7 @@ void j1Collision::ToRemove()
 	{
 		if (item->data->to_delete == true)
 		{
-			RELEASE(item->data);
-
-
-			if (item->prev == NULL) //first elment of list
-				item->next->prev = NULL;
-
-			else if (item->next == NULL) //last element
-				item->prev->next = NULL;
-
-			else if (item->next != NULL && item->prev != NULL)
-			{
-				item->prev->next = item->next;
-				item->next->prev = item->prev;
-			}
+			colliders.del(item);
 		}
 		item = item->next;
 	}
