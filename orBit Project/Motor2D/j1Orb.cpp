@@ -211,6 +211,7 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 		 touchedSomething = true;
 	 }
 	
+	 App->player->playercolliding = false;
 }
 
 void j1Orb::Movement() 
