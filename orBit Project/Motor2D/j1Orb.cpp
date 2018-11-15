@@ -115,7 +115,7 @@ bool j1Orb::Update(float dt)
 		if (haveOrb) //if i have the orb-> disappear
 		{
 			haveOrb = false;
-			orbcollider->to_delete = true;
+			//orbcollider->to_delete = true;
 
 		}
 		else // if i dont have it ->appear
@@ -124,7 +124,7 @@ bool j1Orb::Update(float dt)
 			once = true;
 			finishedAppearing=false;
 			CurrentAnimation = appear;
-			AddCollider();
+			//AddCollider();
 		}
 		
 		PreUpdate();
@@ -155,6 +155,8 @@ bool j1Orb::PostUpdate()
 		App->render->Blit(orbText,orbRect.x,orbRect.y, &CurrentAnimation->GetCurrentFrame());
 		
 	}
+	
+
 	return ret;
 }
 
@@ -176,7 +178,7 @@ bool j1Orb::Save(pugi::xml_node &config) const
 	bool ret = true;
 
 	config.append_child("once").append_attribute("value") = once;
-	//config.append_child("secondStage").append_attribute("value") = secondStage;
+	/*config.append_child("haveorb").append_attribute("value") = haveOrb;*/
 
 	return ret;
 }
@@ -186,7 +188,8 @@ bool j1Orb::Load(pugi::xml_node &config)
 
 	bool ret = true;
 	once = config.child("once").attribute("value").as_bool();
-	
+	/*haveOrb = config.child("haveorb").attribute("value").as_bool();*/
+
 
 
 	return ret;
@@ -194,7 +197,7 @@ bool j1Orb::Load(pugi::xml_node &config)
 
 void j1Orb::OnCollision(Collider * c1, Collider * c2)
 {
-	 if (c2->type == COLLIDER_ORB || c1->type == COLLIDER_ORB && App->orb->once == false) //orb
+	 if (c2->type == COLLIDER_ORB || c1->type == COLLIDER_ORB ) //orb
 	{
 		once = true;
 		CurrentAnimation = App->orb->disappear;
@@ -277,6 +280,11 @@ void j1Orb::Movement()
 			shoot = false;
 			touchedSomething = false;
 		}
+	}
+
+	else if (!haveOrb)
+	{
+		orbcollider->SetPos(OrbX, OrbY);
 	}
 }
 

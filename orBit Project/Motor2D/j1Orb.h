@@ -57,7 +57,7 @@ public:
 	int maxTime = NULL;
 
 	Collider * orbcollider = nullptr;
-	Collider * orbcolliderMoving = nullptr;
+	//Collider * orbcolliderMoving = nullptr;
 
 	SDL_Texture* orbText = nullptr;
 	SDL_Rect orbRect;
