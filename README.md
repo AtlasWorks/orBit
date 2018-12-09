@@ -1,4 +1,4 @@
-## orBit
+# orBit
 
 orBit is a singleplayer platfomer game developed by Andres Saladrigas and Aitor Simona, two students at second year of Video Game Design and Development degree in UPC Barcelona, Spain.
 The game includes two levels, with usual mechanics. player can move right, left and jump 
@@ -38,15 +38,15 @@ Decompress the .zip file in any directory. Open the file directoy and double cli
 ```
 
 ### Authors
- - Andrés Saladrigas
+ - AndrÃ©s Saladrigas
 github: https://github.com/TheArzhel
 
 - Aitor Simona
-github:https://github.com/AitorSimona
+github: https://github.com/AitorSimona
 
 ### Project Github
 	
-	https://github.com/TheArzhel/orBit
+	https://github.com/AtlasWorks/orBit
 
 ### Project Trello
 
@@ -68,7 +68,7 @@ https://www.bfxr.net/
 
 ### License
 
-© Andrés Ricardo Saladrigas Pérez and Aitor Simona Bouzas
+Â© AndrÃ©s Ricardo Saladrigas PÃ©rez and Aitor Simona Bouzas
 
 Licensed under the [MIT License](LICENSE.txt)
 
