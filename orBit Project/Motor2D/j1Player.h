@@ -107,6 +107,11 @@ public:
 	bool god_mode = false;
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 
+
+
+	// player lifes
+	int lifes = 0;
+	bool dead = false;
 };
 
 #endif // __j1Player_H__

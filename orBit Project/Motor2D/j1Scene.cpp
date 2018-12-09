@@ -188,8 +188,19 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-
 	BROFILER_CATEGORY("Scene_Pre__Update", Profiler::Color::MediumSeaGreen);
+	
+	// if player loses al his lifes start from the begining of the first map.
+	// should be the main menu
+	if (player->lifes <= 0)
+	{
+		change_scene(StageList.start->data->GetString());
+		firstStage = true;
+		secondStage = false;
+		player->lifes = 3;
+
+	}
+	
 
 
 	// debug pathfing ------------------
@@ -234,7 +245,23 @@ bool j1Scene::PreUpdate()
 		player->Future_position.x <= App->map->data.checkpoint3.x + 5 &&
 		player->Future_position.x >= App->map->data.checkpoint3.x - 5 &&
 		player->Future_position.y <= App->map->data.checkpoint3.y + App->map->data.tile_height * 2 &&
-		player->Future_position.y + App->map->data.tile_height >= App->map->data.checkpoint3.y - App->map->data.tile_height * 2)
+		player->Future_position.y + App->map->data.tile_height >= App->map->data.checkpoint3.y - App->map->data.tile_height * 2
+		||
+		//checkoint 1 second map
+		player->Future_position.x <= App->map->data2.checkpoint1.x + 5 &&
+		player->Future_position.x >= App->map->data2.checkpoint1.x - 5 &&
+		player->Future_position.y <= App->map->data2.checkpoint1.y + App->map->data2.tile_height * 2 &&
+		player->Future_position.y + App->map->data2.tile_height >= App->map->data2.checkpoint1.y - App->map->data2.tile_height * 2
+		||//checkoint 2 second map
+		player->Future_position.x <= App->map->data2.checkpoint2.x + 5 &&
+		player->Future_position.x >= App->map->data2.checkpoint2.x - 5 &&
+		player->Future_position.y <= App->map->data2.checkpoint2.y + App->map->data2.tile_height * 2 &&
+		player->Future_position.y + App->map->data2.tile_height >= App->map->data2.checkpoint2.y - App->map->data2.tile_height * 2
+		|| //checkoint 3 second map
+		player->Future_position.x <= App->map->data2.checkpoint3.x + 5 &&
+		player->Future_position.x >= App->map->data2.checkpoint3.x - 5 &&
+		player->Future_position.y <= App->map->data2.checkpoint3.y + App->map->data2.tile_height * 2 &&
+		player->Future_position.y + App->map->data2.tile_height >= App->map->data2.checkpoint3.y - App->map->data2.tile_height * 2)
 
 	{
 		App->SaveGame("save_game.xml");

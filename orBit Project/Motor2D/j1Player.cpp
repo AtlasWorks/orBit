@@ -55,6 +55,9 @@ bool j1Player::Start()
 	Velocity.x = playerinfo.Velocity.x;
 	Velocity.y = playerinfo.Velocity.y;
 
+	//Player lifes
+	lifes = 3;
+
 	return true;
 }
 
@@ -162,6 +165,8 @@ inline void j1Player::Apply_Vertical_Impulse(float dt)
 void j1Player::Handle_Ground_Animations()
 {
 	// --- Handling Ground Animations ---
+	
+	
 
 		//--- TO RUN ---
 
@@ -205,6 +210,28 @@ void j1Player::Handle_Ground_Animations()
 			CurrentAnimation = playerinfo.idleLeft;
 
     //--------------    ---------------
+
+	//testing life system
+		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
+		{
+			CurrentAnimation = playerinfo.deathRight;
+			lifes -= 1;
+			dead = true;
+			
+		}
+		
+		if (lifes < 0 && CurrentAnimation->Finished())
+		{
+			lifes = 0;
+			dead = false;
+
+		}
+		else if (dead==true && CurrentAnimation->Finished())
+		{
+			dead = false;
+			App->LoadGame("save_game.xml");
+			
+		}
 }
 
 
@@ -241,6 +268,8 @@ void j1Player::Handle_Aerial_Animations()
 bool j1Player::Update(float dt)
 {
 	// --- LOGIC --------------------
+
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -434,16 +463,16 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 
 bool j1Player::Load(pugi::xml_node &config)
 {
-	position.x = config.child("Player").child("Playerx").attribute("value").as_float();
-	position.y = config.child("Player").child("Playery").attribute("value").as_float();
+	Future_position.x= config.child("Player").child("Playerx").attribute("value").as_float();
+	Future_position.y = config.child("Player").child("Playery").attribute("value").as_float();
 
 	return true;
 }
 
 bool j1Player::Save(pugi::xml_node &config) const
 {
-	config.append_child("Player").append_child("Playerx").append_attribute("value")= position.x;
-	config.child("Player").append_child("Playery").append_attribute("value")= position.y;
+	config.append_child("Player").append_child("Playerx").append_attribute("value")= Future_position.x;
+	config.child("Player").append_child("Playery").append_attribute("value")= Future_position.y;
 
 	return true;
 }
