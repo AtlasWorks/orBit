@@ -30,12 +30,10 @@ bool j1Map::Awake(pugi::xml_node& config)
 	yellowCollision = config.child("collision1").attribute("yellow").as_int();
 	magentaCollision = config.child("collision1").attribute("magenta").as_int();
 	greenCollison = config.child("collision1").attribute("green").as_int();
-	checkpoint = config.child("collision1").attribute("checkpoint").as_int();
 	redCollision2 = config.child("collision2").attribute("red").as_int();
 	yellowCollision2 = config.child("collision2").attribute("yellow").as_int();
 	magentaCollision2 = config.child("collision2").attribute("magenta").as_int();
 	greenCollison2 = config.child("collision2").attribute("green").as_int();
-	checkpoint2= config.child("collision2").attribute("checkpoint").as_int();
 	speed[0] = config.child("parallax").attribute("speed").as_float();
 	speed[1] = config.child("parallax").attribute("speed2").as_float();
 	offset= config.child("offset").attribute("offset").as_int();
@@ -308,7 +306,31 @@ bool j1Map::LoadMap(MapData& data)
 			data.bat2.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
 		}
 
+		//loading Checkpoint1 position
+		p2SString tmp7(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
+		if (tmp7 == "checkpoint1")
+		{
+			data.checkpoint1.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
+			data.checkpoint1.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
+		}
+
+		//loading Checkpoint2 position
+		p2SString tmp8(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
+		if (tmp8 == "checkpoint2")
+		{
+			data.checkpoint2.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
+			data.checkpoint2.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
+		}
+
+		//loading Checkpoint3 position
+		p2SString tmp9(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
+		if (tmp9 == "checkpoint3")
+		{
+			data.checkpoint3.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
+			data.checkpoint3.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
+		}
 		
+
 		data.background_color.r = 0;
 		data.background_color.g = 0;
 		data.background_color.b = 0;
@@ -539,9 +561,6 @@ bool j1Map::ColliderDrawer(MapData& data)
 
 							else if (tile_id == greenCollison || tile_id == greenCollison2)
 								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::COLLIDER_ROOF, this);
-
-							else if (tile_id == checkpoint || tile_id == checkpoint2)
-								App->coll->AddCollider({ pos.x,pos.y,data.tile_width,data.tile_height }, COLLIDER_TYPE::CHECKPOINT, this);
 
 						}
 					}

@@ -218,20 +218,44 @@ bool j1Scene::PreUpdate()
 		}
 	}
 
+			//Checkpoint
+			// Player pos    ------------------------------   area around checkpoint
+	if (//checkoint 1
+		player->Future_position.x <= App->map->data.checkpoint1.x + 5        &&
+		player->Future_position.x >= App->map->data.checkpoint1.x - 5        &&
+		player->Future_position.y <= App->map->data.checkpoint1.y + App->map->data.tile_height*2			&&
+		player->Future_position.y + App->map->data.tile_height >= App->map->data.checkpoint1.y - App->map->data.tile_height*2 
+		||//checkoint 2
+		player->Future_position.x <= App->map->data.checkpoint2.x + 5 &&
+		player->Future_position.x >= App->map->data.checkpoint2.x - 5 &&
+		player->Future_position.y <= App->map->data.checkpoint2.y + App->map->data.tile_height * 2 &&
+		player->Future_position.y + App->map->data.tile_height >= App->map->data.checkpoint2.y - App->map->data.tile_height * 2
+		|| //checkoint 3
+		player->Future_position.x <= App->map->data.checkpoint3.x + 5 &&
+		player->Future_position.x >= App->map->data.checkpoint3.x - 5 &&
+		player->Future_position.y <= App->map->data.checkpoint3.y + App->map->data.tile_height * 2 &&
+		player->Future_position.y + App->map->data.tile_height >= App->map->data.checkpoint3.y - App->map->data.tile_height * 2)
+
+	{
+		App->SaveGame("save_game.xml");
+	}
+
+
 	//win condition
-	if (firstStage && (player->position.x >= App->map->data.finalpos.x) && (player->position.y <= App->map->data.finalpos.y))
+	if (firstStage && (player->Future_position.x >= App->map->data.finalpos.x) && (player->Future_position.y <= App->map->data.finalpos.y))
 	{
 		change_scene(StageList.start->next->data->GetString());
 		firstStage = false;
 		secondStage = true;
 	}
 
-	else if (secondStage && (player->position.x >= App->map->data2.finalpos.x) && (player->position.y <= App->map->data2.finalpos.y))
+	else if (secondStage && (player->Future_position.x >= App->map->data2.finalpos.x) && (player->Future_position.y <= App->map->data2.finalpos.y))
 	{
 		change_scene(StageList.start->data->GetString());
 		firstStage = true;
 		secondStage = false;
 	}
+
 	return true;
 }
 

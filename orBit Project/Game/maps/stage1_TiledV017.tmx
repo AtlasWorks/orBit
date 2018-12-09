@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="16" tileheight="16" nextobjectid="56">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="16" tileheight="16" nextobjectid="60">
  <tileset firstgid="1" name="tileset order" tilewidth="16" tileheight="16" tilecount="378" columns="18">
   <image source="tileset order.png" width="288" height="336"/>
  </tileset>
@@ -40063,12 +40063,12 @@
   <object id="26" x="832" y="432" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="checkpoint1">
-  <object id="49" x="1488" y="560" width="16" height="48"/>
+  <object id="57" x="1488" y="576" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="checkpoint2">
-  <object id="52" x="2224" y="576" width="16" height="32"/>
+  <object id="58" x="2224" y="576" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="checkpoint3">
-  <object id="55" x="2496" y="48" width="16" height="160"/>
+  <object id="59" x="2496" y="176" width="16" height="16"/>
  </objectgroup>
 </map>

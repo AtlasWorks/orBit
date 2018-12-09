@@ -110,6 +110,9 @@ struct MapData
 	iPoint				bat1;
 	iPoint				bat2;
 	iPoint				finalpos;
+	iPoint				checkpoint1;
+	iPoint				checkpoint2;
+	iPoint				checkpoint3;
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
@@ -177,12 +180,10 @@ private:
 	int					yellowCollision = NULL;
 	int					magentaCollision = NULL;
 	int					greenCollison = NULL;
-	int					checkpoint = NULL;
 	int					redCollision2 = NULL;
 	int					yellowCollision2 = NULL;
 	int					magentaCollision2 = NULL;
 	int					greenCollison2 = NULL;
-	int					checkpoint2 = NULL;
 	
 };
 

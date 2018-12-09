@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="16" tileheight="16" nextobjectid="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="16" tileheight="16" nextobjectid="19">
  <tileset firstgid="1" name="tileset forest - Copy" tilewidth="16" tileheight="16" tilecount="400" columns="25">
   <image source="tileset forest - Copy.png" width="400" height="256"/>
  </tileset>
@@ -64069,13 +64069,13 @@
  <objectgroup name="bat2">
   <object id="12" x="2544" y="448" width="16" height="16"/>
  </objectgroup>
- <objectgroup name="checkpoint1">
-  <object id="13" x="112" y="176" width="16" height="48"/>
+ <objectgroup name="checkpoint1" offsetx="0" offsety="-16">
+  <object id="16" x="112" y="208" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="checkpoint2">
-  <object id="14" x="1424" y="480" width="16" height="32"/>
+  <object id="17" x="1408" y="480" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="checkpoint3">
-  <object id="15" x="2144" y="80" width="16" height="32"/>
+  <object id="18" x="2144" y="80" width="16" height="16"/>
  </objectgroup>
 </map>

@@ -310,6 +310,7 @@ bool j1Player::Update(float dt)
 	else
 	Handle_Aerial_Animations();
 
+	
 	return true;
 }
 
