@@ -72,10 +72,6 @@ void j1Player::UpdateEntityMovement(float dt)
 			if (Accumulative_pos_Right > 1.1f)
 			{
 				Future_position.x += Accumulative_pos_Right;
-
-				if(!on_air)
-				App->render->camera.x -= Accumulative_pos_Right*2.0f;
-
 				Accumulative_pos_Right -= Accumulative_pos_Right;
 			}
 			break;
@@ -97,7 +93,6 @@ void j1Player::UpdateEntityMovement(float dt)
 				if (Accumulative_pos_Left > 0.75f)
 				{
 					Future_position.x -= Accumulative_pos_Left;
-					App->render->camera.x += Accumulative_pos_Left*2.0f;
 					Accumulative_pos_Left -= Accumulative_pos_Left;
 				}
 			}
@@ -133,21 +128,18 @@ void j1Player::UpdateEntityMovement(float dt)
 
 	App->coll->QueryCollisions(*entitycoll);
 
-	if (on_air)
-	{
-		App->render->camera.x = -(Future_position.x*App->win->GetScale() + entitycoll->rect.w/2 - App->render->camera.w/2);
-	}
-
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 }
 
 void j1Player::God_Movement(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		Future_position.x += Velocity.x*5.0f*dt;
+		Future_position.x += Velocity.x*3*dt;
+
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		Future_position.x -= Velocity.x*5.0f*dt;
+		Future_position.x -= Velocity.x*3*dt;
+
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		Future_position.y -= Velocity.x*5.0f*dt;
@@ -166,8 +158,6 @@ void j1Player::Handle_Ground_Animations()
 {
 	// --- Handling Ground Animations ---
 	
-	
-
 		//--- TO RUN ---
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -268,8 +258,6 @@ void j1Player::Handle_Aerial_Animations()
 bool j1Player::Update(float dt)
 {
 	// --- LOGIC --------------------
-
-
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
