@@ -32,8 +32,9 @@ bool j1Player::Start()
 	entitycoll = App->coll->AddCollider(entitycollrect,COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*) manager);
 
 	// --- Current Player Position ---
-	position.x = 550;
-	position.y = 150;
+	// MUST BE DONE IN SCEN NOT HERE
+	position.x = 0;
+	position.y = 0;
 
 	entitycoll->SetPos(position.x, position.y);
 

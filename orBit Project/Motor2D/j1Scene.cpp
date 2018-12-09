@@ -105,8 +105,8 @@ bool j1Scene::Start()
 		App->render->camera.x = camera1.x;
 		App->render->camera.y = camera1.y;
 
-		player->position.x = App->map->data.initpos.x;
-		player->position.y = App->map->data.initpos.y;
+		player->Future_position.x = App->map->data.initpos.x;
+		player->Future_position.y = App->map->data.initpos.y;
 		
 		slime->position.x = App->map->data.slime1.x;
 		slime->position.y = App->map->data.slime1.y;
@@ -137,8 +137,8 @@ bool j1Scene::Start()
 		App->render->camera.x = camera2.x;
 		App->render->camera.y = camera2.y;
 
-		player->position.x = App->map->data2.initpos.x;
-		player->position.y = App->map->data2.initpos.y;
+		player->Future_position.x = App->map->data2.initpos.x;
+		player->Future_position.y = App->map->data2.initpos.y;
 
 		slime->position.x = App->map->data2.slime1.x;
 		slime->position.y = App->map->data2.slime1.y;
@@ -527,8 +527,8 @@ bool j1Scene::change_scene(const char* map_name) {
 		App->render->camera.x = camera1.x;
 		App->render->camera.y = camera1.y;
 
-		player->position.x = App->map->data.initpos.x;
-		player->position.y = App->map->data.initpos.y;
+		player->Future_position.x = App->map->data.initpos.x;
+		player->Future_position.y = App->map->data.initpos.y;
 
 		slime->position.x = App->map->data.slime1.x;
 		slime->position.y = App->map->data.slime1.y;
@@ -562,8 +562,8 @@ bool j1Scene::change_scene(const char* map_name) {
 		App->render->camera.x = camera2.x;
 		App->render->camera.y = camera2.y;
 
-		player->position.x = App->map->data2.initpos.x;
-		player->position.y = App->map->data2.initpos.y;
+		player->Future_position.x = App->map->data2.initpos.x;
+		player->Future_position.y = App->map->data2.initpos.y;
 
 		slime->position.x = App->map->data2.slime1.x;
 		slime->position.y = App->map->data2.slime1.y;
@@ -635,8 +635,8 @@ bool j1Scene::Load(pugi::xml_node &config)
 {
 
 	bool ret = true;
-	int x = player->position.x;
-	int y = player->position.y;
+	int x = player->Future_position.x;
+	int y = player->Future_position.y;
 
 	
 
@@ -684,8 +684,8 @@ bool j1Scene::Load(pugi::xml_node &config)
 			
 		}
 	}
-	player->position.x = x;
-	player->position.y = y;
+	player->Future_position.x = x;
+	player->Future_position.y = y;
 	
 
 	slime->position.x = xSlime;
