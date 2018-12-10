@@ -245,9 +245,9 @@ void j1Player::Handle_Aerial_Animations()
 
 		else if (Velocity.y < playerinfo.jump_force / 2.0f)
 		{
-			if (CurrentAnimation == playerinfo.jumpingRight)
+			if (CurrentAnimation == playerinfo.jumpingRight || CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight)
 				CurrentAnimation = playerinfo.fallingRight;
-			else if (CurrentAnimation == playerinfo.jumpingLeft)
+			else if (CurrentAnimation == playerinfo.jumpingLeft || CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.idleLeft)
 				CurrentAnimation = playerinfo.fallingLeft;
 		}
 
@@ -313,7 +313,7 @@ bool j1Player::Update(float dt)
 		for (unsigned short i = 0; i < 4; ++i)
 		{
 			EntityMovement = MOVEMENT::FREEFALL;
-
+			on_air = true;
 			UpdateEntityMovement(dt);
 		}
 
