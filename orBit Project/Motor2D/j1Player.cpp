@@ -69,7 +69,7 @@ void j1Player::UpdateEntityMovement(float dt)
 		case MOVEMENT::RIGHTWARDS:
 			Accumulative_pos_Right += Velocity.x*dt;
 
-			if (Accumulative_pos_Right > 1.1f)
+			if (Accumulative_pos_Right > 1.1)
 			{
 				Future_position.x += Accumulative_pos_Right;
 				Accumulative_pos_Right -= Accumulative_pos_Right;
@@ -80,7 +80,7 @@ void j1Player::UpdateEntityMovement(float dt)
 			
 			if (on_air)
 			{
-				if (Accumulative_pos_Left > 1.0f)
+				if (Accumulative_pos_Left > 1.0)
 				{
 					Future_position.x -= Accumulative_pos_Left;
 					Future_position.x -= Accumulative_pos_Left;
@@ -90,7 +90,7 @@ void j1Player::UpdateEntityMovement(float dt)
 			}
 			else
 			{
-				if (Accumulative_pos_Left > 0.75f)
+				if (Accumulative_pos_Left > 1.35)
 				{
 					Future_position.x -= Accumulative_pos_Left;
 					Accumulative_pos_Left -= Accumulative_pos_Left;
@@ -101,7 +101,7 @@ void j1Player::UpdateEntityMovement(float dt)
 
 			Accumulative_pos_Up += Velocity.y*dt;
 
-			if (Accumulative_pos_Up > 1.0f)
+			if (Accumulative_pos_Up > 0.75)
 			{
 				Future_position.y -= Accumulative_pos_Up;
 				Accumulative_pos_Up -= Accumulative_pos_Up;
@@ -114,7 +114,7 @@ void j1Player::UpdateEntityMovement(float dt)
 			if(on_air)
 			Accumulative_pos_Down += playerinfo.gravity * dt;
 
-			if (Accumulative_pos_Down > 1.0f)
+			if (Accumulative_pos_Down > 1.0)
 			{
 				Velocity.y -= Accumulative_pos_Down;
 				Future_position.y += Accumulative_pos_Down;
@@ -142,10 +142,10 @@ void j1Player::God_Movement(float dt)
 
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		Future_position.y -= Velocity.x*5.0f*dt;
+		Future_position.y -= Velocity.x*3.0f*dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		Future_position.y += Velocity.x*5.0f*dt;
+		Future_position.y += Velocity.x*3.0f*dt;
 
 }
 
@@ -232,7 +232,7 @@ void j1Player::Handle_Aerial_Animations()
 	
 		//--- TO JUMP ---
 
-		if (Velocity.y > playerinfo.jump_force / 2.0f)
+		if (Velocity.y > playerinfo.jump_force / 2)
 		{
 			if (CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight)
 				CurrentAnimation = playerinfo.jumpingRight;
@@ -243,7 +243,7 @@ void j1Player::Handle_Aerial_Animations()
 
 		//--- TO FALL ---
 
-		else if (Velocity.y < playerinfo.jump_force / 2.0f)
+		else if (Velocity.y < playerinfo.jump_force / 2)
 		{
 			if (CurrentAnimation == playerinfo.jumpingRight || CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight)
 				CurrentAnimation = playerinfo.fallingRight;
@@ -313,7 +313,6 @@ bool j1Player::Update(float dt)
 		for (unsigned short i = 0; i < 4; ++i)
 		{
 			EntityMovement = MOVEMENT::FREEFALL;
-			on_air = true;
 			UpdateEntityMovement(dt);
 		}
 
@@ -323,7 +322,7 @@ bool j1Player::Update(float dt)
 
 	// --- Handling animations ---
 
-	if(!on_air)
+	if(Velocity.y == 0.0f)
 	Handle_Ground_Animations();
 	else
 	Handle_Aerial_Animations();
@@ -429,7 +428,6 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	{
 		case COLLIDER_TYPE::COLLIDER_FLOOR:
 			entitycollider->rect.y += Intersection.h;
-			//App->render->camera.y = camera_pos_backup.y;
 			break;
 	}
 }

@@ -471,14 +471,14 @@ bool j1Scene::PostUpdate(float dt)
 		App->render->camera.x = -App->map->data.width*App->map->data.tile_width*App->win->GetScale() + App->render->camera.w;
 	}
 
-	if (player->Future_position.x*App->win->GetScale() + player->entitycoll->rect.w >= -App->render->camera.x + App->render->camera.w - App->render->camera.w / 4)
+	if (player->Future_position.x*App->win->GetScale() + player->entitycoll->rect.w >= -App->render->camera.x + App->render->camera.w - App->render->camera.w / 3)
 	{
-		App->render->camera.x = -(player->Future_position.x* App->win->GetScale() + player->entitycoll->rect.w - App->render->camera.w + App->render->camera.w / 4);
+		App->render->camera.x = -(player->Future_position.x* App->win->GetScale() + player->entitycoll->rect.w - App->render->camera.w + App->render->camera.w / 3);
 	}
 
-	if (player->Future_position.x*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w / 4)
+	if (player->Future_position.x*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w / 3)
 	{
-		App->render->camera.x = -(player->Future_position.x* App->win->GetScale() - App->render->camera.w / 4);
+		App->render->camera.x = -(player->Future_position.x* App->win->GetScale() - App->render->camera.w / 3);
 	}
 
 	// --- Camera In Y ---
