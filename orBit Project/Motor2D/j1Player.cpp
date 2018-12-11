@@ -57,6 +57,7 @@ bool j1Player::Start()
 
 	//Player lifes
 	lifes = 3;
+	lifesaux = lifes;
 
 	return true;
 }
@@ -69,9 +70,13 @@ void j1Player::UpdateEntityMovement(float dt)
 		case MOVEMENT::RIGHTWARDS:
 			Accumulative_pos_Right += Velocity.x*dt;
 
-			if (Accumulative_pos_Right > 1.1)
+			if (Accumulative_pos_Right > 1.1f)
 			{
 				Future_position.x += Accumulative_pos_Right;
+
+				if(!on_air)
+				App->render->camera.x -= Accumulative_pos_Right*2.0f;
+
 				Accumulative_pos_Right -= Accumulative_pos_Right;
 			}
 			break;
@@ -80,7 +85,7 @@ void j1Player::UpdateEntityMovement(float dt)
 			
 			if (on_air)
 			{
-				if (Accumulative_pos_Left > 1.0)
+				if (Accumulative_pos_Left > 1.0f)
 				{
 					Future_position.x -= Accumulative_pos_Left;
 					Future_position.x -= Accumulative_pos_Left;
@@ -90,9 +95,10 @@ void j1Player::UpdateEntityMovement(float dt)
 			}
 			else
 			{
-				if (Accumulative_pos_Left > 1.35)
+				if (Accumulative_pos_Left > 0.75f)
 				{
 					Future_position.x -= Accumulative_pos_Left;
+					App->render->camera.x += Accumulative_pos_Left*2.0f;
 					Accumulative_pos_Left -= Accumulative_pos_Left;
 				}
 			}
@@ -101,7 +107,7 @@ void j1Player::UpdateEntityMovement(float dt)
 
 			Accumulative_pos_Up += Velocity.y*dt;
 
-			if (Accumulative_pos_Up > 0.75)
+			if (Accumulative_pos_Up > 1.0f)
 			{
 				Future_position.y -= Accumulative_pos_Up;
 				Accumulative_pos_Up -= Accumulative_pos_Up;
@@ -114,7 +120,7 @@ void j1Player::UpdateEntityMovement(float dt)
 			if(on_air)
 			Accumulative_pos_Down += playerinfo.gravity * dt;
 
-			if (Accumulative_pos_Down > 1.0)
+			if (Accumulative_pos_Down > 1.0f)
 			{
 				Velocity.y -= Accumulative_pos_Down;
 				Future_position.y += Accumulative_pos_Down;
@@ -128,24 +134,27 @@ void j1Player::UpdateEntityMovement(float dt)
 
 	App->coll->QueryCollisions(*entitycoll);
 
+	if (on_air)
+	{
+		App->render->camera.x = -(Future_position.x*App->win->GetScale() + entitycoll->rect.w/2 - App->render->camera.w/2);
+	}
+
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 }
 
 void j1Player::God_Movement(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		Future_position.x += Velocity.x*3*dt;
-
+		Future_position.x += Velocity.x*5.0f*dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		Future_position.x -= Velocity.x*3*dt;
-
+		Future_position.x -= Velocity.x*5.0f*dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		Future_position.y -= Velocity.x*3.0f*dt;
+		Future_position.y -= Velocity.x*5.0f*dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		Future_position.y += Velocity.x*3.0f*dt;
+		Future_position.y += Velocity.x*5.0f*dt;
 
 }
 
@@ -158,6 +167,8 @@ void j1Player::Handle_Ground_Animations()
 {
 	// --- Handling Ground Animations ---
 	
+	
+
 		//--- TO RUN ---
 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -201,27 +212,8 @@ void j1Player::Handle_Ground_Animations()
 
     //--------------    ---------------
 
-	//testing life system
-		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
-		{
-			CurrentAnimation = playerinfo.deathRight;
-			lifes -= 1;
-			dead = true;
-			
-		}
+	
 		
-		if (lifes < 0 && CurrentAnimation->Finished())
-		{
-			lifes = 0;
-			dead = false;
-
-		}
-		else if (dead==true && CurrentAnimation->Finished())
-		{
-			dead = false;
-			App->LoadGame("save_game.xml");
-			
-		}
 }
 
 
@@ -232,7 +224,7 @@ void j1Player::Handle_Aerial_Animations()
 	
 		//--- TO JUMP ---
 
-		if (Velocity.y > playerinfo.jump_force / 2)
+		if (Velocity.y > playerinfo.jump_force / 2.0f)
 		{
 			if (CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight)
 				CurrentAnimation = playerinfo.jumpingRight;
@@ -243,11 +235,11 @@ void j1Player::Handle_Aerial_Animations()
 
 		//--- TO FALL ---
 
-		else if (Velocity.y < playerinfo.jump_force / 2)
+		else if (Velocity.y < playerinfo.jump_force / 2.0f)
 		{
-			if (CurrentAnimation == playerinfo.jumpingRight || CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight)
+			if (CurrentAnimation == playerinfo.jumpingRight)
 				CurrentAnimation = playerinfo.fallingRight;
-			else if (CurrentAnimation == playerinfo.jumpingLeft || CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.idleLeft)
+			else if (CurrentAnimation == playerinfo.jumpingLeft)
 				CurrentAnimation = playerinfo.fallingLeft;
 		}
 
@@ -258,6 +250,34 @@ void j1Player::Handle_Aerial_Animations()
 bool j1Player::Update(float dt)
 {
 	// --- LOGIC --------------------
+	//testing life system
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		CurrentAnimation = playerinfo.deathRight;
+		lifes -= 1;
+		dead = true;
+		lifesaux = lifes;
+
+	}
+	//enter here if its life 0. reset
+	if (lifes <= 0 && CurrentAnimation->Finished())
+	{
+		lifes = 0;
+		lifesaux = lifes;
+		dead = false;
+
+	}
+	if (dead == true && CurrentAnimation->Finished())
+	{
+		App->LoadGame("save_game.xml");
+		dead = false;
+		saving = true;
+	}
+	if (App->AllLoaded() == false && saving == true && CurrentAnimation->Finished())
+	{
+		lifes = lifesaux;
+		saving = false;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -313,6 +333,7 @@ bool j1Player::Update(float dt)
 		for (unsigned short i = 0; i < 4; ++i)
 		{
 			EntityMovement = MOVEMENT::FREEFALL;
+
 			UpdateEntityMovement(dt);
 		}
 
@@ -322,7 +343,7 @@ bool j1Player::Update(float dt)
 
 	// --- Handling animations ---
 
-	if(Velocity.y == 0.0f)
+	if(!on_air)
 	Handle_Ground_Animations();
 	else
 	Handle_Aerial_Animations();
@@ -428,6 +449,7 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 	{
 		case COLLIDER_TYPE::COLLIDER_FLOOR:
 			entitycollider->rect.y += Intersection.h;
+			//App->render->camera.y = camera_pos_backup.y;
 			break;
 	}
 }
@@ -449,16 +471,17 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 
 bool j1Player::Load(pugi::xml_node &config)
 {
-	Future_position.x= config.child("Player").child("Playerx").attribute("value").as_float();
+	Future_position.x = config.child("Player").child("Playerx").attribute("value").as_float();
 	Future_position.y = config.child("Player").child("Playery").attribute("value").as_float();
-
+	lifes = config.child("Player").child("Lifes").attribute("value").as_int();
 	return true;
 }
 
 bool j1Player::Save(pugi::xml_node &config) const
 {
-	config.append_child("Player").append_child("Playerx").append_attribute("value")= Future_position.x;
-	config.child("Player").append_child("Playery").append_attribute("value")= Future_position.y;
+	config.append_child("Player").append_child("Playerx").append_attribute("value") = Future_position.x;
+	config.child("Player").append_child("Playery").append_attribute("value") = Future_position.y;
+	config.child("Player").append_child("Lifes").append_attribute("value") = lifes;
 
 	return true;
 }

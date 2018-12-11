@@ -465,3 +465,8 @@ bool j1App::SavegameNow() const
 	want_to_save = false;
 	return ret;
 }
+
+bool j1App::AllLoaded() const
+{
+	return want_to_load;
+}

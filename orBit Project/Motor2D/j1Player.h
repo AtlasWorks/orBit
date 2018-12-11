@@ -112,6 +112,8 @@ public:
 	// player lifes
 	int lifes = 0;
 	bool dead = false;
+	bool saving = false;
+	int lifesaux = 0;
 };
 
 #endif // __j1Player_H__
