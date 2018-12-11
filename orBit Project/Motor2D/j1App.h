@@ -46,6 +46,7 @@ public:
 	// Add a new module to handle
 	void AddModule(j1Module* module);
 
+	
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -56,9 +57,6 @@ public:
 	bool LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
-
-	//getters
-	bool AllLoaded() const;
 
 private:
 
@@ -83,7 +81,6 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
-	
 
 public:
 
