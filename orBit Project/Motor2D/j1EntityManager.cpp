@@ -276,6 +276,9 @@ j1Entity* const j1EntityManager::CreateEntity(const char* entname, entity_type e
 	case entity_type::PLAYER:
 		entity = new j1Player();
 		break;
+	case entity_type::ORB:
+		entity = new j1Orb();
+		break;
 	
 	}
 	entityID++;

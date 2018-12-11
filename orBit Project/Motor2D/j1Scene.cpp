@@ -461,10 +461,7 @@ bool j1Scene::PostUpdate(float dt)
 	// --- Camera In X ---
 
 	// --- Keeping camera on axis X bounds ---
-	if (-App->render->camera.x <= 2.0f)
-	{
-		App->render->camera.x = -2.0f;
-	}
+	
 
 	if (-App->render->camera.x + App->render->camera.w >= App->map->data.width*App->map->data.tile_width*App->win->GetScale())
 	{
@@ -479,6 +476,11 @@ bool j1Scene::PostUpdate(float dt)
 	if (player->Future_position.x*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w / 3)
 	{
 		App->render->camera.x = -(player->Future_position.x* App->win->GetScale() - App->render->camera.w / 3);
+	}
+
+	if (-App->render->camera.x <= 2.0f)
+	{
+		App->render->camera.x = -2.0f;
 	}
 
 	// --- Camera In Y ---

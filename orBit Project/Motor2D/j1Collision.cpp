@@ -72,6 +72,14 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ENEMY_BAT)][static_cast<int>(COLLIDER_TYPE::COLLIDER_ENEMY_SLIME)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ENEMY_BAT)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
 
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_FLOOR)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_SPIKES)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLATFORM)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_ROOF)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_ENEMY_BAT)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_ENEMY_SLIME)] = false;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = true;
+
 }
 
 j1Collision::~j1Collision()
@@ -191,6 +199,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_TYPE::COLLIDER_ENEMY_BAT: // dark red
 			App->render->DrawQuad(item->data->rect, 153, 0, 76, alpha);
+			break;
+		case COLLIDER_TYPE::COLLIDER_ORB: // blue
+			App->render->DrawQuad(item->data->rect, 0, 191, 255, alpha);
 			break;
 		}
 		item = item->next;

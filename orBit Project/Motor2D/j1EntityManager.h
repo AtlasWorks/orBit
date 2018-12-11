@@ -11,6 +11,7 @@
 #include "j1Player.h"
 #include "j1Slime.h"
 #include "j1Bat.h"
+#include "j1Orb.h"
 
 class j1Entity;
 
@@ -63,6 +64,7 @@ public:
 	Playerdata& GetPlayerData() { return playerinfo; }
 	SlimeData& GetSlimeData() { return slimeinfo; }
 	BatData& GetBatData() { return batinfo; }
+	OrbData& GetOrbData() { return orbinfo; }
 
 	// --- Save & Load ---
 	bool Load(pugi::xml_node&);
@@ -86,6 +88,8 @@ private:
 	SlimeData slimeinfo;
 
 	BatData batinfo;
+
+	OrbData orbinfo;
 
 };
 

@@ -25,7 +25,9 @@ enum class entity_type
 {
 	PLAYER,
 	SLIME,
-	BAT
+	BAT,
+	ORB
+
 };
 
 class j1Entity
@@ -104,6 +106,7 @@ public:
 	SDL_Texture* spritesheet = nullptr;
 
 	j1EntityManager*	manager = nullptr;
+
 };
 
 #endif // __J1ENTITY_H__

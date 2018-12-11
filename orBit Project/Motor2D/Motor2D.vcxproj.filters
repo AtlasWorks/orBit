@@ -58,6 +58,9 @@
     <ClCompile Include="j1App.cpp">
       <Filter>Development ======\Core</Filter>
     </ClCompile>
+    <ClCompile Include="j1Orb.cpp">
+      <Filter>Development ======\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Log.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="j1App.h">
       <Filter>Development ======\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Orb.h">
+      <Filter>Development ======\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
