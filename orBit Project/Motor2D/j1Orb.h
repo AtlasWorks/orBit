@@ -23,6 +23,13 @@ struct OrbData {
 	int				areaofaction = 0;
 	iPoint			RefID = { 0, 0 };
 
+	iPoint			Position1 = { 0, 0 };
+	iPoint			Position2 = { 0, 0 };
+	iPoint			Position3 = { 0, 0 };
+	iPoint			Position4 = { 0, 0 };
+	iPoint			Position5 = { 0, 0 };
+	iPoint			Position6 = { 0, 0 };
+
 };
 
 class j1Orb :public j1Entity

@@ -65,6 +65,8 @@ public:
 	j1Bat*				bat = nullptr;
 	j1Bat*				bat2 = nullptr;
 	j1Orb*				orb = nullptr;
+	j1Orb*				orb2 = nullptr;
+	j1Orb*				orb3 = nullptr;
 
 	//variables used on module collision
 	int areaofcollision = 0;

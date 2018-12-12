@@ -74,6 +74,8 @@ bool j1Scene::Start()
 	slime2 = (j1Slime*)App->entities->CreateEntity("slime", entity_type::SLIME);
 
 	orb = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
+	orb2 = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
+	orb3 = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
 
 	//Loading both maps
 
@@ -110,9 +112,6 @@ bool j1Scene::Start()
 
 		player->Future_position.x = App->map->data.initpos.x;
 		player->Future_position.y = App->map->data.initpos.y;
-
-		orb->position.x = App->map->data.initpos.x+100; //aqui
-		orb->position.y = App->map->data.initpos.y;
 		
 		slime->position.x = App->map->data.slime1.x;
 		slime->position.y = App->map->data.slime1.y;
@@ -125,6 +124,15 @@ bool j1Scene::Start()
 
 		bat2->position.x = App->map->data.bat2.x;
 		bat2->position.y = App->map->data.bat2.y;
+
+		orb->position.x = orb->Orbinfo.Position1.x;  //aqui
+		orb->position.y = orb->Orbinfo.Position1.y;
+
+		orb2->position.x = orb->Orbinfo.Position2.x;  //aqui
+		orb2->position.y = orb->Orbinfo.Position2.y;
+
+		orb3->position.x = orb->Orbinfo.Position3.x;  //aqui
+		orb3->position.y = orb->Orbinfo.Position3.y;
 
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
 		App->audio->PlayMusic(stageMusic.GetString());
@@ -157,6 +165,15 @@ bool j1Scene::Start()
 
 		bat2->position.x = App->map->data2.bat2.x;
 		bat2->position.y = App->map->data2.bat2.y;
+
+		orb->position.x = orb->Orbinfo.Position4.x;  //aqui
+		orb->position.y = orb->Orbinfo.Position4.y;
+
+		orb2->position.x = orb->Orbinfo.Position5.x;  //aqui
+		orb2->position.y = orb->Orbinfo.Position5.y;
+
+		orb3->position.x = orb->Orbinfo.Position6.x;  //aqui
+		orb3->position.y = orb->Orbinfo.Position6.y;
 
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
 		App->audio->PlayMusic(stageMusic.GetString());
@@ -557,6 +574,9 @@ bool j1Scene::change_scene(const char* map_name) {
 	App->entities->DestroyEntity(bat2);
 	App->entities->DestroyEntity(slime);
 	App->entities->DestroyEntity(slime2);
+	App->entities->DestroyEntity(orb);
+	App->entities->DestroyEntity(orb2);
+	App->entities->DestroyEntity(orb3);
 
 	player->entitycoll= App->coll->AddCollider(player->entitycollrect,COLLIDER_TYPE::COLLIDER_PLAYER, App->entities);
 
@@ -565,6 +585,11 @@ bool j1Scene::change_scene(const char* map_name) {
 
 	slime = (j1Slime*)App->entities->CreateEntity("slime", entity_type::SLIME);
 	slime2 = (j1Slime*)App->entities->CreateEntity("slime", entity_type::SLIME);
+
+
+	orb = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
+	orb2 = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
+	orb3 = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
 
 
 	if (FirstStage == map_name)
@@ -586,6 +611,17 @@ bool j1Scene::change_scene(const char* map_name) {
 
 		bat2->position.x = App->map->data.bat2.x;
 		bat2->position.y = App->map->data.bat2.y;
+
+		//
+
+		orb->position.x = orb->Orbinfo.Position1.x;  //aqui
+		orb->position.y = orb->Orbinfo.Position1.y;
+
+		orb2->position.x = orb->Orbinfo.Position2.x;  //aqui
+		orb2->position.y = orb->Orbinfo.Position2.y;
+
+		orb3->position.x = orb->Orbinfo.Position3.x;  //aqui
+		orb3->position.y = orb->Orbinfo.Position3.y;
 
 		App->map->ColliderDrawer(App->map->data);
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
@@ -622,6 +658,16 @@ bool j1Scene::change_scene(const char* map_name) {
 		bat2->position.x = App->map->data2.bat2.x;
 		bat2->position.y = App->map->data2.bat2.y;
 
+		//
+		orb->position.x = orb->Orbinfo.Position4.x;  //aqui
+		orb->position.y = orb->Orbinfo.Position4.y;
+
+		orb2->position.x = orb->Orbinfo.Position5.x;  //aqui
+		orb2->position.y = orb->Orbinfo.Position5.y;
+
+		orb3->position.x = orb->Orbinfo.Position6.x;  //aqui
+		orb3->position.y = orb->Orbinfo.Position6.y;
+
 
 		App->map->ColliderDrawer(App->map->data2);
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
@@ -649,6 +695,15 @@ bool j1Scene::change_scene(const char* map_name) {
 
 	bat2->entitycoll = App->coll->AddCollider(bat2->entitycollrect, COLLIDER_TYPE::COLLIDER_ENEMY_BAT, App->entities);
 	bat2->entitycoll->SetPos(bat2->position.x, bat2->position.y);
+
+	orb->entitycoll = App->coll->AddCollider(orb->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
+	orb->entitycoll->SetPos(orb->position.x, orb->position.y);
+
+	orb2->entitycoll = App->coll->AddCollider(orb2->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
+	orb2->entitycoll->SetPos(orb2->position.x, orb2->position.y);
+
+	orb3->entitycoll = App->coll->AddCollider(orb3->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
+	orb3->entitycoll->SetPos(orb3->position.x, orb3->position.y);
 
 	return ret;
 }

@@ -157,6 +157,18 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	orbinfo.printingoffset.y = orbnode.child("printingoffset").attribute("y").as_int();
 	orbinfo.RefID.x = orbnode.child("entityID").attribute("value1").as_int();
 	orbinfo.RefID.y = orbnode.child("entityID").attribute("value2").as_int();
+	orbinfo.Position1.x = orbnode.child("position1").attribute("x").as_int();
+	orbinfo.Position1.y = orbnode.child("position1").attribute("y").as_int();
+	orbinfo.Position2.x = orbnode.child("position2").attribute("x").as_int();
+	orbinfo.Position2.y = orbnode.child("position2").attribute("y").as_int();
+	orbinfo.Position3.x = orbnode.child("position3").attribute("x").as_int();
+	orbinfo.Position3.y = orbnode.child("position3").attribute("y").as_int();
+	orbinfo.Position4.x = orbnode.child("position4").attribute("x").as_int();
+	orbinfo.Position4.y = orbnode.child("position4").attribute("y").as_int();
+	orbinfo.Position5.x = orbnode.child("position5").attribute("x").as_int();
+	orbinfo.Position5.y = orbnode.child("position5").attribute("y").as_int();
+	orbinfo.Position6.x = orbnode.child("position6").attribute("x").as_int();
+	orbinfo.Position6.y = orbnode.child("position6").attribute("y").as_int();
 
 	// ---------------------
 

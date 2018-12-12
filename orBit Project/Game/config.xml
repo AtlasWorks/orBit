@@ -98,7 +98,12 @@
          <collider x="0" y="11" width="12" height="15"/>
          <animationspeed value="10.0"/>
          <areaofaction value="100"/>
-         
+         <position1 x="48" y="272"/>
+         <position2 x="3108" y="592"/>
+         <position3 x="2224" y="560"/>
+         <position4 x="1264" y="480"/>
+         <position5 x="2496" y="256"/>
+         <position6 x="1472" y="192"/>
          <printingoffset x="8" y="5"/>
          <colliding_offset value="5" />
         
