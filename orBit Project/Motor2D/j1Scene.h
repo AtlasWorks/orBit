@@ -8,6 +8,7 @@ struct SDL_Rect;
 class j1Player;
 class j1Slime;
 class j1Bat;
+class j1Orb;
 
 class j1Scene : public j1Module
 {
@@ -63,6 +64,7 @@ public:
 	j1Slime*			slime2 = nullptr;
 	j1Bat*				bat = nullptr;
 	j1Bat*				bat2 = nullptr;
+	j1Orb*				orb = nullptr;
 
 	//variables used on module collision
 	int areaofcollision = 0;

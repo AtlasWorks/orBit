@@ -51,22 +51,13 @@ public:
 
 	// --- Pathfinding ---
 
-	bool ReestablishVariables();
-
-	bool CreatePathfinding(const iPoint destination);
-
-	bool Pathfind(float dt);
 
 	void UpdateMovement(float dt);
 
 	// ----------------------
 
 public:
-	bool dead = false;
-	bool going_right = false;
-	bool going_left = false;
-	bool must_fall = false;
-	bool slimecolliding = false;
+
 
 	OrbData Orbinfo;
 	

@@ -64,7 +64,7 @@ j1App::~j1App()
 
 	while(item != NULL)
 	{
-		RELEASE(item->data);
+		RELEASE(item->data); //probelm here
 		item = item->prev;
 	}
 

@@ -91,6 +91,21 @@
 
 
    </bat>
+    
+  <orb>
+         <folder>animation/orb.tmx</folder>
+         <texture>textures/pixel_orb.png</texture>
+         <collider x="0" y="11" width="12" height="15"/>
+         <animationspeed value="10.0"/>
+         <areaofaction value="100"/>
+         
+         <printingoffset x="8" y="5"/>
+         <colliding_offset value="5" />
+        
+         <entityID value1="2" value2="3"/>
+
+
+   </orb>
   
   </entities>
 

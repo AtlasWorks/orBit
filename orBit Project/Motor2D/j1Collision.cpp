@@ -78,7 +78,7 @@ j1Collision::j1Collision()
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_ROOF)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_ENEMY_BAT)] = false;
 	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_ENEMY_SLIME)] = false;
-	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = true;
+	matrix[static_cast<int>(COLLIDER_TYPE::COLLIDER_ORB)][static_cast<int>(COLLIDER_TYPE::COLLIDER_PLAYER)] = false;
 
 }
 
@@ -136,6 +136,11 @@ bool j1Collision::CleanUp()
 
 	while (item != NULL)
 	{
+		if (item->data->type == COLLIDER_TYPE::COLLIDER_ORB)
+		{
+			//testing where does it fail
+			int lol=0;
+		}
 		RELEASE(item->data);
 		item = item->next;
 	}

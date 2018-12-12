@@ -31,15 +31,20 @@ bool j1Orb::Start()
 
 	entitycollrect = Orbinfo.OrbRect;
 	colliding_offset = Orbinfo.colliding_offset;
-	//Add collider
-	entitycoll = App->coll->AddCollider(entitycollrect, COLLIDER_TYPE::COLLIDER_ENEMY_SLIME, (j1Module*)manager);
+
+	entitycoll = App->coll->AddCollider(entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, (j1Module*)manager);
+
+
+	
 
 	CurrentAnimation = Orbinfo.fly;
 	Orbinfo.fly->speed = Orbinfo.animationspeed;
 	
 
-	position.x = NULL;
-	position.y = NULL;
+	position.x = 0;
+	position.y = 0;
+
+	entitycoll->SetPos(position.x, position.y);
 
 	entitystate = IDLE;
 
@@ -54,9 +59,8 @@ bool j1Orb::Start()
 
 bool j1Orb::Update(float dt)
 {
-	must_fall = true;
-	slimecolliding = false;
-	entitystate = FALLING;
+	
+	entitycoll->SetPos(position.x, position.y);
 
 	return true;
 }
@@ -67,34 +71,34 @@ bool j1Orb::PostUpdate(float dt)
 
 	
 
-	if ((position.x)*App->win->GetScale() >= -App->render->camera.x && (position.x)*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w)
-	{
-		//check for player nearby
+	//if ((position.x)*App->win->GetScale() >= -App->render->camera.x && (position.x)*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w)
+	//{
+	//	//check for player nearby
 
-		if (!App->scene->player->god_mode &&
-			App->scene->player->Future_position.x > position.x - Orbinfo.areaofaction &&
-			App->scene->player->Future_position.x < position.x + Orbinfo.areaofaction &&
-			App->scene->player->Future_position.y < position.y + Orbinfo.areaofaction &&
-			App->scene->player->Future_position.y > position.y - Orbinfo.areaofaction)
-		{
-			
-				CurrentAnimation = Orbinfo.fly;
-				entitystate = IDLE;
-				
-		
+	//	if (!App->scene->player->god_mode &&
+	//		App->scene->player->Future_position.x > position.x - Orbinfo.areaofaction &&
+	//		App->scene->player->Future_position.x < position.x + Orbinfo.areaofaction &&
+	//		App->scene->player->Future_position.y < position.y + Orbinfo.areaofaction &&
+	//		App->scene->player->Future_position.y > position.y - Orbinfo.areaofaction)
+	//	{
+	//		
+	//			CurrentAnimation = Orbinfo.fly;
+	//			entitystate = IDLE;
+	//			
+	//	
 
-		}
-		else
-		{
-			
+	//	}
+	//	else
+	//	{
+	//		
 
-			
-		}
-	}
+	//		
+	//	}
+	//}
 
 
-	//Blitting slime
-	App->render->Blit(spritesheet, position.x - Orbinfo.printingoffset.x, position.y + Orbinfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
+	//Blitting orb
+	App->render->Blit(spritesheet, position.x /*- Orbinfo.printingoffset.x*/, position.y /*+ Orbinfo.printingoffset.y*/, &CurrentAnimation->GetCurrentFrame(dt));
 
 	return ret;
 }
@@ -103,7 +107,7 @@ bool j1Orb::PostUpdate(float dt)
 
 void j1Orb::OnCollision(Collider * c1, Collider * c2)
 {
-	bool lateralcollision = true;
+	/*bool lateralcollision = true;
 
 	if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 3)
 	{
@@ -156,7 +160,7 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 
 		position.x = c1->rect.x;
 	}
-
+*/
 }
 
 
@@ -170,7 +174,7 @@ void j1Orb::UpdateMovement(float dt)
 bool j1Orb::Load(pugi::xml_node &config) //must change
 {
 	bool ret = true;
-	if (entityID == Orbinfo.RefID.x)
+	/*if (entityID == Orbinfo.RefID.x)
 	{
 		position.x = config.child("Entity4").child("Slimex").attribute("value").as_float();
 		position.y = config.child("Entity4").child("Slimey").attribute("value").as_float();
@@ -180,7 +184,7 @@ bool j1Orb::Load(pugi::xml_node &config) //must change
 		position.x = config.child("Entity5").child("Slimex").attribute("value").as_float();
 		position.y = config.child("Entity5").child("Slimey").attribute("value").as_float();
 	}
-
+*/
 
 
 	return ret;
@@ -188,7 +192,7 @@ bool j1Orb::Load(pugi::xml_node &config) //must change
 
 bool j1Orb::Save(pugi::xml_node &config) const //must change
 {
-	if (entityID == Orbinfo.RefID.x)
+	/*if (entityID == Orbinfo.RefID.x)
 	{
 		config.append_child("Entity4").append_child("Slimex").append_attribute("value") = position.x;
 		config.child("Entity4").append_child("Slimey").append_attribute("value") = position.y;
@@ -197,7 +201,7 @@ bool j1Orb::Save(pugi::xml_node &config) const //must change
 	{
 		config.append_child("Entity5").append_child("Slimex").append_attribute("value") = position.x;
 		config.child("Entity5").append_child("Slimey").append_attribute("value") = position.y;
-	}
+	}*/
 
 	return true;
 }

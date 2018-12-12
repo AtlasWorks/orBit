@@ -15,6 +15,7 @@
 #include "j1Slime.h"
 #include "j1Bat.h"
 #include "Brofiler\Brofiler.h"
+#include "j1Orb.h"
 
 
 j1Scene::j1Scene() : j1Module()
@@ -72,6 +73,8 @@ bool j1Scene::Start()
 	slime = (j1Slime*)App->entities->CreateEntity("slime", entity_type::SLIME);
 	slime2 = (j1Slime*)App->entities->CreateEntity("slime", entity_type::SLIME);
 
+	orb = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
+
 	//Loading both maps
 
 	p2List_item<p2SString*>* stageListItem;
@@ -107,6 +110,9 @@ bool j1Scene::Start()
 
 		player->Future_position.x = App->map->data.initpos.x;
 		player->Future_position.y = App->map->data.initpos.y;
+
+		orb->position.x = App->map->data.initpos.x+100; //aqui
+		orb->position.y = App->map->data.initpos.y;
 		
 		slime->position.x = App->map->data.slime1.x;
 		slime->position.y = App->map->data.slime1.y;

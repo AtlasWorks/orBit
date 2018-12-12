@@ -134,6 +134,30 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	batinfo.RefID.x = batnode.child("entityID").attribute("value1").as_int();
 	batinfo.RefID.y = batnode.child("entityID").attribute("value2").as_int();
 
+	//--- Orbs data load --------------------
+
+	pugi::xml_node orbnode = config.child("orb");
+
+	orbinfo.folder.create(orbnode.child("folder").child_value());
+	orbinfo.Texture.create(orbnode.child("texture").child_value());
+
+	x = orbnode.child("collider").attribute("x").as_int();
+	y = orbnode.child("collider").attribute("y").as_int();
+	w = orbnode.child("collider").attribute("width").as_int();
+	h = orbnode.child("collider").attribute("height").as_int();
+	orbinfo.OrbRect = { x,y,w,h };
+
+
+	orbinfo.fly = LoadAnimation(orbinfo.folder.GetString(), "iddle");
+
+	orbinfo.colliding_offset = orbnode.child("colliding_offset").attribute("value").as_float();
+	orbinfo.areaofaction = orbnode.child("areaofaction").attribute("value").as_int();
+	orbinfo.animationspeed = orbnode.child("animationspeed").attribute("value").as_float();
+	orbinfo.printingoffset.x = orbnode.child("printingoffset").attribute("x").as_int();
+	orbinfo.printingoffset.y = orbnode.child("printingoffset").attribute("y").as_int();
+	orbinfo.RefID.x = orbnode.child("entityID").attribute("value1").as_int();
+	orbinfo.RefID.y = orbnode.child("entityID").attribute("value2").as_int();
+
 	// ---------------------
 
 	return ret;
