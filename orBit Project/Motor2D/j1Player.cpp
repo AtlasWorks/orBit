@@ -90,7 +90,7 @@ void j1Player::UpdateEntityMovement(float dt)
 			}
 			else
 			{
-				if (Accumulative_pos_Left > 1.35)
+				if (Accumulative_pos_Left > 1.5)
 				{
 					Future_position.x -= Accumulative_pos_Left;
 					Accumulative_pos_Left -= Accumulative_pos_Left;
@@ -299,6 +299,14 @@ bool j1Player::Update(float dt)
 			on_air = true;
 		}
 
+		else if (on_air && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && double_jump==false)
+		{
+			double_jump = true;
+			playerinfo.jump_force = playerinfo.jump_force / 5;
+			Apply_Vertical_Impulse(dt);
+			playerinfo.jump_force = playerinfo.jump_force * 5;
+		}
+
 		// --- UP ---
 		if (on_air && Velocity.y > 0.0f)
 		{
@@ -309,13 +317,18 @@ bool j1Player::Update(float dt)
 			UpdateEntityMovement(dt);
 
 
-		// --- FREE FALL ---
-		for (unsigned short i = 0; i < 4; ++i)
-		{
-			EntityMovement = MOVEMENT::FREEFALL;
-			UpdateEntityMovement(dt);
-		}
+		// --- FREE FALL --- 
 
+
+			for (unsigned short i = 0; i < 4; ++i)
+			{
+				EntityMovement = MOVEMENT::FREEFALL;
+				UpdateEntityMovement(dt);
+
+				if (coll_up)
+					break;
+
+			}
 	}
 
 	//-------------------------------
@@ -404,6 +417,14 @@ void j1Player::Right_Collision(Collider * entitycollider, const Collider * to_ch
 			entitycollider->rect.x -= Intersection.w;
 			App->render->camera.x = camera_pos_backup.x;
 			break;
+		case COLLIDER_TYPE::COLLIDER_PLATFORM:
+			entitycollider->rect.x -= Intersection.w;
+			App->render->camera.x = camera_pos_backup.x;
+			break;
+		case COLLIDER_TYPE::COLLIDER_ROOF:
+			entitycollider->rect.x -= Intersection.w;
+			App->render->camera.x = camera_pos_backup.x;
+			break;
 	}
 }
 
@@ -417,6 +438,14 @@ void j1Player::Left_Collision(Collider * entitycollider, const Collider * to_che
 			entitycollider->rect.x += Intersection.w;
 			App->render->camera.x = camera_pos_backup.x;
 			break;
+		case COLLIDER_TYPE::COLLIDER_PLATFORM:
+			entitycollider->rect.x += Intersection.w;
+			App->render->camera.x = camera_pos_backup.x;
+			break;
+		case COLLIDER_TYPE::COLLIDER_ROOF:
+			entitycollider->rect.x += Intersection.w;
+			App->render->camera.x = camera_pos_backup.x;
+			break;
 	}
 }
 
@@ -424,12 +453,22 @@ void j1Player::Up_Collision(Collider * entitycollider, const Collider * to_check
 {
 	SDL_IntersectRect(&entitycollider->rect, &to_check->rect, &Intersection);
 
+	coll_up = true;
+
 	switch (to_check->type)
 	{
 		case COLLIDER_TYPE::COLLIDER_FLOOR:
 			entitycollider->rect.y += Intersection.h;
 			break;
+		case COLLIDER_TYPE::COLLIDER_PLATFORM:
+			entitycollider->rect.y += Intersection.h;
+			break;
+		case COLLIDER_TYPE::COLLIDER_ROOF:
+			entitycollider->rect.y += Intersection.h;
+			break;
 	}
+
+	Velocity.y = 0.0f;
 }
 
 void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_check)
@@ -441,9 +480,17 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 		case COLLIDER_TYPE::COLLIDER_FLOOR:
 			entitycollider->rect.y -= Intersection.h;
 			break;
+		case COLLIDER_TYPE::COLLIDER_PLATFORM:
+			entitycollider->rect.y -= Intersection.h;
+			break;
+		case COLLIDER_TYPE::COLLIDER_ROOF:
+			entitycollider->rect.y -= Intersection.h;
+			break;
 	}
 
-	Velocity.y =  0.0f;
+	double_jump = false;
+	coll_up = false;
+	Velocity.y = 0.0f;
 	on_air = false;
 }
 

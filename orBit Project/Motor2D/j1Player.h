@@ -105,6 +105,8 @@ public:
 
 	bool on_air = false;
 	bool god_mode = false;
+	bool coll_up = false;
+	bool double_jump = false;
 	MOVEMENT EntityMovement = MOVEMENT::STATIC;
 
 
