@@ -113,6 +113,9 @@ struct MapData
 	iPoint				checkpoint1;
 	iPoint				checkpoint2;
 	iPoint				checkpoint3;
+	iPoint				orb;
+	iPoint				orb2;
+	iPoint				orb3;
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
@@ -174,6 +177,7 @@ public:
 
 private:
 	p2SString folder = nullptr;
+	p2SString tmp = nullptr;
 	pugi::xml_document	map_file;
 	bool				map_loaded ;
 	int					redCollision = NULL;

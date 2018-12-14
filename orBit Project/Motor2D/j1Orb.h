@@ -10,6 +10,8 @@ struct PathInfo;
 struct OrbData {
 	
 	Animation* fly = nullptr;
+	Animation* disappear = nullptr;
+	Animation* appear = nullptr;
 
 	p2SString folder = nullptr;
 	p2SString Texture = nullptr;
@@ -21,15 +23,9 @@ struct OrbData {
 	float			animationspeed = 0;
 	
 	int				areaofaction = 0;
-	iPoint			RefID = { 0, 0 };
-
-	iPoint			Position1 = { 0, 0 };
-	iPoint			Position2 = { 0, 0 };
-	iPoint			Position3 = { 0, 0 };
-	iPoint			Position4 = { 0, 0 };
-	iPoint			Position5 = { 0, 0 };
-	iPoint			Position6 = { 0, 0 };
-
+	int				orbID = 0;
+	int				orbID2 = 0;
+	int				orbID3 = 0;
 };
 
 class j1Orb :public j1Entity
@@ -65,11 +61,8 @@ public:
 
 public:
 
-
 	OrbData Orbinfo;
-	
-
-
+	bool touched = false;
 };
 
 #endif // __j1ORB_H__

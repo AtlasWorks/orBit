@@ -257,77 +257,72 @@ bool j1Map::LoadMap(MapData& data)
 		p2SString bg_color(map.attribute("backgroundcolor").as_string());
 
 
-		//loadin
-		
-		//load init pos
-		p2SString tmp(map.child("objectgroup").first_attribute().as_string());
-		if (tmp == "initpos")
-		{
-			data.initpos.x = map.child("objectgroup").child("object").attribute("x").as_int();
-			data.initpos.y = map.child("objectgroup").child("object").attribute("y").as_int();
-		}
-		//load final pos
-		p2SString tmp2(map.child("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp2 == "finalpos")
-		{
-			data.finalpos.x = map.child("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.finalpos.y = map.child("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int()+ map.child("objectgroup").child("object").attribute("height").as_int();
-		}
-		
-		//Load slime1 initial position
-		p2SString tmp3(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp3 == "slime1")
-		{
-			data.slime1.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.slime1.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int() ;
-		}
-		
-		//loading slime2 position
-		p2SString tmp4(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp4 == "slime2")
-		{
-			data.slime2.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.slime2.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
-		}
 
-		//loading bat1 position
-		p2SString tmp5(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp5 == "bat1")
+		//loading gameobjects
+		pugi::xml_node mapIterator;
+		for (mapIterator = map.child("objectgroup"); mapIterator; mapIterator = mapIterator.next_sibling("objectgroup"))
 		{
-			data.bat1.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.bat1.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
-		}
-
-		//loading bat2 position
-		p2SString tmp6(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp6 == "bat2")
-		{
-			data.bat2.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.bat2.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
-		}
-
-		//loading Checkpoint1 position
-		p2SString tmp7(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp7 == "checkpoint1")
-		{
-			data.checkpoint1.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.checkpoint1.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
-		}
-
-		//loading Checkpoint2 position
-		p2SString tmp8(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp8 == "checkpoint2")
-		{
-			data.checkpoint2.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.checkpoint2.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
-		}
-
-		//loading Checkpoint3 position
-		p2SString tmp9(map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").first_attribute().as_string());
-		if (tmp9 == "checkpoint3")
-		{
-			data.checkpoint3.x = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("x").as_int();
-			data.checkpoint3.y = map.child("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").next_sibling("objectgroup").child("object").attribute("y").as_int();
+			p2SString tmp(mapIterator.first_attribute().as_string());
+			if (tmp == "initpos")
+			{
+				data.initpos.x = mapIterator.child("object").attribute("x").as_int();
+				data.initpos.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "finalpos")
+			{
+				data.finalpos.x = mapIterator.child("object").attribute("x").as_int();
+				data.finalpos.y = mapIterator.child("object").attribute("y").as_int() + mapIterator.child("object").attribute("height").as_int();
+			}
+			else if (tmp == "slime1")
+			{
+				data.slime1.x = mapIterator.child("object").attribute("x").as_int();
+				data.slime1.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "slime2")
+			{
+				data.slime2.x = mapIterator.child("object").attribute("x").as_int();
+				data.slime2.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "bat1")
+			{
+				data.bat1.x = mapIterator.child("object").attribute("x").as_int();
+				data.bat1.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "bat2")
+			{
+				data.bat2.x = mapIterator.child("object").attribute("x").as_int(); 
+				data.bat2.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "checkpoint1")
+			{
+				data.checkpoint1.x = mapIterator.child("object").attribute("x").as_int();
+				data.checkpoint1.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "checkpoint2")
+			{
+				data.checkpoint2.x = mapIterator.child("object").attribute("x").as_int();
+				data.checkpoint2.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "checkpoint3")
+			{
+				data.checkpoint3.x = mapIterator.child("object").attribute("x").as_int();
+				data.checkpoint3.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "orb1")
+			{
+				data.orb.x = mapIterator.child("object").attribute("x").as_int();
+				data.orb.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "orb2")
+			{
+				data.orb2.x = mapIterator.child("object").attribute("x").as_int();
+				data.orb2.y = mapIterator.child("object").attribute("y").as_int();
+			}
+			else if (tmp == "orb3")
+			{
+				data.orb3.x = mapIterator.child("object").attribute("x").as_int();
+				data.orb3.y = mapIterator.child("object").attribute("y").as_int();
+			}
 		}
 		
 

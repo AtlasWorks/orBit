@@ -34,15 +34,18 @@ bool j1Orb::Start()
 
 	entitycoll = App->coll->AddCollider(entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, (j1Module*)manager);
 
-
+	touched = false;
 	
 
 	CurrentAnimation = Orbinfo.fly;
 	Orbinfo.fly->speed = Orbinfo.animationspeed;
+	Orbinfo.disappear->loop = false;
+	Orbinfo.disappear->speed = Orbinfo.animationspeed;
+
 	
 
-	position.x = 0;
-	position.y = 0;
+	position.x = -1;
+	position.y = -1;
 
 	entitycoll->SetPos(position.x, position.y);
 
@@ -52,7 +55,7 @@ bool j1Orb::Start()
 	if (spritesheet == nullptr)
 		spritesheet = App->tex->Load(Orbinfo.Texture.GetString());
 
-
+	entityID = App->entities->entityID;
 
 	return true;
 }
@@ -107,60 +110,25 @@ bool j1Orb::PostUpdate(float dt)
 
 void j1Orb::OnCollision(Collider * c1, Collider * c2)
 {
-	/*bool lateralcollision = true;
+	bool lateralcollision = true;
 
-	if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 3)
+
+	if (c2->type == COLLIDER_TYPE::COLLIDER_ORB || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER )
 	{
-		lateralcollision = false;
+		if (touched == false)
+		{
+			App->scene->player->orbs_number += 1;
+			if (entitycoll != nullptr)
+			{
+				entitycoll->to_delete = true;
+				CurrentAnimation = Orbinfo.disappear;
+			}
+			touched = true;
+		}
 	}
 
-	if (c2->type == COLLIDER_TYPE::COLLIDER_FLOOR || c2->type == COLLIDER_TYPE::COLLIDER_PLATFORM && dead == false && !lateralcollision)
-	{
-		if (c1->rect.y + c1->rect.h > c2->rect.y && c1->rect.y + c1->rect.h<c2->rect.y + colliding_offset)
-		{
-			c1->rect.y = c2->rect.y - c1->rect.h;
-		}
+	
 
-		must_fall = false;
-
-		if (going_right)
-		{
-			going_right = true;
-			entitystate = RIGHT;
-			going_left = false;
-		}
-		else
-		{
-			entitystate = LEFT;
-			going_left = true;
-			going_right = false;
-		}
-
-		slimecolliding = true;
-
-	}
-
-	if (lateralcollision)
-	{
-		if (going_right)
-		{
-			entitystate = LEFT;
-			going_left = true;
-			going_right = false;
-			c1->rect.x = c2->rect.x - c1->rect.w - 2.0f;
-		}
-		else
-		{
-			going_right = true;
-			entitystate = RIGHT;
-			going_left = false;
-			c1->rect.x = c2->rect.x + c2->rect.w + 2.0f;
-		}
-		slimecolliding = true;
-
-		position.x = c1->rect.x;
-	}
-*/
 }
 
 
@@ -171,37 +139,45 @@ void j1Orb::UpdateMovement(float dt)
 
 
 
-bool j1Orb::Load(pugi::xml_node &config) //must change
+bool j1Orb::Load(pugi::xml_node &config)
 {
 	bool ret = true;
-	/*if (entityID == Orbinfo.RefID.x)
+
+	if (entityID == Orbinfo.orbID)
 	{
-		position.x = config.child("Entity4").child("Slimex").attribute("value").as_float();
-		position.y = config.child("Entity4").child("Slimey").attribute("value").as_float();
+		touched = config.child("Orb1").child("touched").attribute("value").as_bool();
 	}
-	else if (entityID == Orbinfo.RefID.y)
+	else if (entityID == Orbinfo.orbID2)
 	{
-		position.x = config.child("Entity5").child("Slimex").attribute("value").as_float();
-		position.y = config.child("Entity5").child("Slimey").attribute("value").as_float();
+		touched = config.child("Orb2").child("touched").attribute("value").as_bool();
 	}
-*/
+	else if (entityID == Orbinfo.orbID3)
+	{
+		touched = config.child("Orb3").child("touched").attribute("value").as_bool();
+	}
+
 
 
 	return ret;
 }
 
-bool j1Orb::Save(pugi::xml_node &config) const //must change
+bool j1Orb::Save(pugi::xml_node &config) const
 {
-	/*if (entityID == Orbinfo.RefID.x)
+	if (entityID == Orbinfo.orbID)
 	{
-		config.append_child("Entity4").append_child("Slimex").append_attribute("value") = position.x;
-		config.child("Entity4").append_child("Slimey").append_attribute("value") = position.y;
+		config.append_child("Orb1").append_child("touched").append_attribute("value") = touched;
+		
 	}
-	else if (entityID == Orbinfo.RefID.y)
+	else if (entityID == Orbinfo.orbID2)
 	{
-		config.append_child("Entity5").append_child("Slimex").append_attribute("value") = position.x;
-		config.child("Entity5").append_child("Slimey").append_attribute("value") = position.y;
-	}*/
+		config.append_child("Orb2").append_child("touched").append_attribute("value") = touched;
+
+	}
+	else if (entityID == Orbinfo.orbID3)
+	{
+		config.append_child("Orb3").append_child("touched").append_attribute("value") = touched;
+
+	}
 
 	return true;
 }

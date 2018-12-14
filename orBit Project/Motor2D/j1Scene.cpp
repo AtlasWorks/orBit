@@ -125,14 +125,14 @@ bool j1Scene::Start()
 		bat2->position.x = App->map->data.bat2.x;
 		bat2->position.y = App->map->data.bat2.y;
 
-		orb->position.x = orb->Orbinfo.Position1.x;  //aqui
-		orb->position.y = orb->Orbinfo.Position1.y;
+		orb->position.x = App->map->data.orb.x;
+		orb->position.y = App->map->data.orb.y;
 
-		orb2->position.x = orb->Orbinfo.Position2.x;  //aqui
-		orb2->position.y = orb->Orbinfo.Position2.y;
+		orb2->position.x = App->map->data.orb2.x;;
+		orb2->position.y = App->map->data.orb2.y;
 
-		orb3->position.x = orb->Orbinfo.Position3.x;  //aqui
-		orb3->position.y = orb->Orbinfo.Position3.y;
+		orb3->position.x = App->map->data.orb3.x;
+		orb3->position.y = App->map->data.orb3.y;
 
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
 		App->audio->PlayMusic(stageMusic.GetString());
@@ -166,14 +166,14 @@ bool j1Scene::Start()
 		bat2->position.x = App->map->data2.bat2.x;
 		bat2->position.y = App->map->data2.bat2.y;
 
-		orb->position.x = orb->Orbinfo.Position4.x;  //aqui
-		orb->position.y = orb->Orbinfo.Position4.y;
+		orb->position.x = App->map->data2.orb.x;
+		orb->position.y = App->map->data2.orb.y;
 
-		orb2->position.x = orb->Orbinfo.Position5.x;  //aqui
-		orb2->position.y = orb->Orbinfo.Position5.y;
+		orb2->position.x = App->map->data2.orb2.x;;
+		orb2->position.y = App->map->data2.orb2.y;
 
-		orb3->position.x = orb->Orbinfo.Position6.x;  //aqui
-		orb3->position.y = orb->Orbinfo.Position6.y;
+		orb3->position.x = App->map->data2.orb3.x;
+		orb3->position.y = App->map->data2.orb3.y;
 
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
 		App->audio->PlayMusic(stageMusic.GetString());
@@ -486,10 +486,7 @@ bool j1Scene::PostUpdate(float dt)
 	// --- Keeping camera on axis X bounds ---
 	
 
-	if (-App->render->camera.x + App->render->camera.w >= App->map->data.width*App->map->data.tile_width*App->win->GetScale())
-	{
-		App->render->camera.x = -App->map->data.width*App->map->data.tile_width*App->win->GetScale() + App->render->camera.w;
-	}
+	
 
 	if (player->Future_position.x*App->win->GetScale() + player->entitycoll->rect.w >= -App->render->camera.x + App->render->camera.w - App->render->camera.w / 3)
 	{
@@ -504,6 +501,12 @@ bool j1Scene::PostUpdate(float dt)
 	if (-App->render->camera.x <= 2.0f)
 	{
 		App->render->camera.x = -2.0f;
+
+	}
+
+	if (-App->render->camera.x + App->render->camera.w >= App->map->data.width*App->map->data.tile_width*App->win->GetScale())
+	{
+		App->render->camera.x = -App->map->data.width*App->map->data.tile_width*App->win->GetScale() + App->render->camera.w;
 	}
 
 	// --- Camera In Y ---
@@ -562,12 +565,13 @@ bool j1Scene::change_scene(const char* map_name) {
 	
 	bool ret = true;
 
+
 	App->map->paralaxRef[0] = App->map->offset;
 	App->map->paralaxRef[1] = App->map->offset;
 
 	player->parallaxflow = 0;
 	player->previousflow = 0;
-
+	player->orbs_number = 0;
 	App->coll->CleanUp();
 
 	App->entities->DestroyEntity(bat);
@@ -592,6 +596,7 @@ bool j1Scene::change_scene(const char* map_name) {
 	orb3 = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
 
 
+
 	if (FirstStage == map_name)
 	{	
 		App->render->camera.x = camera1.x;
@@ -612,16 +617,23 @@ bool j1Scene::change_scene(const char* map_name) {
 		bat2->position.x = App->map->data.bat2.x;
 		bat2->position.y = App->map->data.bat2.y;
 
-		//
+		if (orb->touched == false)
+		{
+			orb->position.x = App->map->data.orb.x;
+			orb->position.y = App->map->data.orb.y;
+		}
 
-		orb->position.x = orb->Orbinfo.Position1.x;  //aqui
-		orb->position.y = orb->Orbinfo.Position1.y;
+		if (orb2->touched == false)
+		{
+			orb2->position.x = App->map->data.orb2.x;;
+			orb2->position.y = App->map->data.orb2.y;
+		}
 
-		orb2->position.x = orb->Orbinfo.Position2.x;  //aqui
-		orb2->position.y = orb->Orbinfo.Position2.y;
-
-		orb3->position.x = orb->Orbinfo.Position3.x;  //aqui
-		orb3->position.y = orb->Orbinfo.Position3.y;
+		if (orb3->touched == false)
+		{
+			orb3->position.x = App->map->data.orb3.x;
+			orb3->position.y = App->map->data.orb3.y;
+		}
 
 		App->map->ColliderDrawer(App->map->data);
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
@@ -658,16 +670,22 @@ bool j1Scene::change_scene(const char* map_name) {
 		bat2->position.x = App->map->data2.bat2.x;
 		bat2->position.y = App->map->data2.bat2.y;
 
-		//
-		orb->position.x = orb->Orbinfo.Position4.x;  //aqui
-		orb->position.y = orb->Orbinfo.Position4.y;
+		if (orb->touched == false)
+		{
+			orb->position.x = App->map->data2.orb.x;
+			orb->position.y = App->map->data2.orb.y;
+		}
 
-		orb2->position.x = orb->Orbinfo.Position5.x;  //aqui
-		orb2->position.y = orb->Orbinfo.Position5.y;
-
-		orb3->position.x = orb->Orbinfo.Position6.x;  //aqui
-		orb3->position.y = orb->Orbinfo.Position6.y;
-
+		if (orb2->touched == false)
+		{
+			orb2->position.x = App->map->data2.orb2.x;;
+			orb2->position.y = App->map->data2.orb2.y;
+		}
+		if (orb3->touched == false)
+		{
+			orb3->position.x = App->map->data2.orb3.x;
+			orb3->position.y = App->map->data2.orb3.y;
+		}
 
 		App->map->ColliderDrawer(App->map->data2);
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
@@ -728,6 +746,9 @@ bool j1Scene::Save(pugi::xml_node &config) const
 	 xBat2 = bat2->position.x;
 	 yBat2 = bat2->position.y;
 
+	 orbTouched = orb->touched;
+	 orb2Touched = orb2->touched;
+	 orb3Touched = orb3->touched;
 	return ret;
 }
 
@@ -800,6 +821,10 @@ bool j1Scene::Load(pugi::xml_node &config)
 	bat2->position.x = xBat2;
 	bat2->position.y = yBat2;
 
+	orb->touched = orbTouched;
+	orb2->touched = orb2Touched;
+	orb3->touched = orb3Touched;
+
 	slime->entitycoll->SetPos(slime->position.x, slime->position.y);
 	
 	slime2->entitycoll->SetPos(slime2->position.x, slime2->position.y);
@@ -807,6 +832,8 @@ bool j1Scene::Load(pugi::xml_node &config)
 	bat->entitycoll->SetPos(bat->position.x, bat->position.y);
 
 	bat2->entitycoll->SetPos(bat2->position.x, bat2->position.y);
+
+
 
 	return ret;
 }

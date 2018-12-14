@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="16" tileheight="16" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="16" tileheight="16" nextobjectid="22">
  <tileset firstgid="1" name="tileset forest - Copy" tilewidth="16" tileheight="16" tilecount="400" columns="25">
   <image source="tileset forest - Copy.png" width="400" height="256"/>
  </tileset>
@@ -64077,5 +64077,14 @@
  </objectgroup>
  <objectgroup name="checkpoint3">
   <object id="18" x="2144" y="80" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="orb1">
+  <object id="19" x="448" y="384" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="orb2">
+  <object id="20" x="1488" y="192" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="orb3">
+  <object id="21" x="2576" y="256" width="16" height="16"/>
  </objectgroup>
 </map>

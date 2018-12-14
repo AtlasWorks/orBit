@@ -114,6 +114,9 @@ public:
 	// player lifes
 	int lifes = 0;
 	bool dead = false;
+
+	//SCORE & items
+	int orbs_number = 0;
 };
 
 #endif // __j1Player_H__

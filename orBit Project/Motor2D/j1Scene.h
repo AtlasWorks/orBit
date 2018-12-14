@@ -45,6 +45,8 @@ public:
 
 	bool change_scene(const char* map_name);
 
+
+
 public:
 
 	p2List<p2SString*> StageList;
@@ -83,6 +85,10 @@ public:
 
 	mutable int xBat2 = 0;
 	mutable int yBat2 = 0;
+
+	mutable bool orbTouched = false;
+	mutable bool orb2Touched = false;
+	mutable bool orb3Touched = false;
 
 private:
 	p2SString map_name=nullptr;
