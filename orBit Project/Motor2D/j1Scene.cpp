@@ -797,6 +797,10 @@ void j1Scene::setStandarEntityPosition(const char* map_name)
 	orb3->entitycoll = App->coll->AddCollider(orb3->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
 	orb3->entitycoll->SetPos(orb3->position.x, orb3->position.y);
 
+	// orbs obtain
+
+	player->orbs_number = 0;
+
 	// avtive and inactive
 
 	player->active = true;

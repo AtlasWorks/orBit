@@ -32,7 +32,6 @@ bool j1Player::Start()
 	entitycoll = App->coll->AddCollider(entitycollrect,COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*) manager);
 
 	// --- Current Player Position ---
-	// MUST BE DONE IN SCEN NOT HERE
 	position.x = 0;
 	position.y = 0;
 
@@ -501,7 +500,7 @@ bool j1Player::Load(pugi::xml_node &config)
 {
 	Future_position.x= config.child("Player").child("Playerx").attribute("value").as_float();
 	Future_position.y = config.child("Player").child("Playery").attribute("value").as_float();
-
+	orbs_number = config.child("Player").child("orbs number").attribute("value").as_int();
 	return true;
 }
 
@@ -509,6 +508,7 @@ bool j1Player::Save(pugi::xml_node &config) const
 {
 	config.append_child("Player").append_child("Playerx").append_attribute("value")= Future_position.x;
 	config.child("Player").append_child("Playery").append_attribute("value")= Future_position.y;
+	config.child("Player").append_child("orbs number").append_attribute("value") = orbs_number;
 
 	return true;
 }
