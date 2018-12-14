@@ -500,7 +500,7 @@ bool j1Player::Load(pugi::xml_node &config)
 {
 	Future_position.x= config.child("Player").child("Playerx").attribute("value").as_float();
 	Future_position.y = config.child("Player").child("Playery").attribute("value").as_float();
-	orbs_number = config.child("Player").child("orbs number").attribute("value").as_int();
+	orbs_number = config.child("Player").child("orbs_number").attribute("value").as_int();
 	return true;
 }
 
@@ -508,7 +508,7 @@ bool j1Player::Save(pugi::xml_node &config) const
 {
 	config.append_child("Player").append_child("Playerx").append_attribute("value")= Future_position.x;
 	config.child("Player").append_child("Playery").append_attribute("value")= Future_position.y;
-	config.child("Player").append_child("orbs number").append_attribute("value") = orbs_number;
+	config.child("Player").append_child("orbs_number").append_attribute("value") = orbs_number;
 
 	return true;
 }

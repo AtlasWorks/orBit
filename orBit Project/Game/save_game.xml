@@ -11,7 +11,7 @@
 		<Player>
 			<Playerx value="544" />
 			<Playery value="190" />
-			<orbs number value="0" />
+			<orbs_number value="0" />
 		</Player>
 		<Entity2>
 			<Batx value="2240" />
