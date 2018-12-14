@@ -58,6 +58,9 @@ bool j1Player::Start()
 	//Player lifes
 	lifes = 3;
 
+	//active
+	active = true;
+
 	return true;
 }
 

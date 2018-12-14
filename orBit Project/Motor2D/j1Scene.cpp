@@ -724,7 +724,7 @@ bool j1Scene::change_scene(const char* map_name) {
 	//orb3->entitycoll = App->coll->AddCollider(orb3->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
 	//orb3->entitycoll->SetPos(orb3->position.x, orb3->position.y);
 
-	setStandarEntityPosition();
+	setStandarEntityPosition(map_name);
 
 	return ret;
 }
@@ -845,7 +845,7 @@ bool j1Scene::Load(pugi::xml_node &config)
 	return ret;
 }
 
-void j1Scene::setStandarEntityPosition()
+void j1Scene::setStandarEntityPosition(const char* map_name)
 {
 	// set entity position defined on tiled
 	if (FirstStage == map_name)
@@ -935,6 +935,19 @@ void j1Scene::setStandarEntityPosition()
 	orb3->entitycoll = App->coll->AddCollider(orb3->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
 	orb3->entitycoll->SetPos(orb3->position.x, orb3->position.y);
 
+	// avtive and inactive
+
+	player->active = true;
+	slime->active = true;
+	slime2->active = true;
+	bat->active = true;
+	bat2->active = true;
+	orb->active = true;
+	orb->touched = false;
+	orb2->active = true;
+	orb2->touched = false;
+	orb3->active = true;
+	orb3->touched = false;
 }
 
 void j1Scene::loadSaveDataEntity()

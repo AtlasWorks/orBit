@@ -59,6 +59,7 @@ bool j1Bat::Start()
 
 	entityID = App->entities->entityID;
 
+	active = true;
 
 	return true;
 }

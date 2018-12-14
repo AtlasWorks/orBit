@@ -97,7 +97,9 @@ public:
 	entity_type  entitytype;
 	entity_state entitystate;
 	int entityID = 0;
-	
+
+	//--- Active or inactive ----
+	bool active = false;
 
 	// --- Animation ---
 	Animation* CurrentAnimation = nullptr;
