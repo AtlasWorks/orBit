@@ -45,7 +45,9 @@ public:
 
 	bool change_scene(const char* map_name);
 
+	void setStandarEntityPosition(const char* map_name);
 
+	void loadSaveDataEntity();
 
 public:
 

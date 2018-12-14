@@ -53,7 +53,7 @@ bool j1Slime::Start()
 
 	entityID = App->entities->entityID;
 
-	
+	active = true;
 	
 	return true;
 }

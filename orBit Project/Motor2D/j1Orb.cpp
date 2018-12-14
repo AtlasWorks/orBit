@@ -57,13 +57,24 @@ bool j1Orb::Start()
 
 	entityID = App->entities->entityID;
 
+	active = true;
+
 	return true;
 }
 
 bool j1Orb::Update(float dt)
 {
-	
-	entitycoll->SetPos(position.x, position.y);
+	if (active && entitycoll != nullptr)
+	{
+		entitycoll->SetPos(position.x, position.y); 
+		CurrentAnimation = Orbinfo.fly;
+	}
+	else if (!active && entitycoll != nullptr)
+	{
+		entitycoll->SetPos(-10, -10);
+	}
+
+
 
 	return true;
 }
@@ -73,35 +84,10 @@ bool j1Orb::PostUpdate(float dt)
 	bool ret = true;
 
 	
-
-	//if ((position.x)*App->win->GetScale() >= -App->render->camera.x && (position.x)*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w)
-	//{
-	//	//check for player nearby
-
-	//	if (!App->scene->player->god_mode &&
-	//		App->scene->player->Future_position.x > position.x - Orbinfo.areaofaction &&
-	//		App->scene->player->Future_position.x < position.x + Orbinfo.areaofaction &&
-	//		App->scene->player->Future_position.y < position.y + Orbinfo.areaofaction &&
-	//		App->scene->player->Future_position.y > position.y - Orbinfo.areaofaction)
-	//	{
-	//		
-	//			CurrentAnimation = Orbinfo.fly;
-	//			entitystate = IDLE;
-	//			
-	//	
-
-	//	}
-	//	else
-	//	{
-	//		
-
-	//		
-	//	}
-	//}
-
-
 	//Blitting orb
-	App->render->Blit(spritesheet, position.x /*- Orbinfo.printingoffset.x*/, position.y /*+ Orbinfo.printingoffset.y*/, &CurrentAnimation->GetCurrentFrame(dt));
+	App->render->Blit(spritesheet, position.x, position.y, &CurrentAnimation->GetCurrentFrame(dt));
+	
+
 
 	return ret;
 }
@@ -112,18 +98,22 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 {
 	bool lateralcollision = true;
 
-
-	if (c2->type == COLLIDER_TYPE::COLLIDER_ORB || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER )
+	if (active)
 	{
-		if (touched == false)
+		if (c2->type == COLLIDER_TYPE::COLLIDER_ORB || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER)
 		{
-			App->scene->player->orbs_number += 1;
-			if (entitycoll != nullptr)
+			if (touched == false)
 			{
-				entitycoll->to_delete = true;
-				CurrentAnimation = Orbinfo.disappear;
+				App->scene->player->orbs_number += 1;
+				if (entitycoll != nullptr)
+				{
+					entitycoll->to_delete = true;
+					CurrentAnimation = Orbinfo.disappear;
+				}
+
+				touched = true;
+				active = false;
 			}
-			touched = true;
 		}
 	}
 
@@ -146,14 +136,17 @@ bool j1Orb::Load(pugi::xml_node &config)
 	if (entityID == Orbinfo.orbID)
 	{
 		touched = config.child("Orb1").child("touched").attribute("value").as_bool();
+		active =  config.child("Orb1").child("active").attribute("value").as_bool();
 	}
 	else if (entityID == Orbinfo.orbID2)
 	{
 		touched = config.child("Orb2").child("touched").attribute("value").as_bool();
+		active =  config.child("Orb2").child("active").attribute("value").as_bool();
 	}
 	else if (entityID == Orbinfo.orbID3)
 	{
 		touched = config.child("Orb3").child("touched").attribute("value").as_bool();
+		active =  config.child("Orb3").child("active").attribute("value").as_bool();
 	}
 
 
@@ -166,16 +159,19 @@ bool j1Orb::Save(pugi::xml_node &config) const
 	if (entityID == Orbinfo.orbID)
 	{
 		config.append_child("Orb1").append_child("touched").append_attribute("value") = touched;
+		config.child("Orb1").append_child("active").append_attribute("value") = active;
 		
 	}
 	else if (entityID == Orbinfo.orbID2)
 	{
 		config.append_child("Orb2").append_child("touched").append_attribute("value") = touched;
+		config.child("Orb2").append_child("active").append_attribute("value") = active;
 
 	}
 	else if (entityID == Orbinfo.orbID3)
 	{
 		config.append_child("Orb3").append_child("touched").append_attribute("value") = touched;
+		config.child("Orb3").append_child("active").append_attribute("value") = active;
 
 	}
 
