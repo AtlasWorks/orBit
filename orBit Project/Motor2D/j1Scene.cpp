@@ -574,71 +574,19 @@ bool j1Scene::change_scene(const char* map_name) {
 	player->orbs_number = 0; //player must save and load this
 	App->coll->CleanUp();
 
-	//App->entities->DestroyEntity(bat);
-	//App->entities->DestroyEntity(bat2);
-	//App->entities->DestroyEntity(slime);
-	//App->entities->DestroyEntity(slime2);
-	//App->entities->DestroyEntity(orb);
-	//App->entities->DestroyEntity(orb2);
-	//App->entities->DestroyEntity(orb3);
-
-	//player->entitycoll= App->coll->AddCollider(player->entitycollrect,COLLIDER_TYPE::COLLIDER_PLAYER, App->entities);
-
-	/*bat = (j1Bat*)App->entities->CreateEntity("bat", entity_type::BAT);
-	bat2 = (j1Bat*)App->entities->CreateEntity("bat", entity_type::BAT);
-
-	slime = (j1Slime*)App->entities->CreateEntity("slime", entity_type::SLIME);
-	slime2 = (j1Slime*)App->entities->CreateEntity("slime", entity_type::SLIME);
-
-
-	orb = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
-	orb2 = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);
-	orb3 = (j1Orb*)App->entities->CreateEntity("orb", entity_type::ORB);*/
-
-
+	
 
 	if (FirstStage == map_name)
 	{	
 		App->render->camera.x = camera1.x;
 		App->render->camera.y = camera1.y;
 
-		//player->Future_position.x = App->map->data.initpos.x;
-		//player->Future_position.y = App->map->data.initpos.y;
-
-		//slime->position.x = App->map->data.slime1.x;
-		//slime->position.y = App->map->data.slime1.y;
-
-		//slime2->position.x = App->map->data.slime2.x;
-		//slime2->position.y = App->map->data.slime2.y;
-
-		//bat->position.x = App->map->data.bat1.x;
-		//bat->position.y = App->map->data.bat1.y;
-
-		//bat2->position.x = App->map->data.bat2.x;
-		//bat2->position.y = App->map->data.bat2.y;
-
-		//if (orb->touched == false)
-		//{
-		//	orb->position.x = App->map->data.orb.x;
-		//	orb->position.y = App->map->data.orb.y;
-		//}
-
-		//if (orb2->touched == false)
-		//{
-		//	orb2->position.x = App->map->data.orb2.x;;
-		//	orb2->position.y = App->map->data.orb2.y;
-		//}
-
-		//if (orb3->touched == false)
-		//{
-		//	orb3->position.x = App->map->data.orb3.x;
-		//	orb3->position.y = App->map->data.orb3.y;
-		//}
+		
 
 		App->map->ColliderDrawer(App->map->data);
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
 		App->audio->PlayMusic(stageMusic.GetString());
-		//player->entitystate = FALLING;
+		
 
 
 		// --- Pathfinding walkability map 1 ---
@@ -654,44 +602,11 @@ bool j1Scene::change_scene(const char* map_name) {
 	{
 		App->render->camera.x = camera2.x;
 		App->render->camera.y = camera2.y;
-		/*
-		player->Future_position.x = App->map->data2.initpos.x;
-		player->Future_position.y = App->map->data2.initpos.y;
-
-		slime->position.x = App->map->data2.slime1.x;
-		slime->position.y = App->map->data2.slime1.y;
-
-		slime2->position.x = App->map->data2.slime2.x;
-		slime2->position.y = App->map->data2.slime2.y;
-
-		bat->position.x = App->map->data2.bat1.x;
-		bat->position.y = App->map->data2.bat1.y;
-
-		bat2->position.x = App->map->data2.bat2.x;
-		bat2->position.y = App->map->data2.bat2.y;
-
-		if (orb->touched == false)
-		{
-			orb->position.x = App->map->data2.orb.x;
-			orb->position.y = App->map->data2.orb.y;
-		}
-
-		if (orb2->touched == false)
-		{
-			orb2->position.x = App->map->data2.orb2.x;;
-			orb2->position.y = App->map->data2.orb2.y;
-		}
-		if (orb3->touched == false)
-		{
-			orb3->position.x = App->map->data2.orb3.x;
-			orb3->position.y = App->map->data2.orb3.y;
-		}
-*/
+		
 		App->map->ColliderDrawer(App->map->data2);
 		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
 		App->audio->PlayMusic(stageMusic.GetString());
-		//player->entitystate = FALLING;
-
+		
 
 		// --- Pathfinding walkability map 2 ---
 
@@ -703,26 +618,6 @@ bool j1Scene::change_scene(const char* map_name) {
 		RELEASE_ARRAY(buffer_data);
 	}
 
-	//slime->entitycoll = App->coll->AddCollider(slime->entitycollrect, COLLIDER_TYPE::COLLIDER_ENEMY_SLIME, App->entities);
-	//slime->entitycoll->SetPos(slime->position.x, slime->position.y);
-
-	//slime2->entitycoll = App->coll->AddCollider(slime2->entitycollrect, COLLIDER_TYPE::COLLIDER_ENEMY_SLIME, App->entities);
-	//slime2->entitycoll->SetPos(slime2->position.x, slime2->position.y);
-
-	//bat->entitycoll = App->coll->AddCollider(bat->entitycollrect, COLLIDER_TYPE::COLLIDER_ENEMY_BAT, App->entities);
-	//bat->entitycoll->SetPos(bat->position.x, bat->position.y);
-
-	//bat2->entitycoll = App->coll->AddCollider(bat2->entitycollrect, COLLIDER_TYPE::COLLIDER_ENEMY_BAT, App->entities);
-	//bat2->entitycoll->SetPos(bat2->position.x, bat2->position.y);
-
-	//orb->entitycoll = App->coll->AddCollider(orb->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
-	//orb->entitycoll->SetPos(orb->position.x, orb->position.y);
-
-	//orb2->entitycoll = App->coll->AddCollider(orb2->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
-	//orb2->entitycoll->SetPos(orb2->position.x, orb2->position.y);
-
-	//orb3->entitycoll = App->coll->AddCollider(orb3->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
-	//orb3->entitycoll->SetPos(orb3->position.x, orb3->position.y);
 
 	setStandarEntityPosition(map_name);
 
@@ -737,21 +632,7 @@ bool j1Scene::Save(pugi::xml_node &config) const
 	config.append_child("firstStage").append_attribute("value") = firstStage;
 	config.append_child("secondStage").append_attribute("value") = secondStage;
 
-	/* xSlime = slime->position.x;
-	 ySlime = slime->position.y;
 
-	 xSlime2 = slime2->position.x;
-	 ySlime2 = slime2->position.y;
-
-	 xBat = bat->position.x;
-	 yBat = bat->position.y;
-
-	 xBat2 = bat2->position.x;
-	 yBat2 = bat2->position.y;
-
-	 orbTouched = orb->touched;
-	 orb2Touched = orb2->touched;
-	 orb3Touched = orb3->touched;*/
 	return ret;
 }
 
@@ -808,26 +689,7 @@ bool j1Scene::Load(pugi::xml_node &config)
 	}
 
 
-	/*player->Future_position.x = x;
-	player->Future_position.y = y;
 	
-
-	slime->position.x = xSlime;
-	slime->position.y = ySlime;
-
-	slime2->position.x = xSlime2;
-	slime2->position.y = ySlime2;
-
-	bat->position.x = xBat;
-	bat->position.y = yBat;
-
-	bat2->position.x = xBat2;
-	bat2->position.y = yBat2;
-
-	orb->touched = orbTouched;
-	orb2->touched = orb2Touched;
-	orb3->touched = orb3Touched;
-	*/
 	loadSaveDataEntity();
 
 	player->entitycoll->SetPos(player->position.x, player->position.y);
