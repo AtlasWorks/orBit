@@ -690,7 +690,7 @@ bool j1Scene::Load(pugi::xml_node &config)
 
 
 	
-	//loadSaveDataEntity();
+	loadSaveDataEntity();
 
 	player->entitycoll->SetPos(player->position.x, player->position.y);
 
