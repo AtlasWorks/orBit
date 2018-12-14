@@ -34,7 +34,7 @@ bool j1Slime::Start()
 
 	CurrentAnimation = Slimeinfo.runRight;
 	Slimeinfo.runLeft->speed = Slimeinfo.animationspeed;
-	Slimeinfo.runRight->speed = Slimeinfo.animationspeed;
+	Slimeinfo.runRight->speed = Slimeinfo.animationspeed/2;
 
 	gravity = Slimeinfo.gravity;
 
@@ -348,8 +348,6 @@ void j1Slime::UpdateMovement(float dt)
 	position.x += Slimeinfo.Velocity.x;
 	position.y += Slimeinfo.Velocity.y;
 }
-
-
 
 bool j1Slime::Load(pugi::xml_node &config)
 {
