@@ -141,6 +141,7 @@ bool j1Slime::PostUpdate(float dt)
 			if (must_fall)
 			{
 				position.y -= gravity*dt;
+
 			}
 
 			if (position.x < 0)
@@ -175,12 +176,11 @@ bool j1Slime::PostUpdate(float dt)
 }
 
 
-
 void j1Slime::OnCollision(Collider * c1, Collider * c2)
 {
 	bool lateralcollision = true;
 
-	if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 3)
+	if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 6)
 	{
 		lateralcollision = false;
 	}
@@ -218,14 +218,14 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 			entitystate = LEFT;
 			going_left = true;
 			going_right = false;
-			c1->rect.x = c2->rect.x - c1->rect.w - 2.0f;
+			c1->rect.x = c2->rect.x - c1->rect.w;
 		}
 		else
 		{
 			going_right = true;
 			entitystate = RIGHT;
 			going_left = false;
-			c1->rect.x = c2->rect.x + c2->rect.w + 2.0f;
+			c1->rect.x = c2->rect.x + c2->rect.w;
 		}
 		slimecolliding = true;
 			
