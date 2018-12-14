@@ -690,7 +690,7 @@ bool j1Scene::Load(pugi::xml_node &config)
 
 
 	
-	loadSaveDataEntity();
+	//loadSaveDataEntity();
 
 	player->entitycoll->SetPos(player->position.x, player->position.y);
 
@@ -804,10 +804,15 @@ void j1Scene::setStandarEntityPosition(const char* map_name)
 	// avtive and inactive
 
 	player->active = true;
+	player->dead = false;
 	slime->active = true;
+	slime->dead = false;
 	slime2->active = true;
+	slime2->dead = false;
 	bat->active = true;
+	bat->dead = false;
 	bat2->active = true;
+	bat2->dead = false;
 	orb->active = true;
 	orb->touched = false;
 	orb2->active = true;

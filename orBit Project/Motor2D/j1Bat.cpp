@@ -324,11 +324,14 @@ bool j1Bat::Load(pugi::xml_node &config)
 	{
 		position.x = config.child("Entity2").child("Batx").attribute("value").as_float();
 		position.y = config.child("Entity2").child("Baty").attribute("value").as_float();
+		active = config.child("Entity2").child("active").attribute("value").as_bool();
 	}
 	else if (entityID == BatInfo.RefID.y)
 	{
 		position.x = config.child("Entity3").child("Batx").attribute("value").as_float();
 		position.y = config.child("Entity3").child("Baty").attribute("value").as_float();
+		active = config.child("Entity3").child("active").attribute("value").as_bool();
+
 	}
 
 	return ret;
@@ -340,11 +343,13 @@ bool j1Bat::Save(pugi::xml_node &config) const
 	{
 		config.append_child("Entity2").append_child("Batx").append_attribute("value") = position.x;
 		config.child("Entity2").append_child("Baty").append_attribute("value") = position.y;
+		config.child("Entity2").append_child("active").append_attribute("value") = active;
 	}
 	else if (entityID == BatInfo.RefID.y)
 	{
 		config.append_child("Entity3").append_child("Batx").append_attribute("value") = position.x;
 		config.child("Entity3").append_child("Baty").append_attribute("value") = position.y;
+		config.child("Entity3").append_child("active").append_attribute("value") = active;
 	}
 	return true;
 }

@@ -71,8 +71,8 @@ bool j1Slime::PostUpdate(float dt)
 {
 	bool ret = true;
 
-	//if (!App->scene->player->dead)
-	//{
+	if (active && entitycoll != nullptr)
+	{
 
 		if ((position.x)*App->win->GetScale() >= -App->render->camera.x && (position.x)*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w)
 		{
@@ -160,11 +160,17 @@ bool j1Slime::PostUpdate(float dt)
 				entitystate = FALLING;
 			}
 		}
-	//}
 
-	//Blitting slime
-	App->render->Blit(spritesheet, position.x - Slimeinfo.printingoffset.x, position.y + Slimeinfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
+		//Blitting slime
+		App->render->Blit(spritesheet, position.x - Slimeinfo.printingoffset.x, position.y + Slimeinfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
 
+	}
+	else if (!active && entitycoll != nullptr)
+	{
+		entitycoll->SetPos(-10, -10);
+	}
+
+	
 	return ret;
 }
 
@@ -224,6 +230,25 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 		slimecolliding = true;
 			
 		position.x = c1->rect.x;
+	}
+
+	if (active)
+	{
+		if (c1->type == COLLIDER_TYPE::COLLIDER_PLAYER || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER)
+		{
+			if (dead == false)
+			{
+				//SCORE HERE
+				if (entitycoll != nullptr)
+				{
+					entitycoll->to_delete = true;
+			
+				}
+
+				dead = true;
+				active = false;
+			}
+		}
 	}
 
 }
@@ -333,11 +358,13 @@ bool j1Slime::Load(pugi::xml_node &config)
 	{
 		position.x = config.child("Entity4").child("Slimex").attribute("value").as_float();
 		position.y = config.child("Entity4").child("Slimey").attribute("value").as_float();
+		active = config.child("Entity4").child("active").attribute("value").as_bool();
 	}
 	else if (entityID== Slimeinfo.RefID.y)
 	{
 		position.x = config.child("Entity5").child("Slimex").attribute("value").as_float();
 		position.y = config.child("Entity5").child("Slimey").attribute("value").as_float();
+		active = config.child("Entity5").child("active").attribute("value").as_bool();
 	}
 	
 
@@ -351,11 +378,13 @@ bool j1Slime::Save(pugi::xml_node &config) const
 	{
 		config.append_child("Entity4").append_child("Slimex").append_attribute("value") = position.x;
 		config.child("Entity4").append_child("Slimey").append_attribute("value") = position.y;
+		config.child("Entity4").append_child("active").append_attribute("value") = active;
 	}
 	else if (entityID == Slimeinfo.RefID.y)
 	{
 		config.append_child("Entity5").append_child("Slimex").append_attribute("value") = position.x;
 		config.child("Entity5").append_child("Slimey").append_attribute("value") = position.y;
+		config.child("Entity5").append_child("active").append_attribute("value") = active;
 	}
 
 	return true;

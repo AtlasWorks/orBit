@@ -9,36 +9,41 @@
 	</audio>
 	<entities>
 		<Player>
-			<Playerx value="710" />
-			<Playery value="222" />
+			<Playerx value="544" />
+			<Playery value="190" />
+			<orbs number value="0" />
 		</Player>
 		<Entity2>
 			<Batx value="2240" />
 			<Baty value="512" />
+			<active value="true" />
 		</Entity2>
 		<Entity3>
-			<Batx value="891.150513" />
+			<Batx value="832" />
 			<Baty value="432" />
+			<active value="true" />
 		</Entity3>
 		<Entity4>
 			<Slimex value="976" />
 			<Slimey value="160" />
+			<active value="true" />
 		</Entity4>
 		<Entity5>
 			<Slimex value="1856" />
 			<Slimey value="576" />
+			<active value="true" />
 		</Entity5>
 		<Orb1>
-			<touched value="true" />
-			<active value="false" />
+			<touched value="false" />
+			<active value="true" />
 		</Orb1>
 		<Orb2>
-			<touched value="true" />
-			<active value="false" />
+			<touched value="false" />
+			<active value="true" />
 		</Orb2>
 		<Orb3>
-			<touched value="true" />
-			<active value="false" />
+			<touched value="false" />
+			<active value="true" />
 		</Orb3>
 	</entities>
 	<collision />
@@ -49,6 +54,6 @@
 		<secondStage value="false" />
 	</scene>
 	<renderer>
-		<camera x="-756" y="0" />
+		<camera x="-586" y="0" />
 	</renderer>
 </game_state>
