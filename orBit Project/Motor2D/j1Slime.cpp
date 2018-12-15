@@ -179,15 +179,21 @@ bool j1Slime::PostUpdate(float dt)
 void j1Slime::OnCollision(Collider * c1, Collider * c2)
 {
 	bool lateralcollision = true;
+	
 
 	if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 6)
 	{
 		lateralcollision = false;
+		
+		
 	}
 
+	
+	if (active)
+	{
 	if (c2->type == COLLIDER_TYPE::COLLIDER_FLOOR || c2->type == COLLIDER_TYPE::COLLIDER_PLATFORM && dead == false && !lateralcollision)
 	{
-		if (c1->rect.y + c1->rect.h > c2->rect.y && c1->rect.y + c1->rect.h<c2->rect.y + colliding_offset)
+		if (c1->rect.y + c1->rect.h > c2->rect.y && c1->rect.y + c1->rect.h < c2->rect.y + colliding_offset)
 		{
 			c1->rect.y = c2->rect.y - c1->rect.h;
 		}
@@ -210,7 +216,9 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 		slimecolliding = true;
 
 	}
-
+}
+	if (active)
+	{
 	if (lateralcollision)
 	{
 		if (going_right)
@@ -228,13 +236,18 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 			c1->rect.x = c2->rect.x + c2->rect.w;
 		}
 		slimecolliding = true;
-			
+
 		position.x = c1->rect.x;
 	}
-
+}
+	
 	if (active)
 	{
-		if (c1->type == COLLIDER_TYPE::COLLIDER_PLAYER || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER)
+
+
+
+
+		if (c2->type == COLLIDER_TYPE::COLLIDER_PLAYER && c2->rect.y + c2->rect.h <= c1->rect.y + 6)
 		{
 			if (dead == false)
 			{
@@ -248,6 +261,31 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 				dead = true;
 				active = false;
 			}
+		}
+		else if (c1->type == COLLIDER_TYPE::COLLIDER_PLAYER || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER && lateralcollision && App->scene->player->dead==false)
+		{ // -- player death ---
+ 			if (going_right)
+			{
+				entitystate = LEFT;
+				going_left = true;
+				going_right = false;
+				c2->rect.x = c1->rect.x - c1->rect.w*2;
+			}
+			else
+			{
+				going_right = true;
+				entitystate = RIGHT;
+				going_left = false;
+				c2->rect.x = c1->rect.x + c1->rect.w*2;
+			}
+			entitycoll->SetPos(-10, -10);
+			
+			LOG("actual lifes. %i", App->scene->player->lifes);
+			App->scene->player->playerinfo.deathRight->Reset();
+			App->scene->player->CurrentAnimation = App->scene->player->playerinfo.deathRight;
+			App->scene->player->lifes -= 1;
+			LOG("now lifes. %i", App->scene->player->lifes);
+			App->scene->player->dead = true;
 		}
 	}
 

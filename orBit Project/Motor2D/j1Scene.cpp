@@ -566,6 +566,7 @@ bool j1Scene::change_scene(const char* map_name) {
 	bool ret = true;
 
 
+
 	App->map->paralaxRef[0] = App->map->offset;
 	App->map->paralaxRef[1] = App->map->offset;
 
@@ -709,6 +710,7 @@ bool j1Scene::Load(pugi::xml_node &config)
 
 void j1Scene::setStandarEntityPosition(const char* map_name)
 {
+	player->CurrentAnimation = player->playerinfo.idleRight;
 	// set entity position defined on tiled
 	if (FirstStage == map_name)
 	{

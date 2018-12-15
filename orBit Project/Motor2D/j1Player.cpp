@@ -196,7 +196,7 @@ void j1Player::Handle_Ground_Animations()
 			CurrentAnimation = playerinfo.idleRight;
 
 		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP && CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.jumpingLeft)
-			CurrentAnimation = playerinfo.idleLeft;
+ 			CurrentAnimation = playerinfo.idleLeft;
 		
 		if (CurrentAnimation == playerinfo.fallingLeft)
 			CurrentAnimation = playerinfo.idleLeft;

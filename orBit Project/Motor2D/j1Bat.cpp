@@ -170,6 +170,7 @@ bool j1Bat::PostUpdate(float dt)
 
 		App->render->Blit(spritesheet, position.x - BatInfo.printingoffset.x, position.y - BatInfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
 	}
+	
 	return ret;
 }
 
