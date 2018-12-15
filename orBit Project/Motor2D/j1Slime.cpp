@@ -35,6 +35,8 @@ bool j1Slime::Start()
 	CurrentAnimation = Slimeinfo.runRight;
 	Slimeinfo.runLeft->speed = Slimeinfo.animationspeed;
 	Slimeinfo.runRight->speed = Slimeinfo.animationspeed/2;
+	Slimeinfo.explote->speed = Slimeinfo.animationspeed*2 ;
+	Slimeinfo.explote->loop = false;
 
 	gravity = Slimeinfo.gravity;
 
@@ -162,15 +164,23 @@ bool j1Slime::PostUpdate(float dt)
 			}
 		}
 
-		//Blitting slime
-		App->render->Blit(spritesheet, position.x - Slimeinfo.printingoffset.x, position.y + Slimeinfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
-
+		
 	}
 	else if (!active && entitycoll != nullptr)
 	{
 		entitycoll->SetPos(-10, -10);
 	}
 
+	//Blitting slime
+	if (active)
+	{
+		App->render->Blit(spritesheet, position.x - Slimeinfo.printingoffset.x, position.y + Slimeinfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
+	}
+
+	if (!active && !CurrentAnimation->Finished())
+	{
+		App->render->Blit(spritesheet, position.x - Slimeinfo.printingoffset.x*3, position.y + Slimeinfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
+	}
 	
 	return ret;
 }
@@ -249,6 +259,9 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 		{
 			if (dead == false)
 			{
+				Slimeinfo.explote->Reset();
+				CurrentAnimation = Slimeinfo.explote;
+				
 				// add score
 				App->scene->player->score += 150;
 

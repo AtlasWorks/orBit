@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="72" height="84" tilewidth="1" tileheight="1" nextobjectid="45">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="185" height="84" tilewidth="1" tileheight="1" nextobjectid="65">
  <imagelayer name="enemies">
-  <image source="../textures/monster.png" width="72" height="84"/>
+  <image source="../textures/monster.png" width="186" height="84"/>
  </imagelayer>
  <objectgroup name="bat right">
   <object id="29" x="48" y="0" width="24" height="22"/>
@@ -28,5 +28,13 @@
   <object id="38" x="48" y="42" width="24" height="22"/>
   <object id="39" x="24" y="42" width="24" height="22"/>
   <object id="40" x="0" y="42" width="24" height="22"/>
+ </objectgroup>
+ <objectgroup name="explote">
+  <object id="58" x="73" y="0" width="37" height="40"/>
+  <object id="59" x="111" y="0" width="37" height="40"/>
+  <object id="60" x="148" y="0" width="37" height="40"/>
+  <object id="62" x="73" y="44" width="37" height="40"/>
+  <object id="63" x="111" y="44" width="37" height="40"/>
+  <object id="64" x="148" y="44" width="37" height="40"/>
  </objectgroup>
 </map>

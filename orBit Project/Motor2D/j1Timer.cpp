@@ -21,7 +21,7 @@ void j1Timer::Start()
 // ---------------------------------------------
 uint32 j1Timer::Read() const
 {
-	return SDL_GetTicks() - started_at;
+	return SDL_GetTicks() - started_at ;
 }
 
 // ---------------------------------------------
@@ -39,6 +39,7 @@ uint32 j1Timer::startreturn()
 // ---------------------------------------------
 void j1Timer::Loadstart(uint32 loaded)
 {
-	started_at = Read() - loaded;
+	uint lol = SDL_GetTicks() - started_at;
+	started_at = lol - loaded;
 }
 

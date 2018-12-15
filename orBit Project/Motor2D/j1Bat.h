@@ -13,6 +13,7 @@ struct BatData {
 
 	Animation* flyRight = nullptr;
 	Animation* flyLeft = nullptr;
+	Animation* explote = nullptr;
 
 	p2SString folder = nullptr;
 	p2SString Texture = nullptr;

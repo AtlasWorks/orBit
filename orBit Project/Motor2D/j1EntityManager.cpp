@@ -92,6 +92,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	slimeinfo.runRight= LoadAnimation(slimeinfo.folder.GetString(), "slime right");
 	slimeinfo.runLeft = LoadAnimation(slimeinfo.folder.GetString(), "slime left");
+	slimeinfo.explote = LoadAnimation(slimeinfo.folder.GetString(), "explote");
 
 	slimeinfo.gravity = slimenode.child("gravity").attribute("value").as_float();
 	slimeinfo.Velocity.x = slimeinfo.auxVel.x = slimenode.child("Velocity").attribute("x").as_float();
@@ -121,6 +122,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	batinfo.flyRight = LoadAnimation(batinfo.folder.GetString(), "bat right");
 	batinfo.flyLeft = LoadAnimation(batinfo.folder.GetString(), "bat left");
+	batinfo.explote = LoadAnimation(batinfo.folder.GetString(), "explote");
 
 	batinfo.gravity = batnode.child("gravity").attribute("value").as_float(); //
 	batinfo.Velocity.x = batinfo.auxVel.x = batnode.child("Velocity").attribute("x").as_float();
