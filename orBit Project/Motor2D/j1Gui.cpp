@@ -88,15 +88,15 @@ bool j1Gui::PreUpdate()
 	{
 		ret = false;
 
-		ret = RecursiveOnClick(item);
+			ret = RecursiveOnClick(item);
 
-		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
-			ret = RecursiveOnDrag(item);
+			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
+				ret = RecursiveOnDrag(item);
 
-		if (ret)
-			break;
-		if (!ret)
-			RecursiveOnHover(item);
+			if (ret)
+				break;
+			if (!ret)
+				RecursiveOnHover(item);
 
 		item = item->prev;
 	}
@@ -105,16 +105,16 @@ bool j1Gui::PreUpdate()
 
 	while (item)
 	{
-		if (App->input->GetMouseButtonDown(1) == KEY_UP)
-			item->data->GetBooleans()->dragging = false;
+			if (App->input->GetMouseButtonDown(1) == KEY_UP)
+				item->data->GetBooleans()->dragging = false;
 
-		else
-		{
-			if (item->data->GetBooleans()->dragging)
+			else
 			{
-				App->scene->ONdrag(*item->data);
+				if (item->data->GetBooleans()->dragging)
+				{
+					App->scene->ONdrag(*item->data);
+				}
 			}
-		}
 
 		item = item->prev;
 	}
@@ -487,7 +487,7 @@ bool j1Gui::isClicked(SDL_Rect & rect)
 void j1Gui::DebugDraw()
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -502,13 +502,13 @@ void j1Gui::DebugDraw()
 		switch (item->data->GetType())
 		{
 		case ELEMENTS::LABEL: // white
-			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, true, false);
+			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
 			break;
 		case ELEMENTS::BUTTON: // white
-			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, true, false);
+			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
 			break;
 		case ELEMENTS::PANEL: // white
-			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, true, false);
+			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
 			break;
 
 		}

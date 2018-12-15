@@ -7,6 +7,19 @@
 void j1Label::FixedUpdate()
 {
 
+	// --- Controlling deactivated elements ---
+	if (parent == nullptr && active == false)
+		return;
+	else if (parent != nullptr && *parent->GetActive() == false)
+	{
+		active = false;
+		return;
+	}
+	else
+	{
+		active = true;
+	}
+
 	if (!this->GetBooleans()->dragging)
 	{
 		if (parent->GetType() != ELEMENTS::SLIDER || start == 0)

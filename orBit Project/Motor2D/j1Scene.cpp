@@ -225,7 +225,7 @@ bool j1Scene::PreUpdate()
 {
 	BROFILER_CATEGORY("Scene_Pre__Update", Profiler::Color::MediumSeaGreen);
 	
-	// if player loses al his lifes start from the begining of the first map.
+	// if player loses all his lifes start from the begining of the first map.
 	// should be the main menu
 	if (player->lifes <= 0)
 	{
@@ -236,8 +236,6 @@ bool j1Scene::PreUpdate()
 
 	}
 	
-
-
 	// debug pathfing ------------------
 	static iPoint origin;
 	static bool origin_selected = false;
@@ -492,8 +490,21 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		Activate_Ingamemenu = !Activate_Ingamemenu;
+
+
+	// --- Controlling menus ---
+
+	if (Activate_Ingamemenu)
+	{
+		*App->gui->UIelements.start->data->GetActive() = true;
+	}
+	else
+	{
+		*App->gui->UIelements.start->data->GetActive() = false;
+	}
+
 
 	// --- Controlling camera Bounds---
 

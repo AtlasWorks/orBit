@@ -67,6 +67,7 @@ public:
 	// --- UI ---
 	float Volume_changer = 0.5f;
 	int parentindex = 0;
+	bool Activate_Ingamemenu = false;
 
 	//---------------
 

@@ -70,12 +70,15 @@ public:
 
 	j1UI_Element* Getchild(int index) { return children.At(index)->data; }
 
+	bool* GetActive() { return &active; }
+
 public:
 	iPoint position;
 
 protected:
 	p2List <j1UI_Element*> children;
 	j1UI_Element* parent = nullptr;
+	bool active = true;
 };
 
 

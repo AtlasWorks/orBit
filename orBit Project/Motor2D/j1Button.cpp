@@ -6,6 +6,18 @@
 
 void j1Button::FixedUpdate()
 {
+	// --- Controlling deactivated elements ---
+	if (parent == nullptr && active == false)
+		return;
+	else if (parent != nullptr && *parent->GetActive() == false)
+	{
+		active = false;
+		return;
+	}
+
+	active = true;
+
+
 	if (this->parent != nullptr)
 	{
 		if (!this->GetBooleans()->dragging)
