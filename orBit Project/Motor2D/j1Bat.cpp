@@ -39,6 +39,8 @@ bool j1Bat::Start()
 	CurrentAnimation = BatInfo.flyRight;
 	BatInfo.flyLeft->speed = BatInfo.animationspeed;
 	BatInfo.flyRight->speed = BatInfo.animationspeed;
+ 	BatInfo.explote->speed = BatInfo.animationspeed;
+
 
 	gravity = BatInfo.gravity;
 
@@ -167,14 +169,24 @@ bool j1Bat::PostUpdate(float dt)
 			position.x = App->map->data.width*App->map->data.tile_width;
 		}
 
-		//Blitting bat
-
-		App->render->Blit(spritesheet, position.x - BatInfo.printingoffset.x, position.y - BatInfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
+		
 	}
 	}
 	else if (!active && entitycoll != nullptr)
 	{
 		entitycoll->SetPos(-50, -50);
+	}
+
+	//Blitting bat
+
+	if (active)
+	{
+		App->render->Blit(spritesheet, position.x - BatInfo.printingoffset.x, position.y - BatInfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
+	}
+
+	if (!active && !CurrentAnimation->Finished())
+	{
+		App->render->Blit(spritesheet, position.x - BatInfo.printingoffset.x*3, position.y - BatInfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
 	}
 	return ret;
 }
@@ -241,6 +253,10 @@ void j1Bat::OnCollision(Collider * c1, Collider * c2)
 		{
 			if (dead == false)
 			{
+
+				BatInfo.explote->Reset();
+				CurrentAnimation = BatInfo.explote;
+
 				//score here
 				App->scene->player->score += 350;
 
@@ -255,7 +271,7 @@ void j1Bat::OnCollision(Collider * c1, Collider * c2)
 				active = false;
 			}
 		}
-		if (c1->type == COLLIDER_TYPE::COLLIDER_PLAYER || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER &&lateralcollision && App->scene->player->dead == false)
+		else if (c1->type == COLLIDER_TYPE::COLLIDER_PLAYER || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER && lateralcollision && App->scene->player->dead == false && !dead)
 		{ 
 			// -- player death ---
 			

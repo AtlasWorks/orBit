@@ -739,8 +739,8 @@ bool j1Scene::Load(pugi::xml_node &config)
 	loadSaveDataEntity();
 
 	// --Timer reset ---
-	sceneTimer.Start();
-	//App->scene->sceneTimer.Loadstart(player->TimeAuxload);
+	//sceneTimer.Start();
+	App->scene->sceneTimer.Loadstart(player->TimeAuxload);
 
 	player->entitycoll->SetPos(player->position.x, player->position.y);
 
@@ -790,7 +790,7 @@ void j1Scene::setStandarEntityPosition(const char* map_name)
 		orb3->position.x = App->map->data.orb3.x;
 		orb3->position.y = App->map->data.orb3.y;
 		
-		player->entitystate = FALLING;
+	
 
 	}
 	else
@@ -821,7 +821,6 @@ void j1Scene::setStandarEntityPosition(const char* map_name)
 		orb3->position.x = App->map->data2.orb3.x;
 		orb3->position.y = App->map->data2.orb3.y;
 
-		player->entitystate = FALLING;
 	}
 
 	// set colliders
