@@ -27,7 +27,7 @@
   <Element> 2 - BUTTON BACK TO MAIN MENU
     <type id="1" />
     <parent id="-1"/>
-    <position x="0" y="0"/>
+    <position x="420" y="500"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="236" h="140" />
     <normal_rect x="696" y="1093" w="236" h="140"/>
@@ -82,7 +82,7 @@
   <Element> 7 - BUTTON SETTINGS TRIGGER IN GAME
     <type id="1" />
     <parent id="2"/>
-    <position x="394" y="475"/>
+    <position x="0" y="-200"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="236" h="140" />
     <normal_rect x="696" y="1093" w="236" h="140"/>
@@ -104,7 +104,7 @@
   <Element> 9 - PANEL SETTINGS IN GAME
     <type id="0" />
     <parent id="7"/>
-    <position x="50" y="0"/>
+    <position x="-100" y="-280"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="425" h="254" />
     <normal_rect x="500" y="34" w="425" h="254"/>
@@ -115,7 +115,7 @@
   <Element> 10 - BUTTON SCROLLBAR VOLUME
     <type id="1" />
     <parent id="9"/>
-    <position x="100" y="100"/> 
+    <position x="200" y="40"/> 
     <Texture path="gui/atlas.png"/>
     <logic_rect w="15" h="179" />
     <normal_rect x="979" y="78" w="15" h="179"/>
@@ -138,7 +138,7 @@
     <type id="2" />
     <parent id="10"/>
     <position x="0" y="0"/>
-    <place id="3"/>
+    <place id="2"/>
     <color r="255" g="0" b="0" a="255" />
     <textA value="VOLUME"/>
     <textB value=""/>
@@ -147,7 +147,7 @@
   <Element> 13 - BUTTON BACK TO IN GAME MENU TRIGGER
     <type id="1" />
     <parent id="9"/>
-    <position x="100" y="100"/>
+    <position x="35" y="180"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="44" h="44" />
     <normal_rect x="984" y="676" w="44" h="44"/>

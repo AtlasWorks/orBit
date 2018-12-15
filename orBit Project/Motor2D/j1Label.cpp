@@ -135,7 +135,7 @@ inline void j1Label::PlaceAtBottom()
 
 inline void j1Label::PlaceAtLeft()
 {
-	position.x = parent->position.x - Data.rects.rect_normal.w;
+	position.x = parent->position.x - Data.rects.rect_normal.w - 25;
 	position.y = parent->position.y + parent->Getrects()->current_rect.h / 2 - Data.rects.rect_normal.h / 2;
 }
 

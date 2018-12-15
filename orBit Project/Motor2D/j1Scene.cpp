@@ -492,10 +492,13 @@ bool j1Scene::PostUpdate(float dt)
 
 	// --- Controlling menus ---
 
+	// --- Quit Button ---
+	if (App->gui->focus == App->gui->UIelements.At(18)->data)
+		ret = false;
 
 	// --- Controlling Main Menu ---
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !Activate_MainMenu)
 		Activate_Ingamemenu = !Activate_Ingamemenu;
 
 	if (Activate_Ingamemenu)
@@ -509,7 +512,7 @@ bool j1Scene::PostUpdate(float dt)
 
 	// --- Controlling In-Game Menu ---
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && !Activate_Ingamemenu)
 		Activate_MainMenu = !Activate_MainMenu;
 
 	if (Activate_MainMenu)
@@ -984,6 +987,7 @@ void j1Scene::ONclick(j1UI_Element & element)
 		break;
 
 	case ELEMENTS::BUTTON:
+
 		element.Getrects()->current_rect = element.Getrects()->rect_click;
 		App->gui->focus = &element;
 		break;
