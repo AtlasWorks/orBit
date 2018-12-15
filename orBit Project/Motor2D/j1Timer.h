@@ -13,6 +13,9 @@ public:
 	void Start();
 	uint32 Read() const;
 	float ReadSec() const;
+	 // getters
+	uint32 startreturn();
+	void Loadstart(uint32 loaded);
 
 private:
 	uint32	started_at;

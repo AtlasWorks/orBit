@@ -119,6 +119,9 @@ public:
 	int orbs_number = 0;
 	int score = 0;
 	int totalscore = 0;
+
+	// auxiliar for timer
+	uint32 TimeAuxload;
 };
 
 #endif // __j1Player_H__

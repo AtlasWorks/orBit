@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -92,9 +93,17 @@ public:
 	mutable bool orb2Touched = false;
 	mutable bool orb3Touched = false;
 
-private:
+	// -- Timer --
+	j1Timer sceneTimer;
+	j1Timer timeWhenPaused;
+	j1Timer timeBeingPaused;
+	uint32 timeAccumulated;
+
+	private:
 	p2SString map_name=nullptr;
 	SDL_Rect debug_Tex_rect = { 96,0,16,16 };
+
+	
 };
 
 #endif // __j1SCENE_H__

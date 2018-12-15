@@ -219,13 +219,13 @@ void j1App::FinishUpdate()
 	// FPS / average FPS / MS of the last frame (Cap on/off + Vsync on/off)
 	if (cap_on && render->Vsync)
 	{
-		sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: True ",
-			frames_on_last_update, avg_fps, last_frame_ms);
+		sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: True / Timer:%f ",
+			frames_on_last_update, avg_fps, last_frame_ms, scene->sceneTimer.ReadSec());
 	}
 	else if (cap_on && !render->Vsync)
 	{
-		sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: False ",
-			frames_on_last_update, avg_fps, last_frame_ms);
+		sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: False / Timer:%f ",
+			frames_on_last_update, avg_fps, last_frame_ms, scene->sceneTimer.ReadSec());
 	}
 	else if (!cap_on && render->Vsync)
 	{

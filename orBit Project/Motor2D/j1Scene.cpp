@@ -205,6 +205,9 @@ bool j1Scene::Start()
 
 	App->map->ColliderDrawer(App->map->data);
 
+	// ---- Timer ----
+	sceneTimer.Start();
+
 	return ret;
 }
 
@@ -407,11 +410,13 @@ bool j1Scene::Update(float dt)
 
 
 		iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y, App->map->data);
-		p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
+		p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d Time:%d",
 			App->map->data.width, App->map->data.height,
 			App->map->data.tile_width, App->map->data.tile_height,
 			App->map->data.tilesets.count(),
-			map_coordinates.x, map_coordinates.y);
+			map_coordinates.x, map_coordinates.y,
+			sceneTimer.Read()
+		);
 		//Debug purpose
 		//App->win->SetTitle(title.GetString());
 	}
@@ -624,6 +629,10 @@ bool j1Scene::change_scene(const char* map_name) {
 
 	setStandarEntityPosition(map_name);
 
+
+	// --Timer reset ---
+	sceneTimer.Start();
+
 	return ret;
 }
 
@@ -695,6 +704,10 @@ bool j1Scene::Load(pugi::xml_node &config)
 	
 	loadSaveDataEntity();
 
+	// --Timer reset ---
+	sceneTimer.Start();
+	//App->scene->sceneTimer.Loadstart(player->TimeAuxload);
+
 	player->entitycoll->SetPos(player->position.x, player->position.y);
 
 	slime->entitycoll->SetPos(slime->position.x, slime->position.y);
@@ -706,6 +719,8 @@ bool j1Scene::Load(pugi::xml_node &config)
 	bat2->entitycoll->SetPos(bat2->position.x, bat2->position.y);
 
 	
+
+
 
 	return ret;
 }
@@ -852,5 +867,6 @@ void j1Scene::loadSaveDataEntity()
 	else
 		LOG("Could not parse game state xml file %s. pugi error: %s", tmp.GetString(), result.description());
 
+	//sceneTimer.Loadstart(player->TimeAuxload);
 }
 
