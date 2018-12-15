@@ -369,11 +369,22 @@ const char* j1App::GetOrganization() const
 // Load / Save
 bool j1App::LoadGame(const char* file)
 {
+	bool ret = true;
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
+	load_game.create("save_game.xml");
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	if (result == NULL)
+	{
+		ret = false;
+	}
 	want_to_load = true;
 	
-	return true;
+	return ret;
 }
 
 // ---------------------------------------
@@ -395,7 +406,7 @@ void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
 bool j1App::LoadGameNow()
 {
 	bool ret = false;
-
+	
 	load_game.create("save_game.xml");
 
 	pugi::xml_document data;
@@ -425,7 +436,11 @@ bool j1App::LoadGameNow()
 			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 	}
 	else
+	{
 		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
+		ret = false;
+	}
+		
 
 	want_to_load = false;
 	return ret;

@@ -40051,16 +40051,16 @@
   <object id="9" x="3152" y="240" width="16" height="64"/>
  </objectgroup>
  <objectgroup name="slime1">
-  <object id="45" x="991.333" y="144" width="16" height="16"/>
+  <object id="45" x="1529.33" y="94" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="slime2">
   <object id="46" x="1856" y="576" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="bat1">
-  <object id="25" x="2240" y="512" width="16" height="16"/>
+  <object id="25" x="2664" y="152" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="bat2">
-  <object id="26" x="832" y="432" width="16" height="16"/>
+  <object id="26" x="1760.33" y="327" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="checkpoint1">
   <object id="57" x="1488" y="576" width="16" height="16"/>
@@ -40072,12 +40072,12 @@
   <object id="59" x="2496" y="176" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="orb1">
-  <object id="65" x="625.333" y="134.333" width="16" height="16"/>
+  <object id="65" x="57.3333" y="262.333" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="orb2">
-  <object id="67" x="652.667" y="135.333" width="16" height="16"/>
+  <object id="67" x="2232.67" y="545.333" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="orb3">
-  <object id="68" x="682.333" y="135.667" width="16" height="16"/>
+  <object id="68" x="3062.33" y="573.667" width="16" height="16"/>
  </objectgroup>
 </map>

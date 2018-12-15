@@ -79,8 +79,9 @@ bool j1Bat::PostUpdate(float dt)
 {
 	bool ret = true;
 
-
-	if ((position.x)*App->win->GetScale() >= -App->render->camera.x && (position.x)*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w)
+	if (active && entitycoll!=nullptr)
+	{ 
+		if ((position.x)*App->win->GetScale() >= -App->render->camera.x && (position.x)*App->win->GetScale() <= -App->render->camera.x + App->render->camera.w)
 	{
 		//check for player nearby
 
@@ -101,22 +102,22 @@ bool j1Bat::PostUpdate(float dt)
 		//Debug Purpose (moving bat around)
 		/*if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 		{
-			position.x -= BatInfo.Velocity.x*2;
+			position.x -= BatInfo.Velocity.x/10;
 			going_right=true;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT)
 		{
-			position.x += BatInfo.Velocity.x*2;
+			position.x += BatInfo.Velocity.x/10;
 			going_right = false;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
 		{
-			position.y -= BatInfo.Velocity.y*2;
+			position.y -= BatInfo.Velocity.y/10;
 			going_up = true;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
 		{
-			position.y += BatInfo.Velocity.y*2;
+			position.y += BatInfo.Velocity.y/10;
 			going_down = true;
 		}*/
 
@@ -170,7 +171,11 @@ bool j1Bat::PostUpdate(float dt)
 
 		App->render->Blit(spritesheet, position.x - BatInfo.printingoffset.x, position.y - BatInfo.printingoffset.y, &CurrentAnimation->GetCurrentFrame(dt));
 	}
-	
+	}
+	else if (!active && entitycoll != nullptr)
+	{
+		entitycoll->SetPos(-50, -50);
+	}
 	return ret;
 }
 
@@ -178,49 +183,106 @@ void j1Bat::OnCollision(Collider * c1, Collider * c2)
 {
 	bool lateralcollision = true;
 
-	if (c1->rect.y + c1->rect.h == c2->rect.y || c1->rect.y == c2->rect.y+ c2->rect.h)
+	if (c1->rect.y + c1->rect.h == c2->rect.y || (c1->rect.y <= c2->rect.y+ c2->rect.h&& c1->rect.y+3 >= c2->rect.y + c2->rect.h))
 	{
 		lateralcollision = false;
 	}
 
-
-
-	if (c2->type == COLLIDER_TYPE::COLLIDER_FLOOR || c2->type == COLLIDER_TYPE::COLLIDER_PLATFORM || c2->type == COLLIDER_TYPE::COLLIDER_ROOF || c2->type == COLLIDER_TYPE::COLLIDER_SPIKES && dead == false && !lateralcollision)
+	if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 2)
 	{
-		if (/*going_up &&*/ c2->rect.y + c2->rect.h == c1->rect.y)
+		lateralcollision = false;
+
+
+	}
+
+	if (active)
+	{
+		if (c2->type == COLLIDER_TYPE::COLLIDER_FLOOR || c2->type == COLLIDER_TYPE::COLLIDER_PLATFORM || c2->type == COLLIDER_TYPE::COLLIDER_ROOF || c2->type == COLLIDER_TYPE::COLLIDER_SPIKES && dead == false && !lateralcollision)
 		{
-			c1->rect.y += BatInfo.colliding_offset;
-			going_up = false;
+			if (/*going_up &&*/ c2->rect.y + c2->rect.h == c1->rect.y)
+			{
+				c1->rect.y += BatInfo.colliding_offset;
+				going_up = false;
+			}
+			else if (/*going_down &&*/ c1->rect.y + c1->rect.h == c2->rect.y)
+			{
+
+				c1->rect.y -= BatInfo.colliding_offset;
+				going_down = false;
+			}
+
+			batcolliding = true;
 		}
-		else if (/*going_down &&*/ c1->rect.y + c1->rect.h == c2->rect.y)
+
+		if (lateralcollision)
 		{
+			if (going_right)
+			{
+				going_right = false;
+				c1->rect.x -= BatInfo.colliding_offset;
+			}
+			else
+			{
+				going_right = true;
+				c1->rect.x += BatInfo.colliding_offset;
+
+			}
+			batcolliding = true;
+		}
+	
+		position.x = c1->rect.x;
+		position.y = c1->rect.y;
+	}
+
+	if (active)
+	{
+
+		if (c2->type == COLLIDER_TYPE::COLLIDER_PLAYER && !lateralcollision)
+		{
+			if (dead == false)
+			{
+				//SCORE HERE
+				if (entitycoll != nullptr)
+				{
+					entitycoll->to_delete = true;
+
+				}
+
+				dead = true;
+				active = false;
+			}
+		}
+		if (c1->type == COLLIDER_TYPE::COLLIDER_PLAYER || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER &&lateralcollision && App->scene->player->dead == false)
+		{ 
+			// -- player death ---
 			
-			c1->rect.y -= BatInfo.colliding_offset;
-			going_down = false;
-		}
+			entitycoll->SetPos(-50, -50);
+			
 
-		batcolliding = true;
+			if (going_right)
+			{
+				entitystate = LEFT;
+				going_left = true;
+				going_right = false;
+				c2->rect.x = c2->rect.x + c1->rect.w * 2;
+			}
+			else
+			{
+				going_right = true;
+				entitystate = RIGHT;
+				going_left = false;
+   				c2->rect.x = c2->rect.x - c1->rect.w * 2;
+			}
+
+			
+			LOG("actual lifes. %i", App->scene->player->lifes);
+			App->scene->player->playerinfo.deathRight->Reset();
+			App->scene->player->CurrentAnimation = App->scene->player->playerinfo.deathRight;
+			App->scene->player->lifes -= 1;
+			LOG("now lifes. %i", App->scene->player->lifes);
+			App->scene->player->dead = true;
+		}
 	}
-
-	if (lateralcollision)
-	{
-		if (going_right)
-		{
-			going_right = false;
-			c1->rect.x -= BatInfo.colliding_offset;
-		}
-		else
-		{
-			going_right = true;
-			c1->rect.x += BatInfo.colliding_offset;
-
-		}
-		batcolliding = true;
-	}
-
-
-	position.x = c1->rect.x;
-	position.y = c1->rect.y;
 }
 
 bool j1Bat::ReestablishVariables()

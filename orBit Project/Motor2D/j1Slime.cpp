@@ -191,7 +191,7 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 	
 	if (active)
 	{
-	if (c2->type == COLLIDER_TYPE::COLLIDER_FLOOR || c2->type == COLLIDER_TYPE::COLLIDER_PLATFORM && dead == false && !lateralcollision)
+		if (c2->type == COLLIDER_TYPE::COLLIDER_FLOOR || c2->type == COLLIDER_TYPE::COLLIDER_PLATFORM && dead == false && !lateralcollision)
 	{
 		if (c1->rect.y + c1->rect.h > c2->rect.y && c1->rect.y + c1->rect.h < c2->rect.y + colliding_offset)
 		{
@@ -216,10 +216,11 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 		slimecolliding = true;
 
 	}
-}
+	}
+	
 	if (active)
 	{
-	if (lateralcollision)
+		if (lateralcollision)
 	{
 		if (going_right)
 		{
@@ -239,13 +240,10 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 
 		position.x = c1->rect.x;
 	}
-}
+	}
 	
 	if (active)
 	{
-
-
-
 
 		if (c2->type == COLLIDER_TYPE::COLLIDER_PLAYER && c2->rect.y + c2->rect.h <= c1->rect.y + 6)
 		{
@@ -263,8 +261,10 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 			}
 		}
 		else if (c1->type == COLLIDER_TYPE::COLLIDER_PLAYER || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER && lateralcollision && App->scene->player->dead==false)
-		{ // -- player death ---
- 			if (going_right)
+		{
+			// -- player death ---
+ 			
+			if (going_right)
 			{
 				entitystate = LEFT;
 				going_left = true;
