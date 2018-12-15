@@ -208,8 +208,11 @@ void j1Player::Handle_Ground_Animations()
     //--------------    ---------------
 
 	//testing life system
+
 		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
 		{
+			playerinfo.deathRight->Reset();
+			playerinfo.deathLeft->Reset();
 			CurrentAnimation = playerinfo.deathRight;
 			lifes -= 1;
 			dead = true;
@@ -498,6 +501,22 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 			break;
 		case COLLIDER_TYPE::COLLIDER_ROOF:
 			entitycollider->rect.y -= Intersection.h;
+			break;
+		case COLLIDER_TYPE::COLLIDER_SPIKES:
+			entitycollider->rect.y -= Intersection.h;
+		
+			if (!dead)
+			{
+				LOG("actual lifes. %i", lifes);
+				playerinfo.deathRight->Reset();
+				CurrentAnimation = playerinfo.deathRight;
+				Velocity.y += playerinfo.jump_force;
+				CurrentAnimation = playerinfo.deathRight;
+				lifes -= 1;
+				LOG("now lifes. %i", App->scene->player->lifes);
+				dead = true;
+				score -= 100;
+			}
 			break;
 	}
 
