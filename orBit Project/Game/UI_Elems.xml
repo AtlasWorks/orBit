@@ -1,49 +1,212 @@
 <!--UI Elements -->
 
-<config> 
+<config>
 
-  <Element> 0 - PANEL
+  <Element>  0 - PANEL OrBit Title
     <type id="0" />
     <parent id="-1"/>
-    <position x="50" y="100"/>
-    <Texture path="gui/atlas.png"/>
-    <logic_rect w="420" h="454" />
-    <normal_rect x="32" y="540" w="420" h="454"/>
-    <hover_rect x="32" y="540"  w="420" h="454"/>
-    <click_rectx x="32" y="540"  w="420" h="454"/>
+    <position x="312" y="25"/>
+    <Texture path="gui/logo.png"/>
+    <logic_rect w="401" h="171" />
+    <normal_rect x="0" y="0" w="401" h="171"/>
+    <hover_rect x="0" y="0"  w="401" h="171"/>
+    <click_rect x="0" y="0"  w="401" h="171"/>
   </Element>
-  
-  <Element> 1 - BUTTON
+
+  <Element> 1 - BUTTON CONTINUE
+    <type id="1" />
+    <parent id="-1"/>
+    <position x="750" y="300"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="236" h="140" />
+    <normal_rect x="696" y="1093" w="236" h="140"/>
+    <hover_rect x="663" y="1232" w="236" h="140"/>
+    <click_rect x="696" y="1093" w="236" h="140"/>
+  </Element>
+
+  <Element> 2 - BUTTON BACK TO MAIN MENU
+    <type id="1" />
+    <parent id="-1"/>
+    <position x="0" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="236" h="140" />
+    <normal_rect x="696" y="1093" w="236" h="140"/>
+    <hover_rect x="663" y="1232" w="236" h="140"/>
+    <click_rect x="696" y="1093" w="236" h="140"/>
+  </Element>
+
+  <Element> 3 - BUTTON QUIT
     <type id="1" />
     <parent id="0"/>
+    <position x="-250" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="69" h="69" />
+    <normal_rect x="283" y="781" w="69" h="69"/>
+    <hover_rect  x="283" y="859" w="69" h="69"/>
+    <click_rect  x="283" y="859" w="69" h="69"/>
+  </Element>
+
+  <Element> 4 - BUTTON START
+    <type id="1" />
+    <parent id="0"/>
+    <position x="439" y="450"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="236" h="140" />
+    <normal_rect x="696" y="1093" w="236" h="140"/>
+    <hover_rect x="663" y="1232" w="236" h="140"/>
+    <click_rect x="696" y="1093" w="236" h="140"/>
+  </Element>
+
+  <Element> 5 - BUTTON CREDITS TRIGGER
+    <type id="1" />
+    <parent id="0"/>
+    <position x="50" y="520"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="330" h="226" />
+    <normal_rect x="985" y="750" w="330" h="226"/>
+    <hover_rect x="985" y="1312" w="330" h="226"/>
+    <click_rect  x="985" y="1031" w="330" h="226"/>
+  </Element>
+
+  <Element> 6 - BUTTON SETTINGS TRIGGER MAIN MENU
+    <type id="1" />
+    <parent id="0"/>
+    <position x="-300" y="520"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="330" h="226" />
+    <normal_rect x="985" y="750" w="330" h="226"/>
+    <hover_rect x="985" y="1312" w="330" h="226"/>
+    <click_rect  x="985" y="1031" w="330" h="226"/>
+  </Element>
+
+  <Element> 7 - BUTTON SETTINGS TRIGGER IN GAME
+    <type id="1" />
+    <parent id="2"/>
+    <position x="394" y="475"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="236" h="140" />
+    <normal_rect x="696" y="1093" w="236" h="140"/>
+    <hover_rect x="663" y="1232" w="236" h="140"/>
+    <click_rect x="696" y="1093" w="236" h="140"/>
+  </Element>
+
+  <Element> 8 - PANEL SETTINGS
+    <type id="0" />
+    <parent id="6"/>
+    <position x="287" y="-400"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="425" h="451" />
+    <normal_rect x="500" y="299" w="425" h="451"/>
+    <hover_rect x="500" y="299"  w="425" h="451"/>
+    <click_rect x="50" y="299"  w="425" h="451"/>
+  </Element>
+
+  <Element> 9 - PANEL SETTINGS IN GAME
+    <type id="0" />
+    <parent id="7"/>
+    <position x="50" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="425" h="254" />
+    <normal_rect x="500" y="34" w="425" h="254"/>
+    <hover_rect x="500" y="34" w="425" h="254"/>
+    <click_rect x="50" y="34"  w="425" h="254"/>
+  </Element>
+  
+  <Element> 10 - BUTTON SCROLLBAR VOLUME
+    <type id="1" />
+    <parent id="9"/>
     <position x="100" y="100"/> 
     <Texture path="gui/atlas.png"/>
-    <logic_rect w="5" h="152" />
-    <normal_rect x="976" y="789" w="5" h="152"/>
-    <hover_rect x="976" y="789" w="5" h="152"/>
-    <click_rect x="976" y="789" w="5" h="152"/>
+    <logic_rect w="15" h="179" />
+    <normal_rect x="979" y="78" w="15" h="179"/>
+    <hover_rect  x="979" y="78" w="15" h="179"/>
+    <click_rect  x="979" y="78" w="15" h="179"/>
   </Element>
 
-  <Element> 2 - SLIDER
+  <Element> 11 - SLIDER VOLUME
     <type id="4" />
-    <parent id="1"/>
+    <parent id="10"/>
     <position x="-5" y="0"/>
     <Texture path="gui/atlas.png"/>
-    <logic_rect w="15" h="10" />
-    <normal_rect x="1004" y="439" w="15" h="10"/>
-    <hover_rect  x="1004" y="439" w="15" h="10"/>
-    <click_rect  x="1004" y="439" w="15" h="10"/>
+    <logic_rect w="23" h="15" />
+    <normal_rect x="1030" y="78" w="23" h="15"/>
+    <hover_rect  x="1030" y="78" w="23" h="15"/>
+    <click_rect  x="945" y="78" w="23" h="16"/>
   </Element>
 
-  <Element> 3 - LABEL
+  <Element> 12 - LABEL VOLUME
     <type id="2" />
-    <parent id="2"/>
+    <parent id="10"/>
     <position x="0" y="0"/>
     <place id="3"/>
     <color r="255" g="0" b="0" a="255" />
-    <textA value="Welcome back to the city of no one ric ric ric ric ric ric ric ric ric ric heeee eeeeeeeeeeee eeeeeeeeeee eeeeeeeeeee eeeeeeeeeeeee eeeeeeeeeeeeee eeeeeeeeee eeeeey eeee  eeeee  eeeeee  eeeeeee  eeeeeee eeeeee  eeeeeee   eeeeeee   eeeeeeee   eeeeee  eeeeeee  eeeeee   eeeeee  eeeeee eeeeeee"/>
-    <textB value="SUCCESSFUL TRY"/>
+    <textA value="VOLUME"/>
+    <textB value=""/>
   </Element>
 
+  <Element> 13 - BUTTON BACK TO IN GAME MENU TRIGGER
+    <type id="1" />
+    <parent id="9"/>
+    <position x="100" y="100"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="44" h="44" />
+    <normal_rect x="984" y="676" w="44" h="44"/>
+    <hover_rect x="984" y="676" w="44" h="44"/>
+    <click_rect x="984" y="676" w="44" h="44"/>
+  </Element>
+
+  <Element> 14- BUTTON SCROLLBAR CREDITS
+    <type id="1" />
+    <parent id="8"/>
+    <position x="100" y="100"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="18" h="317" />
+    <normal_rect x="982" y="307" w="18" h="317"/>
+    <hover_rect x="982" y="307" w="18" h="317"/>
+    <click_rect x="982" y="307" w="18" h="317"/>
+  </Element>
+
+  <Element> 15 - SLIDER CREDITS
+    <type id="4" />
+    <parent id="14"/>
+    <position x="-5" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="29" h="18" />
+    <normal_rect x="1040" y="307" w="29" h="18"/>
+    <hover_rect  x="1040" y="307" w="29" h="18"/>
+    <click_rect  x="942" y="307" w="29" h="19"/>
+  </Element>
+
+  <Element> 16 - LABEL LICENSE
+    <type id="2" />
+    <parent id="14"/>
+    <position x="0" y="0"/>
+    <place id="0"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="LICENSE"/>
+    <textB value="LICENSE"/>
+  </Element>
+
+  <Element> 17 - BUTTON BACK TO MAIN MENU TRIGGER
+    <type id="1" />
+    <parent id="8"/>
+    <position x="30" y="375"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="44" h="44" />
+    <normal_rect x="984" y="676" w="44" h="44"/>
+    <hover_rect x="984" y="676" w="44" h="44"/>
+    <click_rect x="984" y="676" w="44" h="44"/>
+  </Element>
+
+  <Element> 18 - QUIT BUTTON X
+    <type id="0" />
+    <parent id="3"/>
+    <position x="15" y="15"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="40" h="40" />
+    <normal_rect x="528" y="906" w="40" h="40"/>
+    <hover_rect x="528" y="906" w="40" h="40"/>
+    <click_rect x="528" y="906" w="40" h="40"/>
+  </Element>
 
 </config>

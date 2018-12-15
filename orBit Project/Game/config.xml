@@ -20,6 +20,7 @@
 
   <gui>
     <atlas file="gui/atlas.png"/>
+    <logo file="gui/logo.png"/>
   </gui>
 
   <file_system>

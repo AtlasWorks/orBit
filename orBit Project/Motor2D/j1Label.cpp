@@ -83,11 +83,17 @@ void j1Label::FixedUpdate()
 	}
 
 
-	App->render->SetViewPort(blittext);
+	if (parent->GetType() == ELEMENTS::SLIDER)
+	{
+		App->render->SetViewPort(blittext);
 
-	App->render->Blit(Data.tex, blittext.x - position.x, blittext.y - position.y, NULL, false);
+		App->render->Blit(Data.tex, blittext.x - position.x, blittext.y - position.y, NULL, false);
 
-	App->render->ResetViewPort();
+		App->render->ResetViewPort();
+	}
+
+	else
+	App->render->Blit(Data.tex,position.x, position.y, NULL, false);
 }
 
 ELEMENTS j1Label::GetType()
@@ -118,7 +124,7 @@ SDL_Texture * j1Label::GetTexture()
 inline void j1Label::PlaceAtTop()
 {
 	position.x = parent->Getrects()->logic_rect.x + parent->Getrects()->current_rect.w / 2 - Data.rects.rect_normal.w / 2;
-	position.y = parent->position.y - Data.rects.rect_normal.h;
+	position.y = parent->position.y - Data.rects.rect_normal.h - 10;
 }
 
 inline void j1Label::PlaceAtBottom()

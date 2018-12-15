@@ -37,7 +37,7 @@ void j1Button::FixedUpdate()
 
 	if (this == App->gui->focus)
 	{
-		App->gui->Colorize(*Data.tex, 255, 0, 255, 150);
+		App->gui->Colorize(*Data.tex, 255, 120, 120, 25);
 	}
 
 	App->render->Blit(Data.tex, this->position.x, this->position.y, &Data.rects.current_rect, false);

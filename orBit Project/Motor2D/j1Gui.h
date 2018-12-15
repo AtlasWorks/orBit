@@ -71,7 +71,10 @@ private:
 	int focus_index = 0;
 
 	SDL_Texture* atlas = nullptr;
+	SDL_Texture* logo = nullptr;
+
 	p2SString atlas_file_name;
+	p2SString logo_file_name;
 
 	iPoint mouse_pos = { 0,0 };
 	iPoint click_pos = { 0,0 };

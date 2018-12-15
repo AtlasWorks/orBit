@@ -490,19 +490,37 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
+	// --- Controlling menus ---
+
+
+	// --- Controlling Main Menu ---
+
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		Activate_Ingamemenu = !Activate_Ingamemenu;
 
-
-	// --- Controlling menus ---
-
 	if (Activate_Ingamemenu)
 	{
+		*App->gui->UIelements.At(2)->data->GetActive() = true;
+	}
+	else
+	{
+		*App->gui->UIelements.At(2)->data->GetActive() = false;
+	}
+
+	// --- Controlling In-Game Menu ---
+
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		Activate_MainMenu = !Activate_MainMenu;
+
+	if (Activate_MainMenu)
+	{
 		*App->gui->UIelements.start->data->GetActive() = true;
+		*App->gui->UIelements.At(1)->data->GetActive() = true;
 	}
 	else
 	{
 		*App->gui->UIelements.start->data->GetActive() = false;
+		*App->gui->UIelements.At(1)->data->GetActive() = false;
 	}
 
 
@@ -1100,7 +1118,7 @@ void j1Scene::ONFocus()
 	if (App->gui->focus_index < App->gui->UIelements.count())
 	{
 		App->gui->focus = App->gui->UIelements.At(App->gui->focus_index)->data;
-		App->gui->Colorize(*App->gui->focus->GetTexture(), 255, 120, 120, 120);
+		App->gui->Colorize(*App->gui->focus->GetTexture(), 255, 120, 120, 25);
 		if (App->gui->focus_index != 0)
 			App->gui->DeColorize(*App->gui->UIelements.At(App->gui->focus_index)->prev->data->GetTexture());
 		App->gui->focus_index++;
