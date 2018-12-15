@@ -10,6 +10,8 @@ class j1Player;
 class j1Slime;
 class j1Bat;
 class j1Orb;
+class j1Button;
+class j1UI_Element;
 
 class j1Scene : public j1Module
 {
@@ -50,7 +52,23 @@ public:
 
 	void loadSaveDataEntity();
 
+	// --- UI ---
+
+	void ONhover(j1UI_Element & element);
+	void OFFhover(j1UI_Element & element);
+	void ONclick(j1UI_Element & element);
+	void OFFclick(j1UI_Element & element);
+	void ONdrag(j1UI_Element & element);
+
+	void ONFocus();
+
 public:
+
+	// --- UI ---
+	float Volume_changer = 0.5f;
+	int parentindex = 0;
+
+	//---------------
 
 	p2List<p2SString*> StageList;
 	p2SString FirstStage;

@@ -61,6 +61,21 @@
     <ClCompile Include="j1Orb.cpp">
       <Filter>Development ======\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Development ======\Modules\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Development ======\Modules\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Button.cpp">
+      <Filter>Development ======\Modules\GUI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Label.cpp">
+      <Filter>Development ======\Modules\GUI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1UI_Element.cpp">
+      <Filter>Development ======\Modules\GUI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Log.h">
@@ -150,6 +165,21 @@
     <ClInclude Include="j1Orb.h">
       <Filter>Development ======\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Development ======\Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Development ======\Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Button.h">
+      <Filter>Development ======\Modules\GUI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Label.h">
+      <Filter>Development ======\Modules\GUI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1UI_Element.h">
+      <Filter>Development ======\Modules\GUI\Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Toolkit ======">
@@ -184,6 +214,12 @@
     </Filter>
     <Filter Include="Development ======\Core">
       <UniqueIdentifier>{945301ed-28bf-4997-8376-26f4bccf0d1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development ======\Modules\GUI">
+      <UniqueIdentifier>{9d1b09f9-322f-474b-8bfe-7c95361838b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Development ======\Modules\GUI\Elements">
+      <UniqueIdentifier>{c401341c-32c4-4dc2-98df-5b5a18a150ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

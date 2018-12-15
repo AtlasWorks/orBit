@@ -15,6 +15,8 @@
 #include "j1Collision.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "j1Fonts.h"
+#include "j1Gui.h"
 
 #include "Brofiler/Brofiler.h"
 
@@ -33,7 +35,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	coll = new j1Collision();
 	entities = new j1EntityManager();
 	pathfinding = new j1PathFinding();
-	
+	font = new j1Fonts();
+	gui = new j1Gui();
+
 
 
 	// Ordered for awake / Start / Update
@@ -46,8 +50,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(coll);
 	AddModule(map);
 	AddModule(pathfinding);
-	AddModule(scene);
+	AddModule(font);
+	AddModule(gui);
 
+	// scene last
+	AddModule(scene);
 
 
 	// render last to swap buffer
@@ -64,7 +71,7 @@ j1App::~j1App()
 
 	while(item != NULL)
 	{
-		RELEASE(item->data); //probelm here
+		RELEASE(item->data);
 		item = item->prev;
 	}
 
@@ -88,7 +95,7 @@ bool j1App::Awake()
 
 	bool ret = false;
 		
-	config = LoadConfig(config_file);
+	config = LoadConfig(config_file, "config.xml");
 
 	if(config.empty() == false)
 	{
@@ -169,12 +176,13 @@ bool j1App::Update()
 }
 
 // ---------------------------------------------
-pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
+pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file, const char* path) const
 {
 	pugi::xml_node ret;
-	pugi::xml_parse_result result = config_file.load_file("config.xml");
 
-	if(result == NULL)
+	pugi::xml_parse_result result = config_file.load_file(path);
+
+	if (result == NULL)
 		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
 	else
 		ret = config_file.child("config");

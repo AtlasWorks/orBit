@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1Gui.h"
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1Player.h"
@@ -16,13 +17,14 @@
 #include "j1Bat.h"
 #include "Brofiler\Brofiler.h"
 #include "j1Orb.h"
+#include "j1Button.h"
+#include "j1Fonts.h"
+
 
 
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
-
-
 }
 
 // Destructor
@@ -204,6 +206,13 @@ bool j1Scene::Start()
 
 
 	App->map->ColliderDrawer(App->map->data);
+
+	// --- Loading UI config file ---
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+
+	config = App->LoadConfig(config_file, "UI_Elems.xml");
+	App->gui->DeployUI(config);
 
 	// ---- Timer ----
 	sceneTimer.Start();
@@ -493,8 +502,6 @@ bool j1Scene::PostUpdate(float dt)
 	// --- Keeping camera on axis X bounds ---
 	
 
-	
-
 	if (player->Future_position.x*App->win->GetScale() + player->entitycoll->rect.w >= -App->render->camera.x + App->render->camera.w - App->render->camera.w / 3)
 	{
 		App->render->camera.x = -(player->Future_position.x* App->win->GetScale() + player->entitycoll->rect.w - App->render->camera.w + App->render->camera.w / 3);
@@ -571,8 +578,6 @@ bool j1Scene::CleanUp()
 bool j1Scene::change_scene(const char* map_name) {
 	
 	bool ret = true;
-
-
 
 	App->map->paralaxRef[0] = App->map->offset;
 	App->map->paralaxRef[1] = App->map->offset;
@@ -869,4 +874,231 @@ void j1Scene::loadSaveDataEntity()
 
 	//sceneTimer.Loadstart(player->TimeAuxload);
 }
+
+void j1Scene::ONhover(j1UI_Element & element)
+{
+	ELEMENTS TYPE = element.GetType();
+
+	switch (TYPE)
+	{
+	case ELEMENTS::PANEL:
+
+		break;
+
+	case ELEMENTS::BUTTON:
+		element.Getrects()->current_rect = element.Getrects()->rect_hover;
+		break;
+
+	case ELEMENTS::LABEL:
+		switch (element.Getparent()->GetType())
+		{
+		case ELEMENTS::BUTTON:
+
+			break;
+
+		case ELEMENTS::INPUT:
+
+			break;
+
+		}
+		//element.ShapeLabel(element.GetTexts()->text2);
+		break;
+
+	case ELEMENTS::INPUT:
+
+		break;
+	}
+}
+
+void j1Scene::OFFhover(j1UI_Element & element)
+{
+	ELEMENTS TYPE = element.GetType();
+
+	switch (TYPE)
+	{
+	case ELEMENTS::PANEL:
+
+		break;
+
+	case ELEMENTS::BUTTON:
+		element.Getrects()->current_rect = element.Getrects()->rect_normal;
+		break;
+
+	case ELEMENTS::LABEL:
+		switch (element.Getparent()->GetType())
+		{
+		case ELEMENTS::BUTTON:
+
+			break;
+
+		case ELEMENTS::INPUT:
+
+			break;
+
+		}
+		//element.ShapeLabel(element.GetTexts()->text);
+		break;
+
+	case ELEMENTS::INPUT:
+
+		break;
+	}
+}
+
+void j1Scene::ONclick(j1UI_Element & element)
+{
+	ELEMENTS TYPE = element.GetType();
+
+	switch (TYPE)
+	{
+	case ELEMENTS::PANEL:
+		App->gui->focus = &element;
+		break;
+
+	case ELEMENTS::BUTTON:
+		element.Getrects()->current_rect = element.Getrects()->rect_click;
+		App->gui->focus = &element;
+		break;
+
+	case ELEMENTS::LABEL:
+		switch (element.Getparent()->GetType())
+		{
+		case ELEMENTS::BUTTON:
+			App->gui->focus = &element;
+			break;
+
+		case ELEMENTS::INPUT:
+			App->gui->focus = element.Getparent();
+			break;
+
+		}
+		break;
+
+	case ELEMENTS::INPUT:
+		//App->gui->focus = &element;
+		break;
+	}
+}
+
+void j1Scene::OFFclick(j1UI_Element & element)
+{
+	ELEMENTS TYPE = element.GetType();
+
+	switch (TYPE)
+	{
+	case ELEMENTS::PANEL:
+
+		break;
+
+	case ELEMENTS::BUTTON:
+		element.Getrects()->current_rect = element.Getrects()->rect_normal;
+		break;
+
+	case ELEMENTS::LABEL:
+		switch (element.Getparent()->GetType())
+		{
+		case ELEMENTS::BUTTON:
+
+			break;
+
+		case ELEMENTS::INPUT:
+
+			break;
+
+		}
+		break;
+
+	case ELEMENTS::INPUT:
+
+		break;
+	}
+}
+
+void j1Scene::ONdrag(j1UI_Element & element)
+{
+	ELEMENTS TYPE = element.GetType();
+
+	switch (TYPE)
+	{
+	case ELEMENTS::PANEL:
+		// Uncomment to enable panel dragging
+		/*element.position.x = App->gui->mouse_pos.x - App->gui->drag_Ref.x;
+		element.position.y = App->gui->mouse_pos.y - App->gui->drag_Ref.y;*/
+		break;
+
+	case ELEMENTS::BUTTON:
+		// Uncomment to enable button dragging
+		/*element.position.x = App->gui->mouse_pos.x - App->gui->drag_Ref.x;
+		element.position.y = App->gui->mouse_pos.y - App->gui->drag_Ref.y;*/
+		break;
+
+	case ELEMENTS::SLIDER:
+
+		parentindex = element.Getchildrencount();
+
+		element.position.y = App->gui->mouse_pos.y - App->gui->drag_Ref.y;
+
+		if (element.position.y > element.Getparent()->position.y + element.Getparent()->Getrects()->current_rect.h - element.Getrects()->current_rect.h / 2)
+		{
+			element.position.y = element.Getparent()->position.y + element.Getparent()->Getrects()->current_rect.h - element.Getrects()->current_rect.h / 2;
+		}
+
+		else if (element.position.y < element.Getparent()->position.y - element.Getrects()->current_rect.h / 2)
+		{
+			element.position.y = element.Getparent()->position.y - element.Getrects()->current_rect.h / 2;
+		}
+
+		if (parentindex == 0)
+		{
+			Volume_changer = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
+			if (Volume_changer > 1)
+				Volume_changer = 1;
+			else if (Volume_changer < 0.1)
+				Volume_changer = 0;
+			LOG("Volume_changer: %f", Volume_changer);
+		}
+		else if (parentindex == 1)
+		{
+			element.Getchild(0)->position.y = element.Getparent()->Getrects()->logic_rect.y + (element.Getrects()->logic_rect.y + element.Getrects()->logic_rect.h / 2 - element.Getparent()->Getrects()->logic_rect.y);
+		}
+		break;
+
+	case ELEMENTS::LABEL:
+
+		switch (element.Getparent()->GetType())
+		{
+		case ELEMENTS::BUTTON:
+
+			break;
+
+		case ELEMENTS::INPUT:
+
+			break;
+
+		}
+		break;
+
+	case ELEMENTS::INPUT:
+
+		break;
+	}
+}
+
+void j1Scene::ONFocus()
+{
+	if (App->gui->focus_index < App->gui->UIelements.count())
+	{
+		App->gui->focus = App->gui->UIelements.At(App->gui->focus_index)->data;
+		App->gui->Colorize(*App->gui->focus->GetTexture(), 255, 120, 120, 120);
+		if (App->gui->focus_index != 0)
+			App->gui->DeColorize(*App->gui->UIelements.At(App->gui->focus_index)->prev->data->GetTexture());
+		App->gui->focus_index++;
+	}
+	else
+	{
+		App->gui->DeColorize(*App->gui->UIelements.At(App->gui->focus_index - 1)->data->GetTexture());
+		App->gui->focus_index = 0;
+	}
+}
+
 

@@ -18,6 +18,10 @@
     <fullscreen_window value="false"/>
   </window>
 
+  <gui>
+    <atlas file="gui/atlas.png"/>
+  </gui>
+
   <file_system>
     <path>data.zip</path>
   </file_system>

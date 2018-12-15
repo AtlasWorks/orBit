@@ -1,0 +1,49 @@
+<!--UI Elements -->
+
+<config> 
+
+  <Element> 0 - PANEL
+    <type id="0" />
+    <parent id="-1"/>
+    <position x="50" y="100"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="420" h="454" />
+    <normal_rect x="32" y="540" w="420" h="454"/>
+    <hover_rect x="32" y="540"  w="420" h="454"/>
+    <click_rectx x="32" y="540"  w="420" h="454"/>
+  </Element>
+  
+  <Element> 1 - BUTTON
+    <type id="1" />
+    <parent id="0"/>
+    <position x="100" y="100"/> 
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="5" h="152" />
+    <normal_rect x="976" y="789" w="5" h="152"/>
+    <hover_rect x="976" y="789" w="5" h="152"/>
+    <click_rect x="976" y="789" w="5" h="152"/>
+  </Element>
+
+  <Element> 2 - SLIDER
+    <type id="4" />
+    <parent id="1"/>
+    <position x="-5" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="15" h="10" />
+    <normal_rect x="1004" y="439" w="15" h="10"/>
+    <hover_rect  x="1004" y="439" w="15" h="10"/>
+    <click_rect  x="1004" y="439" w="15" h="10"/>
+  </Element>
+
+  <Element> 3 - LABEL
+    <type id="2" />
+    <parent id="2"/>
+    <position x="0" y="0"/>
+    <place id="3"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="Welcome back to the city of no one ric ric ric ric ric ric ric ric ric ric heeee eeeeeeeeeeee eeeeeeeeeee eeeeeeeeeee eeeeeeeeeeeee eeeeeeeeeeeeee eeeeeeeeee eeeeey eeee  eeeee  eeeeee  eeeeeee  eeeeeee eeeeee  eeeeeee   eeeeeee   eeeeeeee   eeeeee  eeeeeee  eeeeee   eeeeee  eeeeee eeeeeee"/>
+    <textB value="SUCCESSFUL TRY"/>
+  </Element>
+
+
+</config>

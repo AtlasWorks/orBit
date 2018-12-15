@@ -19,6 +19,8 @@ class j1Map;
 class j1Collision;
 class j1PathFinding;
 class j1EntityManager;
+class j1Fonts;
+class j1Gui;
 
 
 class j1App
@@ -58,10 +60,10 @@ public:
 	void SaveGame(const char* file) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
-private:
-
 	// Load config file
-	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+	pugi::xml_node LoadConfig(pugi::xml_document&, const char * path) const;
+
+private:
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -95,6 +97,8 @@ public:
 	j1Collision*        coll = nullptr;
 	j1PathFinding*		pathfinding = nullptr;
 	j1EntityManager*    entities = nullptr;
+	j1Fonts*			font = NULL;
+	j1Gui*				gui = NULL;
 
 
 	uint32              framerate_cap;

@@ -9,11 +9,11 @@
 	</audio>
 	<entities>
 		<Player>
-			<Playerx value="544" />
-			<Playery value="190" />
+			<Playerx value="1494" />
+			<Playery value="574" />
 			<orbs_number value="0" />
 			<score value="0" />
-			<time value="4294966161" />
+			<time value="83824" />
 		</Player>
 		<Entity2>
 			<Batx value="2664" />
@@ -21,18 +21,18 @@
 			<active value="true" />
 		</Entity2>
 		<Entity3>
-			<Batx value="1760" />
-			<Baty value="327" />
+			<Batx value="1465.95313" />
+			<Baty value="550.353088" />
 			<active value="true" />
 		</Entity3>
 		<Entity4>
-			<Slimex value="1529" />
-			<Slimey value="94" />
+			<Slimex value="1802.4541" />
+			<Slimey value="589.398621" />
 			<active value="true" />
 		</Entity4>
 		<Entity5>
-			<Slimex value="1856" />
-			<Slimey value="576" />
+			<Slimex value="1773.80066" />
+			<Slimey value="589.094055" />
 			<active value="true" />
 		</Entity5>
 		<Orb1>
@@ -51,11 +51,13 @@
 	<collision />
 	<map />
 	<pathfinding />
+	<fonts />
+	<gui />
 	<scene>
 		<firstStage value="true" />
 		<secondStage value="false" />
 	</scene>
 	<renderer>
-		<camera x="-586" y="0" />
+		<camera x="-2621" y="-512" />
 	</renderer>
 </game_state>

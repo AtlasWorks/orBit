@@ -316,9 +316,8 @@ bool j1Player::Update(float dt)
 		else if (on_air && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && double_jump==false)
 		{
 			double_jump = true;
-			playerinfo.jump_force = playerinfo.jump_force / 5;
+			Velocity.y = 0.0f;
 			Apply_Vertical_Impulse(dt);
-			playerinfo.jump_force = playerinfo.jump_force * 5;
 		}
 
 		// --- UP ---
