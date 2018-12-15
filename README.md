@@ -14,7 +14,7 @@ The game has usual platformer mechanics, like jumping over platforms and enemies
 
 ### Code Features
 Some special features included in the code are:
-
+```markdown
 - Checkpoint Areas: creating checkpoints to save progress.
 
 - Animations Loaded from Tiled: loaded animations from xml document save from Tiled.
@@ -28,7 +28,7 @@ Some special features included in the code are:
 - UI from xml: Elements from the Ui are created from a xml.
 
 - Entity managment: avoid destroying and creating entities by active or inactive system.
-
+```
 ### Project Github
 	
 [Click Here](https://github.com/AtlasWorks/orBit) 
@@ -44,6 +44,8 @@ Download [Here](https://github.com/AtlasWorks/orBit/releases)
 
 ### Controls
 
+
+```markdown
  Player movement:
 
 - A: move to the left
@@ -55,8 +57,9 @@ Download [Here](https://github.com/AtlasWorks/orBit/releases)
 - S: while in GodMode going down
 
 - SPACE: jump
-
+```
 ## Game Video
+```markdown
 <html>
 <body>
 
@@ -66,7 +69,7 @@ src="https://www.youtube.com" frameborder="0" allowfullscreen>
 
 </body>
 </html>
-
+```
 ### Disclosure
 
 We do not own any of the sprites, tilesets, music or sfx presented in this game. Authors credited below
