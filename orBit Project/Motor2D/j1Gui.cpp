@@ -8,6 +8,7 @@
 #include "j1Gui.h"
 #include "j1Scene.h"
 #include "j1Window.h"
+#include "Brofiler\Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -45,6 +46,8 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	BROFILER_CATEGORY("GUI_Pre_Update", Profiler::Color::Gold);
+
 	App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
 
 	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
@@ -127,6 +130,8 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("GUI_Post_Update", Profiler::Color::FloralWhite);
+
 	p2List_item <j1UI_Element*> * item = UIelements.start;
 
 	while (item)
@@ -175,6 +180,8 @@ SDL_Texture * j1Gui::CreateImage(const char * path)
 
 void j1Gui::DeployUI(pugi::xml_node &UIconfig)
 {
+	BROFILER_CATEGORY("GUI_Deploy_UI", Profiler::Color::GhostWhite);
+
 	UIconfig = UIconfig.child("Element");
 	uint elem_type;
 
@@ -210,7 +217,7 @@ void j1Gui::DeployUI(pugi::xml_node &UIconfig)
 		UIconfig = UIconfig.next_sibling();
 	}
 
-	LOG("first children: %u", first_children);
+	//LOG("first children: %u", first_children);
 }
 
 ButtonInfo j1Gui::FillButton(pugi::xml_node & UIconfig)
@@ -500,7 +507,7 @@ void j1Gui::DebugDraw()
 	if (debug == false)
 		return;
 
-	Uint8 alpha = 80;
+	Uint8 alpha = 50;
 
 	p2List_item <j1UI_Element*> * item = UIelements.end;
 

@@ -60,7 +60,7 @@
   <Element> 5 - BUTTON CREDITS TRIGGER
     <type id="1" />
     <parent id="0"/>
-    <position x="50" y="520"/>
+    <position x="50" y="522"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="330" h="226" />
     <normal_rect x="985" y="750" w="330" h="226"/>
@@ -71,7 +71,7 @@
   <Element> 6 - BUTTON SETTINGS TRIGGER MAIN MENU
     <type id="1" />
     <parent id="0"/>
-    <position x="-300" y="520"/>
+    <position x="-300" y="522"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="330" h="226" />
     <normal_rect x="985" y="750" w="330" h="226"/>

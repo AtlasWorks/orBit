@@ -409,6 +409,8 @@ bool j1Scene::Update(float dt)
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
+	x = x / App->win->GetScale();
+	y = y / App->win->GetScale();
 
 
 	if (firstStage == true)

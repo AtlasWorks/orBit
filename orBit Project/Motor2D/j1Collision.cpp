@@ -174,7 +174,7 @@ void j1Collision::DebugDraw()
 	p2List_item <Collider*> *item;
 	item = colliders.start;
 
-	Uint8 alpha = 80;
+	Uint8 alpha = 50;
 
 	while (item!=NULL)
 	{
