@@ -330,7 +330,7 @@ bool j1Gui::RecursiveOnDrag(p2List_item<j1UI_Element*>* item)
 		}
 	}
 
-	if (child_drag == false && isClicked(item->data->Getrects()->logic_rect))
+	if (child_drag == false && isClicked(item->data->Getrects()->logic_rect) && *item->data->GetActive()==true)
 	{
 		item->data->GetBooleans()->dragging = true;
 		drag_Ref.x = click_pos.x - item->data->position.x;
@@ -375,7 +375,7 @@ bool j1Gui::RecursiveOnHover(p2List_item<j1UI_Element*>* item)
 
 	if (isInbound(item->data->Getrects()->logic_rect))
 	{
-		if (child_hover == false)
+		if (child_hover == false && *item->data->GetActive() == true)
 		{
 			item->data->GetBooleans()->hovering = true;
 			App->scene->ONhover(*item->data);
@@ -419,7 +419,7 @@ bool j1Gui::RecursiveOnClick(p2List_item<j1UI_Element*>* item)
 		}
 	}
 
-	if (child_click == false && isClicked(item->data->Getrects()->logic_rect))
+	if (child_click == false && isClicked(item->data->Getrects()->logic_rect) && *item->data->GetActive() == true)
 	{
 		item->data->GetBooleans()->clicking = true;
 		App->scene->ONclick(*item->data);
@@ -506,18 +506,20 @@ void j1Gui::DebugDraw()
 
 	while (item != NULL)
 	{
-		switch (item->data->GetType())
+		if (*item->data->GetActive() == true)
 		{
-		case ELEMENTS::LABEL: // white
-			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
-			break;
-		case ELEMENTS::BUTTON: // white
-			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
-			break;
-		case ELEMENTS::PANEL: // white
-			App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
-			break;
-
+			switch (item->data->GetType())
+			{
+			case ELEMENTS::LABEL: // white
+				App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
+				break;
+			case ELEMENTS::BUTTON: // white
+				App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
+				break;
+			case ELEMENTS::PANEL: // white
+				App->render->DrawQuad(item->data->Getrects()->logic_rect, 255, 255, 255, alpha, false, false);
+				break;
+			}
 		}
 		item = item->prev;
 	}
