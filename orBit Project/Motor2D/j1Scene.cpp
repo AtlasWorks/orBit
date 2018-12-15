@@ -294,6 +294,7 @@ bool j1Scene::PreUpdate()
 	//win condition
 	if (firstStage && (player->Future_position.x >= App->map->data.finalpos.x) && (player->Future_position.y <= App->map->data.finalpos.y))
 	{
+		player->totalscore = player->score;
 		change_scene(StageList.start->next->data->GetString());
 		firstStage = false;
 		secondStage = true;
@@ -301,6 +302,7 @@ bool j1Scene::PreUpdate()
 
 	else if (secondStage && (player->Future_position.x >= App->map->data2.finalpos.x) && (player->Future_position.y <= App->map->data2.finalpos.y))
 	{
+		player->totalscore += player->score;
 		change_scene(StageList.start->data->GetString());
 		firstStage = true;
 		secondStage = false;
@@ -799,10 +801,10 @@ void j1Scene::setStandarEntityPosition(const char* map_name)
 	orb3->entitycoll = App->coll->AddCollider(orb3->entitycollrect, COLLIDER_TYPE::COLLIDER_ORB, App->entities);
 	orb3->entitycoll->SetPos(orb3->position.x, orb3->position.y);
 
-	// orbs obtain
+	// orbs obtain and score
 
 	player->orbs_number = 0;
-
+	player->score = 0;
 	// avtive and inactive
 
 	player->active = true;

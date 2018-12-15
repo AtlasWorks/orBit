@@ -54,11 +54,15 @@ bool j1Player::Start()
 	Velocity.x = playerinfo.Velocity.x;
 	Velocity.y = playerinfo.Velocity.y;
 
-	//Player lifes
+	// -- Player lifes ----
 	lifes = 3;
 
-	//active
+	//-- active ----
 	active = true;
+
+	// -- score ---
+	score = 0;
+	totalscore = 0;
 
 	return true;
 }
@@ -209,6 +213,7 @@ void j1Player::Handle_Ground_Animations()
 			CurrentAnimation = playerinfo.deathRight;
 			lifes -= 1;
 			dead = true;
+			score -= 100;
 			
 		}
 		
@@ -220,6 +225,7 @@ void j1Player::Handle_Ground_Animations()
 		}
 		else if (dead==true && CurrentAnimation->Finished())
 		{
+			
 			dead = false;
 			bool success = App->LoadGame("save_game.xml");
 			if (!success)
@@ -507,6 +513,7 @@ bool j1Player::Load(pugi::xml_node &config)
 	Future_position.x= config.child("Player").child("Playerx").attribute("value").as_float();
 	Future_position.y = config.child("Player").child("Playery").attribute("value").as_float();
 	orbs_number = config.child("Player").child("orbs_number").attribute("value").as_int();
+	score = config.child("Player").child("score").attribute("value").as_int();
 	return true;
 }
 
@@ -515,7 +522,7 @@ bool j1Player::Save(pugi::xml_node &config) const
 	config.append_child("Player").append_child("Playerx").append_attribute("value")= Future_position.x;
 	config.child("Player").append_child("Playery").append_attribute("value")= Future_position.y;
 	config.child("Player").append_child("orbs_number").append_attribute("value") = orbs_number;
-
+	config.child("Player").append_child("score").append_attribute("value") = score;
 	return true;
 }
 

@@ -241,7 +241,10 @@ void j1Bat::OnCollision(Collider * c1, Collider * c2)
 		{
 			if (dead == false)
 			{
-				//SCORE HERE
+				//score here
+				App->scene->player->score += 350;
+
+				// entity dead
 				if (entitycoll != nullptr)
 				{
 					entitycoll->to_delete = true;

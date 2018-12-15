@@ -249,7 +249,10 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 		{
 			if (dead == false)
 			{
-				//SCORE HERE
+				// add score
+				App->scene->player->score += 150;
+
+				// entity dead
 				if (entitycoll != nullptr)
 				{
 					entitycoll->to_delete = true;

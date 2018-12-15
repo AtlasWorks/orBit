@@ -117,6 +117,8 @@ public:
 
 	//SCORE & items
 	int orbs_number = 0;
+	int score = 0;
+	int totalscore = 0;
 };
 
 #endif // __j1Player_H__

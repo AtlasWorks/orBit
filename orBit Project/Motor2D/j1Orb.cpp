@@ -104,6 +104,7 @@ void j1Orb::OnCollision(Collider * c1, Collider * c2)
 		{
 			if (touched == false)
 			{
+				App->scene->player->score += 1000;
 				App->scene->player->orbs_number += 1;
 				if (entitycoll != nullptr)
 				{
