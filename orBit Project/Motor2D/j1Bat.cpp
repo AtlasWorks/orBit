@@ -253,6 +253,7 @@ void j1Bat::OnCollision(Collider * c1, Collider * c2)
 		{
 			if (dead == false)
 			{
+				App->audio->PlayFx(App->audio->enemydeathfx);
 
 				BatInfo.explote->Reset();
 				CurrentAnimation = BatInfo.explote;

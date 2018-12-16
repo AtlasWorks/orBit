@@ -64,9 +64,13 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	fxdoubleJump = config.child("fx").child("sound").attribute("doubleJump").as_string();
 	fxbuttonpop = config.child("fx").child("sound").attribute("buttonpop").as_string();
 	fxorb = config.child("fx").child("sound").attribute("orb").as_string();
+	fxenemydeath = config.child("fx").child("sound").attribute("enemydeath").as_string();
 
 	p2SString deathSound ("%s%s", fxfolder.GetString(), fxDeath.GetString());
 	deathfx = LoadFx(deathSound.GetString());
+
+	p2SString enemydeathSound("%s%s", fxfolder.GetString(), fxenemydeath.GetString());
+	enemydeathfx = LoadFx(enemydeathSound.GetString());
 
 	p2SString jumpSound("%s%s", fxfolder.GetString(), fxJump.GetString());
 	jumpfx = LoadFx(jumpSound.GetString());
