@@ -19,15 +19,27 @@ void j1Timer::Start()
 }
 
 // ---------------------------------------------
-uint32 j1Timer::Read() const
+uint32 j1Timer::Read() 
 {
-	return SDL_GetTicks() - started_at - loadX;
+	if (SDL_GetTicks() <= started_at + loadX + paused_time)
+	{
+		loadX = 0;
+		paused_time = 0;
+	}
+	return SDL_GetTicks() - started_at - loadX- paused_time;
 }
 
 // ---------------------------------------------
-float j1Timer::ReadSec() const
+float j1Timer::ReadSec() 
 {
-	return float(SDL_GetTicks() - started_at-loadX) / 1000.0f;
+
+	if (SDL_GetTicks() <= started_at + loadX + paused_time)
+	{
+		loadX = 0;
+		paused_time = 0;
+	}
+		return float(SDL_GetTicks() - started_at - loadX - paused_time) / 1000.0f;
+	
 }
 
 // ---------------------------------------------
@@ -46,4 +58,34 @@ void j1Timer::LoadXtime(uint32 loaded)
 void j1Timer::ResetX()
 {
 	loadX = 0;
+}
+
+void j1Timer::changePausedtime(uint32 paused)
+{
+	paused_time = paused;
+}
+
+void j1Timer::ResetPaused()
+{
+	paused_time = 0;
+}
+
+void j1Timer::Stop()
+{
+	totalPausedTime += Read() ;
+}
+
+uint32 j1Timer::getTotalTimeofPaused()
+{
+	return totalPausedTime;
+}
+
+uint32 j1Timer::getPausd()
+{
+	return paused_time;
+}
+
+void j1Timer::ResetTotalPasedTime()
+{
+	totalPausedTime = 0;
 }

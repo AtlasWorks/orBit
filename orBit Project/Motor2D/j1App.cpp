@@ -207,11 +207,20 @@ void j1App::PrepareUpdate()
 		App->win->SetScale(1);
 		on_GamePause = true;
 		dt = 0.0f;
+		
 	}
 	else
 	{
+		if (scene->taketime == true)
+		{
+			scene->timeBeingPaused.Stop();
+			scene->timeAccumulated = scene->timeBeingPaused.getTotalTimeofPaused();
+			scene->sceneTimer.changePausedtime(scene->timeAccumulated);
+		}
 		App->win->SetScale(2);
 		on_GamePause = false;
+		scene->taketime = false;
+		
 	}
 
 	frame_time.Start();
@@ -249,6 +258,12 @@ void j1App::FinishUpdate()
 	}
 	else if (cap_on && !render->Vsync)
 	{
+		if (on_GamePause)
+		{
+			sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: False / Timer:%u ",
+				frames_on_last_update, avg_fps, last_frame_ms, scene->timeWhenPaused);
+		}
+		else 
 		sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: False / Timer:%f ",
 			frames_on_last_update, avg_fps, last_frame_ms, scene->sceneTimer.ReadSec());
 	}

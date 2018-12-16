@@ -541,17 +541,20 @@ bool j1Player::Load(pugi::xml_node &config)
 	orbs_number = config.child("Player").child("orbs_number").attribute("value").as_int();
 	score = config.child("Player").child("score").attribute("value").as_int();
 	TimeAuxload =config.child("Player").child("time").attribute("value").as_uint();
+	TimePausedSave = config.child("Player").child("timePaused").attribute("value").as_uint();
+
 	//App->scene->sceneTimer.Loadstart(TimeAuxload);
 	return true;
 }
 
 bool j1Player::Save(pugi::xml_node &config) const
-{
+{ 
 	config.append_child("Player").append_child("Playerx").append_attribute("value")= Future_position.x;
 	config.child("Player").append_child("Playery").append_attribute("value")= Future_position.y;
 	config.child("Player").append_child("orbs_number").append_attribute("value") = orbs_number;
 	config.child("Player").append_child("score").append_attribute("value") = score;
 	config.child("Player").append_child("time").append_attribute("value") = App->scene->sceneTimer.Read();
+	config.child("Player").append_child("timePaused").append_attribute("value") = App->scene->sceneTimer.getPausd();
 
 	return true;
 }
