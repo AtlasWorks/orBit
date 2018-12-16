@@ -913,7 +913,7 @@ bool j1Scene::change_scene(const char* map_name) {
 
 	// --Timer reset ---
 	sceneTimer.Start();
-
+	sceneTimer.ResetX();
 	return ret;
 }
 
@@ -987,7 +987,7 @@ bool j1Scene::Load(pugi::xml_node &config)
 
 	// --Timer reset ---
 	//sceneTimer.Start();
-	App->scene->sceneTimer.Loadstart(player->TimeAuxload);
+	App->scene->sceneTimer.LoadXtime(player->TimeAuxload);
 
 	player->entitycoll->SetPos(player->position.x, player->position.y);
 

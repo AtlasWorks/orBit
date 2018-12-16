@@ -4,35 +4,35 @@
 	<window />
 	<textures />
 	<audio>
-		<VolumeChanger_music value="0.200000003" />
-		<VolumeChanger_fx value="0.200000003" />
+		<VolumeChanger_music value="1" />
+		<VolumeChanger_fx value="1" />
 	</audio>
 	<entities>
 		<Player>
-			<Playerx value="381" />
-			<Playery value="270" />
+			<Playerx value="64" />
+			<Playery value="190" />
 			<orbs_number value="0" />
 			<score value="0" />
-			<time value="10569" />
+			<time value="8004" />
 		</Player>
 		<Entity2>
-			<Batx value="2664" />
-			<Baty value="152" />
+			<Batx value="1792" />
+			<Baty value="416" />
 			<active value="true" />
 		</Entity2>
 		<Entity3>
-			<Batx value="805.050598" />
-			<Baty value="144" />
+			<Batx value="2544" />
+			<Baty value="448" />
 			<active value="true" />
 		</Entity3>
 		<Entity4>
-			<Slimex value="1459" />
-			<Slimey value="96" />
+			<Slimex value="896" />
+			<Slimey value="320" />
 			<active value="true" />
 		</Entity4>
 		<Entity5>
-			<Slimex value="1856" />
-			<Slimey value="576" />
+			<Slimex value="2080" />
+			<Slimey value="64" />
 			<active value="true" />
 		</Entity5>
 		<Orb1>
@@ -54,10 +54,10 @@
 	<fonts />
 	<gui />
 	<scene>
-		<firstStage value="true" />
-		<secondStage value="false" />
+		<firstStage value="false" />
+		<secondStage value="true" />
 	</scene>
 	<renderer>
-		<camera x="-421" y="0" />
+		<camera x="-2" y="0" />
 	</renderer>
 </game_state>

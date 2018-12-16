@@ -15,10 +15,13 @@ public:
 	float ReadSec() const;
 	 // getters
 	uint32 startreturn();
-	void Loadstart(uint32 loaded);
+	void LoadXtime(uint32 loaded);
+	void ResetX();
 
 private:
 	uint32	started_at;
+	uint32	loadX =0;
+
 };
 
 #endif //__j1TIMER_H__
