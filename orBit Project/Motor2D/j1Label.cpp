@@ -127,7 +127,7 @@ SDL_Texture * j1Label::GetTexture()
 inline void j1Label::PlaceAtTop()
 {
 	position.x = parent->Getrects()->logic_rect.x + parent->Getrects()->current_rect.w / 2 - Data.rects.rect_normal.w / 2;
-	position.y = parent->position.y - Data.rects.rect_normal.h - 10;
+	position.y = parent->position.y - Data.rects.rect_normal.h + 50;
 }
 
 inline void j1Label::PlaceAtBottom()

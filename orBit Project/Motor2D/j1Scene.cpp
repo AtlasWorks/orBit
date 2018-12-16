@@ -510,6 +510,13 @@ bool j1Scene::PostUpdate(float dt)
 
 	// --- Controlling UI BEHAVIOUR ---
 
+	// --- WEBSITE LABEL ---
+	if (App->gui->focus == App->gui->UIelements.At(32)->data)
+	{
+		App->gui->focus = nullptr;
+		ShellExecuteA(NULL, "open", "https://atlasworks.github.io/orBit/", NULL, NULL, SW_SHOWNORMAL);
+	}
+
 	// --- Quit Button ---
 	if (App->gui->focus == App->gui->UIelements.At(18)->data)
 	{
@@ -680,6 +687,7 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(29)->data->GetActive() = true;
 		*App->gui->UIelements.At(30)->data->GetActive() = true;
 		*App->gui->UIelements.At(31)->data->GetActive() = true;
+		
 	}
 	else
 	{
@@ -699,6 +707,7 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(15)->data->GetActive() = true;
 		*App->gui->UIelements.At(16)->data->GetActive() = true;
 		*App->gui->UIelements.At(17)->data->GetActive() = true;
+		*App->gui->UIelements.At(32)->data->GetActive() = true;
 	}
 	else
 	{
@@ -707,6 +716,7 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(15)->data->GetActive() =false;
 		*App->gui->UIelements.At(16)->data->GetActive() =false;
 		*App->gui->UIelements.At(17)->data->GetActive() =false;
+		*App->gui->UIelements.At(32)->data->GetActive() = false;
 	}
 
 	// --- Controlling camera Bounds---
@@ -1178,6 +1188,10 @@ void j1Scene::ONclick(j1UI_Element & element)
 		switch (element.Getparent()->GetType())
 		{
 		case ELEMENTS::BUTTON:
+			App->gui->focus = &element;
+			break;
+
+		case ELEMENTS::PANEL:
 			App->gui->focus = &element;
 			break;
 

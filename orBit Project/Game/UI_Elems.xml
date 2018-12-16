@@ -363,5 +363,15 @@ SOFTWARE."/>
     <hover_rect x="984" y="676" w="44" h="44"/>
     <click_rect x="984" y="676" w="44" h="44"/>
   </Element>
+  
+  <Element> 32 - LABEL WEBSITE
+    <type id="2" />
+    <parent id="8"/>
+    <position x="0" y="0"/>
+    <place id="0"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="WEBSITE"/>
+    <textB value="PLAY"/>
+  </Element>
 
 </config>
