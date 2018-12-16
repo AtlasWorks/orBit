@@ -198,8 +198,17 @@ void j1App::PrepareUpdate()
 
 	dt = frame_time.ReadSec();
 
-	if (App->scene->Activate_Ingamemenu || App->scene->Activate_MainMenu)
+	if (App->scene->Activate_Ingamemenu
+		|| App->scene->Activate_MainMenu
+		|| App->scene->Activate_Credits
+		|| App->scene->Activate_InGameSettings
+		|| App->scene->Activate_MainMenuSettings)
+	{
+		on_GamePause = true;
 		dt = 0.0f;
+	}
+	else
+		on_GamePause = false;
 
 	frame_time.Start();
 }

@@ -104,6 +104,7 @@ public:
 	uint32              framerate_cap;
 	float			    capped_ms = -1.0f;
 	bool                cap_on = true;
+	bool on_GamePause = false;
 
 private:
 
