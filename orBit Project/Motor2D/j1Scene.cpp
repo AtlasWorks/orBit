@@ -136,8 +136,8 @@ bool j1Scene::Start()
 		orb3->position.x = App->map->data.orb3.x;
 		orb3->position.y = App->map->data.orb3.y;
 
-		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
-		App->audio->PlayMusic(stageMusic.GetString());
+		//stage1Music.create("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
+		//App->audio->PlayMusic(stage1Music.GetString());
 
 		// --- Pathfinding walkability map 1 ---
 
@@ -177,8 +177,8 @@ bool j1Scene::Start()
 		orb3->position.x = App->map->data2.orb3.x;
 		orb3->position.y = App->map->data2.orb3.y;
 
-		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
-		App->audio->PlayMusic(stageMusic.GetString());
+		//stage2Music.create("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
+		//App->audio->PlayMusic(stage2Music.GetString());
 
 
 		// --- Pathfinding walkability map 2 ---
@@ -213,6 +213,9 @@ bool j1Scene::Start()
 
 	config = App->LoadConfig(config_file, "UI_Elems.xml");
 	App->gui->DeployUI(config);
+	MenuMusic.create("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->next->data->GetString());
+	stage1Music.create("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
+	stage2Music.create("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
 
 	// ---- Timer ----
 	sceneTimer.Start();
@@ -223,6 +226,8 @@ bool j1Scene::Start()
 	scale = App->win->GetScale();
 	screen = { 0, 0, (int)window_w * (int)scale, (int)window_h * (int)scale };
 	Fade(245, 245, 245, 3.0);
+
+
 
 	return ret;
 }
@@ -497,6 +502,36 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
+
+	// --- Controlling Music ---
+
+	if (!playing_menu && dt == 0.0f)
+	{
+		playing_menu = true;
+		playing_stage1 = false;
+		playing_stage1 = false;
+		App->audio->PlayMusic(MenuMusic.GetString());
+	}
+	else if (dt != 0.0f)
+	{
+		playing_menu = false;
+
+		if (!playing_stage1 && firstStage)
+		{
+			playing_stage1 = true;
+			playing_stage2 = false;
+			App->audio->PlayMusic(stage1Music.GetString());
+		}
+		else if (!playing_stage2 && secondStage)
+		{
+			playing_stage1 = false;
+			playing_stage2 = true;
+			App->audio->PlayMusic(stage2Music.GetString());
+		}
+	}
+
+	// -------------
+
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !Activate_MainMenu)
 		Activate_Ingamemenu = true;
 
@@ -536,6 +571,14 @@ bool j1Scene::PostUpdate(float dt)
 	{
 		App->gui->focus = nullptr;
 		Activate_Ingamemenu = false;
+	}
+
+	// --- Main Menu Continue ---
+	if (App->gui->focus == App->gui->UIelements.At(1)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_MainMenu = false;
+		App->LoadGame("save_game.xml");
 	}
 
 	// --- In Game SETTINGS TRIGGER ---
@@ -827,8 +870,6 @@ bool j1Scene::PostUpdate(float dt)
 
 	}
 
-
-
 	//-------------------
 
 	return ret;
@@ -877,8 +918,8 @@ bool j1Scene::change_scene(const char* map_name) {
 		
 
 		App->map->ColliderDrawer(App->map->data);
-		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
-		App->audio->PlayMusic(stageMusic.GetString());
+		//p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->data->GetString());
+		//App->audio->PlayMusic(stageMusic.GetString());
 		
 
 
@@ -897,8 +938,8 @@ bool j1Scene::change_scene(const char* map_name) {
 		App->render->camera.y = camera2.y;
 		
 		App->map->ColliderDrawer(App->map->data2);
-		p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
-		App->audio->PlayMusic(stageMusic.GetString());
+		//p2SString stageMusic("%s%s", App->audio->musicfolder.GetString(), App->audio->SongNamesList.start->next->data->GetString());
+		//App->audio->PlayMusic(stageMusic.GetString());
 		
 
 		// --- Pathfinding walkability map 2 ---

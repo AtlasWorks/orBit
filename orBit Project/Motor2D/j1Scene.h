@@ -74,6 +74,13 @@ public:
 	bool Activate_Credits = false;
 	bool Existant_SaveGame = false;
 
+	p2SString MenuMusic;
+	bool playing_menu = false;
+	bool playing_stage1 = false;
+	bool playing_stage2 = false;
+	p2SString stage1Music;
+	p2SString stage2Music;
+
 	//---------------
 
 	p2List<p2SString*> StageList;
