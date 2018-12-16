@@ -139,8 +139,8 @@
     <parent id="10"/>
     <position x="0" y="0"/>
     <place id="2"/>
-    <color r="255" g="0" b="0" a="255" />
-    <textA value="VOLUME"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="MUSIC"/>
     <textB value=""/>
   </Element>
 
@@ -324,7 +324,7 @@ SOFTWARE."/>
   <Element> 28 - BUTTON SCROLLBAR VOLUME
     <type id="1" />
     <parent id="27"/>
-    <position x="200" y="40"/> 
+    <position x="125" y="40"/> 
     <Texture path="gui/atlas.png"/>
     <logic_rect w="15" h="179" />
     <normal_rect x="979" y="78" w="15" h="179"/>
@@ -348,8 +348,8 @@ SOFTWARE."/>
     <parent id="28"/>
     <position x="0" y="0"/>
     <place id="2"/>
-    <color r="255" g="0" b="0" a="255" />
-    <textA value="VOLUME"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="MUSIC"/>
     <textB value=""/>
   </Element>
   
@@ -372,6 +372,70 @@ SOFTWARE."/>
     <color r="255" g="255" b="255" a="150" />
     <textA value="WEBSITE"/>
     <textB value="PLAY"/>
+  </Element>
+
+  <Element> 33 - BUTTON SCROLLBAR VOLUME FX MAIN MENU
+    <type id="1" />
+    <parent id="27"/>
+    <position x="300" y="40"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="15" h="179" />
+    <normal_rect x="979" y="78" w="15" h="179"/>
+    <hover_rect  x="979" y="78" w="15" h="179"/>
+    <click_rect  x="979" y="78" w="15" h="179"/>
+  </Element>
+
+  <Element> 34 - SLIDER VOLUME FX MAIN MENU
+    <type id="4" />
+    <parent id="33"/>
+    <position x="-5" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="23" h="15" />
+    <normal_rect x="1030" y="78" w="23" h="15"/>
+    <hover_rect  x="1030" y="78" w="23" h="15"/>
+    <click_rect  x="945" y="78" w="23" h="16"/>
+  </Element>
+
+  <Element> 35 - LABEL VOLUME FX MAIN MENU
+    <type id="2" />
+    <parent id="33"/>
+    <position x="0" y="0"/>
+    <place id="2"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="FX"/>
+    <textB value=""/>
+  </Element>
+
+  <Element> 36 - BUTTON SCROLLBAR VOLUME FX IN GAME
+    <type id="1" />
+    <parent id="9"/>
+    <position x="300" y="40"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="15" h="179" />
+    <normal_rect x="979" y="78" w="15" h="179"/>
+    <hover_rect  x="979" y="78" w="15" h="179"/>
+    <click_rect  x="979" y="78" w="15" h="179"/>
+  </Element>
+
+  <Element>  37 - SLIDER VOLUME FX IN GAME
+    <type id="4" />
+    <parent id="36"/>
+    <position x="-5" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="23" h="15" />
+    <normal_rect x="1030" y="78" w="23" h="15"/>
+    <hover_rect  x="1030" y="78" w="23" h="15"/>
+    <click_rect  x="945" y="78" w="23" h="16"/>
+  </Element>
+
+  <Element> 38 - LABEL VOLUME FX IN GAME
+    <type id="2" />
+    <parent id="36"/>
+    <position x="0" y="0"/>
+    <place id="2"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="FX"/>
+    <textB value=""/>
   </Element>
 
 </config>

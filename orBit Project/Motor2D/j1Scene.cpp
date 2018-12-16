@@ -728,6 +728,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(11)->data->GetActive() = true;
 		*App->gui->UIelements.At(12)->data->GetActive() = true;
 		*App->gui->UIelements.At(13)->data->GetActive() = true;
+		*App->gui->UIelements.At(36)->data->GetActive() = true;
+		*App->gui->UIelements.At(37)->data->GetActive() = true;
+		*App->gui->UIelements.At(38)->data->GetActive() = true;
 	}
 	else
 	{
@@ -736,6 +739,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(11)->data->GetActive() =false;
 		*App->gui->UIelements.At(12)->data->GetActive() =false;
 		*App->gui->UIelements.At(13)->data->GetActive() =false;
+		*App->gui->UIelements.At(36)->data->GetActive() = false;
+		*App->gui->UIelements.At(37)->data->GetActive() = false;
+		*App->gui->UIelements.At(38)->data->GetActive() = false;
 	}
 
 	// --- SETTINGS MAIN MENU PANEL ---
@@ -747,6 +753,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(29)->data->GetActive() = true;
 		*App->gui->UIelements.At(30)->data->GetActive() = true;
 		*App->gui->UIelements.At(31)->data->GetActive() = true;
+		*App->gui->UIelements.At(33)->data->GetActive() = true;
+		*App->gui->UIelements.At(34)->data->GetActive() = true;
+		*App->gui->UIelements.At(35)->data->GetActive() = true;
 		
 	}
 	else
@@ -756,6 +765,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(29)->data->GetActive() = false;
 		*App->gui->UIelements.At(30)->data->GetActive() = false;
 		*App->gui->UIelements.At(31)->data->GetActive() = false;
+		*App->gui->UIelements.At(33)->data->GetActive() = false;
+		*App->gui->UIelements.At(34)->data->GetActive() = false;
+		*App->gui->UIelements.At(35)->data->GetActive() = false;
 	}
 
 	// --- CREDITS MAIN MENU PANEL ---
@@ -1388,7 +1400,7 @@ void j1Scene::ONdrag(j1UI_Element & element)
 
 		if (parentindex == 0 && &element == App->gui->UIelements.At(11)->data || &element == App->gui->UIelements.At(29)->data)
 		{
-			App->audio->VolumeChanger_music = App->audio->VolumeChanger_fx = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
+			App->audio->VolumeChanger_music /*= App->audio->VolumeChanger_fx*/ = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
 			if (App->audio->VolumeChanger_music > 1)
 				App->audio->VolumeChanger_music = 1;
 			else if (App->audio->VolumeChanger_music < 0.1)
@@ -1396,6 +1408,18 @@ void j1Scene::ONdrag(j1UI_Element & element)
 			LOG("Volume_changer: %f", App->audio->VolumeChanger_music);
 
 			App->audio->ChangeVolume_music(App->audio->VolumeChanger_music);
+			//App->audio->ChangeVolume_fx(App->audio->VolumeChanger_fx);
+		}
+		else if (parentindex == 0)
+		{
+			App->audio->VolumeChanger_fx = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
+			if (App->audio->VolumeChanger_fx > 1)
+				App->audio->VolumeChanger_fx = 1;
+			else if (App->audio->VolumeChanger_fx < 0.1)
+				App->audio->VolumeChanger_fx = 0;
+			LOG("Volume_changer: %f", App->audio->VolumeChanger_fx);
+
+			//App->audio->ChangeVolume_music(App->audio->VolumeChanger_music);
 			App->audio->ChangeVolume_fx(App->audio->VolumeChanger_fx);
 		}
 		else if (parentindex == 1)
