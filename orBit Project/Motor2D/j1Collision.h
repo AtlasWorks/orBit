@@ -58,7 +58,7 @@ public:
 	void DebugDraw();
 
 	p2List<Collider*> colliders;
-	bool debug = true;
+	bool debug = false;
 
 	void QueryCollisions(Collider &to_check) const;
 

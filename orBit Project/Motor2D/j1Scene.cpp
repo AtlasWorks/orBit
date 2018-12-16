@@ -216,6 +216,13 @@ bool j1Scene::Start()
 
 	// ---- Timer ----
 	sceneTimer.Start();
+	
+	// ---- Fade -----
+	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
+	App->win->GetWindowSize(window_w, window_h);
+	scale = App->win->GetScale();
+	screen = { 0, 0, (int)window_w * (int)scale, (int)window_h * (int)scale };
+	Fade(245, 245, 245, 3.0);
 
 	return ret;
 }
@@ -777,6 +784,51 @@ bool j1Scene::PostUpdate(float dt)
 
 	//-------------------
 
+	// -- Update for fade ---
+
+	if (fadeState)
+	{
+
+		if (current_step == fade_step::none)
+			return true;
+
+		Uint32 currentTick = SDL_GetTicks() - start_time;
+		float normalized = MIN(1.0f, (float)currentTick / (float)total_time);
+
+		switch (current_step)
+		{
+		case fade_step::fade_to:
+		{
+			if (currentTick >= total_time)
+			{
+				total_time += total_time;
+				start_time = SDL_GetTicks();
+				current_step = fade_step::fade_from;
+			}
+		} break;
+
+		case fade_step::fade_from:
+		{
+			normalized = 1.0f - normalized;
+
+			if (currentTick >= total_time)
+			{
+				fadeState = false;
+				player->playerinfo.dontShow = fadeState;
+				current_step = fade_step::none;
+			}
+
+		} break;
+		}
+
+		// Finally render the black square with alpha on the screen
+		SDL_SetRenderDrawColor(App->render->renderer, redAmount, greenAmount, blueAmount, (Uint8)(normalized * 255.0f));
+		SDL_RenderFillRect(App->render->renderer, &screen);
+
+		return true;
+
+	}
+
 	return ret;
 }
 
@@ -1334,4 +1386,26 @@ void j1Scene::ONFocus()
 	}
 }
 
+
+bool j1Scene::Fade(int red, int green, int blue, float time)
+{
+	bool ret = false;
+
+	fadeState = true;
+	player->playerinfo.dontShow = fadeState;
+	redAmount = red;
+	blueAmount = blue;
+	greenAmount = green;
+
+	if (current_step == fade_step::none)
+	{
+		current_step = fade_step::fade_to;
+		start_time = SDL_GetTicks();
+		total_time = (Uint32)(time * 0.5f * 1000.0f);
+
+		ret = true;
+	}
+
+	return ret;
+}
 

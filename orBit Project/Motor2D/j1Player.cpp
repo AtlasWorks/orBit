@@ -60,6 +60,7 @@ bool j1Player::Start()
 	//-- active ----
 	active = true;
 
+
 	// -- score ---
 	score = 0;
 	totalscore = 0;
@@ -384,15 +385,18 @@ bool j1Player::PostUpdate(float dt)
 	// ---------------------- //
 
 	// --- Blitting player ---
-	if(CurrentAnimation==playerinfo.runRight || CurrentAnimation==playerinfo.idleRight || CurrentAnimation==playerinfo.fallingRight || CurrentAnimation==playerinfo.jumpingRight)
-	App->render->Blit(spritesheet, Future_position.x - 3, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
 
-	else if (CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.idleLeft || CurrentAnimation == playerinfo.fallingLeft || CurrentAnimation == playerinfo.jumpingLeft)
-	App->render->Blit(spritesheet, Future_position.x - 6, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
+	
+		if (CurrentAnimation == playerinfo.runRight || CurrentAnimation == playerinfo.idleRight || CurrentAnimation == playerinfo.fallingRight || CurrentAnimation == playerinfo.jumpingRight)
+			App->render->Blit(spritesheet, Future_position.x - 3, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
 
-	else
-	App->render->Blit(spritesheet, Future_position.x - 3, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
+		else if (CurrentAnimation == playerinfo.runLeft || CurrentAnimation == playerinfo.idleLeft || CurrentAnimation == playerinfo.fallingLeft || CurrentAnimation == playerinfo.jumpingLeft)
+			App->render->Blit(spritesheet, Future_position.x - 6, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
 
+		else
+			App->render->Blit(spritesheet, Future_position.x - 3, Future_position.y, &CurrentAnimation->GetCurrentFrame(dt));
+	
+	
 	// ---------------------- //
 
 	return ret;
