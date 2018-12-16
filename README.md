@@ -38,10 +38,10 @@ Some special features included in the code are:
 ### Installation
 
 Decompress the .zip file in any directory. Open the file directoy and double click on the executable.
-Download [Here](https://github.com/AtlasWorks/orBit/releases) 
+Download [Here](https://github.com/AtlasWorks/orBit/releases/tag/3.0) 
     
-       https://github.com/AtlasWorks/orBit/releases
-
+       https://github.com/AtlasWorks/orBit/releases/tag/3.0
+       
 ### Controls
 
 
@@ -63,7 +63,7 @@ Download [Here](https://github.com/AtlasWorks/orBit/releases)
 <html>
 <body>
 
-<iframe width="585" height="520" src="https://www.youtube.com/embed/hxSv7Yk8KYc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="590" height="520" src="https://www.youtube.com/embed/hxSv7Yk8KYc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 </body>
 </html>
