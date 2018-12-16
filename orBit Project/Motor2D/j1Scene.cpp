@@ -850,12 +850,18 @@ bool j1Scene::PostUpdate(float dt)
 
 		if (player->orbs_number >= 1)
 		*App->gui->UIelements.At(1)->data->GetActive() = true;
+		else
+		*App->gui->UIelements.At(1)->data->GetActive() = false;
 
 		if (player->orbs_number >= 2)
 		*App->gui->UIelements.At(21)->data->GetActive() = true;
+		else
+		*App->gui->UIelements.At(21)->data->GetActive() = false;
 
 		if(player->orbs_number >= 3)
 		*App->gui->UIelements.At(22)->data->GetActive() = true;
+		else
+		*App->gui->UIelements.At(22)->data->GetActive() = false;
 
 		// --- SCORE ---
 		*App->gui->UIelements.At(45)->data->GetActive() = true;
