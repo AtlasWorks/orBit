@@ -197,6 +197,10 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	dt = frame_time.ReadSec();
+
+	if (App->scene->Activate_Ingamemenu || App->scene->Activate_MainMenu)
+		dt = 0.0f;
+
 	frame_time.Start();
 }
 
