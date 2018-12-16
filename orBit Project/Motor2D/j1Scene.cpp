@@ -225,7 +225,7 @@ bool j1Scene::Start()
 	App->win->GetWindowSize(window_w, window_h);
 	scale = App->win->GetScale();
 	screen = { 0, 0, (int)window_w * (int)scale, (int)window_h * (int)scale };
-	Fade(245, 245, 245, 3.0);
+	//Fade(245, 245, 245, 3.0);
 
 
 
@@ -502,6 +502,17 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
+	// -- Time paused --
+	if (App->on_GamePause)
+	{
+		if (!taketime)
+		{
+			taketime = true;
+			timeWhenPaused = sceneTimer.ReadSec();
+			timeBeingPaused.Start();
+		}
+
+	}
 	// --- Controlling Music ---
 
 	if (!playing_menu && dt == 0.0f)
@@ -970,7 +981,15 @@ bool j1Scene::change_scene(const char* map_name) {
 	
 	bool ret = true;
 
-	Fade(245, 245, 245, 3.0);
+	timeAccumulated = 0;
+	timeWhenPaused = 0;
+	sceneTimer.ResetX();
+	sceneTimer.ResetPaused();
+	sceneTimer.ResetTotalPasedTime();
+	sceneTimer.Start();
+
+
+	//Fade(245, 245, 245, 2.0);
 
 	App->map->paralaxRef[0] = App->map->offset;
 	App->map->paralaxRef[1] = App->map->offset;
@@ -1027,10 +1046,6 @@ bool j1Scene::change_scene(const char* map_name) {
 
 	setStandarEntityPosition(map_name);
 
-
-	// --Timer reset ---
-	sceneTimer.Start();
-	sceneTimer.ResetX();
 
 	return ret;
 }
@@ -1105,7 +1120,10 @@ bool j1Scene::Load(pugi::xml_node &config)
 
 	// --Timer reset ---
 	//sceneTimer.Start();
-	App->scene->sceneTimer.LoadXtime(player->TimeAuxload);
+	sceneTimer.LoadXtime(player->TimeAuxload);
+
+	sceneTimer.changePausedtime(player->TimePausedSave);
+
 
 	player->entitycoll->SetPos(player->position.x, player->position.y);
 

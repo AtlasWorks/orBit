@@ -204,7 +204,7 @@ void j1App::PrepareUpdate()
 		|| App->scene->Activate_InGameSettings
 		|| App->scene->Activate_MainMenuSettings)
 	{
-		App->win->SetScale(1);
+		//App->win->SetScale(1);
 		on_GamePause = true;
 		dt = 0.0f;
 		
@@ -263,9 +263,9 @@ void j1App::FinishUpdate()
 			sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: False / Timer:%u ",
 				frames_on_last_update, avg_fps, last_frame_ms, scene->timeWhenPaused);
 		}
-		else 
-		sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: False / Timer:%f ",
-			frames_on_last_update, avg_fps, last_frame_ms, scene->sceneTimer.ReadSec());
+		else
+			sprintf_s(title, 256, "FPS: %i /Average FPS: %.2f / Ms of the last frame: %u / FPS Cap: True / Vsync: False / Timer:%f ",
+				frames_on_last_update, avg_fps, last_frame_ms, scene->sceneTimer.ReadSec());
 	}
 	else if (!cap_on && render->Vsync)
 	{

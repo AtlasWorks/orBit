@@ -239,6 +239,13 @@ void j1Player::Handle_Ground_Animations()
 				App->scene->firstStage = true;
 				App->scene->secondStage = false;
 			}
+		else
+			App->LoadGame("save_game.xml");
+
+		CurrentAnimation = playerinfo.idleRight;
+
+
+
 			
 		}
 }
