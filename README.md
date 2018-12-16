@@ -59,7 +59,7 @@ Download [Here](https://github.com/AtlasWorks/orBit/releases)
 - SPACE: jump
 ```
 ## Game Video
-```markdown
+
 <html>
 <body>
 
@@ -69,7 +69,7 @@ src="https://youtu.be/hxSv7Yk8KYc" frameborder="0" allowfullscreen>
 
 </body>
 </html>
-```
+
 ### Disclosure
 
 We do not own any of the sprites, tilesets, music or sfx presented in this game. Authors credited below
