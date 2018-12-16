@@ -204,11 +204,15 @@ void j1App::PrepareUpdate()
 		|| App->scene->Activate_InGameSettings
 		|| App->scene->Activate_MainMenuSettings)
 	{
+		App->win->SetScale(1);
 		on_GamePause = true;
 		dt = 0.0f;
 	}
 	else
+	{
+		App->win->SetScale(2);
 		on_GamePause = false;
+	}
 
 	frame_time.Start();
 }

@@ -15,6 +15,7 @@ public:
 	float ReadSec() const;
 	 // getters
 	uint32 startreturn();
+
 	void LoadXtime(uint32 loaded);
 	void ResetX();
 

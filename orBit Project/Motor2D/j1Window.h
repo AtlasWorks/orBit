@@ -30,6 +30,9 @@ public:
 	// Retrieve window scale
 	uint GetScale() const;
 
+	// Change Window scale
+	void SetScale(uint value) { scale = value; }
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;

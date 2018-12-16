@@ -862,6 +862,7 @@ bool j1Scene::change_scene(const char* map_name) {
 	// --Timer reset ---
 	sceneTimer.Start();
 	sceneTimer.ResetX();
+
 	return ret;
 }
 
