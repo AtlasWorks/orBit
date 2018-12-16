@@ -346,6 +346,8 @@ bool j1Scene::Update(float dt)
 			&& !Activate_InGameSettings
 			&& !Activate_MainMenuSettings)
 		{
+			player->lifes = 3;
+
 			change_scene(StageList.start->data->GetString());
 			firstStage = true;
 			secondStage = false;
@@ -360,6 +362,8 @@ bool j1Scene::Update(float dt)
 			&& !Activate_InGameSettings
 			&& !Activate_MainMenuSettings)
 		{
+			player->lifes = 3;
+
 			change_scene(StageList.start->next->data->GetString());
 			firstStage = false;
 			secondStage = true;
@@ -374,6 +378,8 @@ bool j1Scene::Update(float dt)
 			&& !Activate_InGameSettings
 			&& !Activate_MainMenuSettings)
 		{
+			player->lifes = 3;
+
 			change_scene(StageList.start->data->GetString());
 			firstStage = true;
 			secondStage = false;
@@ -388,6 +394,8 @@ bool j1Scene::Update(float dt)
 			&& !Activate_InGameSettings
 			&& !Activate_MainMenuSettings)
 		{
+			player->lifes = 3;
+
 			if (firstStage)
 			{
 				change_scene(StageList.start->data->GetString());
