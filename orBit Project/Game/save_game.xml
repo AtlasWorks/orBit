@@ -9,11 +9,12 @@
 	</audio>
 	<entities>
 		<Player>
-			<Playerx value="118.254822" />
-			<Playery value="227.476105" />
+			<Playerx value="526" />
+			<Playery value="446" />
 			<orbs_number value="0" />
 			<score value="0" />
-			<time value="11861" />
+			<time value="8079" />
+			<timePaused value="0" />
 		</Player>
 		<Entity2>
 			<Batx value="2664" />
@@ -21,7 +22,7 @@
 			<active value="true" />
 		</Entity2>
 		<Entity3>
-			<Batx value="762.950012" />
+			<Batx value="806.600281" />
 			<Baty value="144" />
 			<active value="true" />
 		</Entity3>
@@ -58,6 +59,6 @@
 		<secondStage value="false" />
 	</scene>
 	<renderer>
-		<camera x="-2" y="-295" />
+		<camera x="-586" y="-326" />
 	</renderer>
 </game_state>

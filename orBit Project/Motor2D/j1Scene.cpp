@@ -245,7 +245,7 @@ bool j1Scene::PreUpdate()
 		firstStage = true;
 		secondStage = false;
 		player->lifes = 3;
-
+		no_continue = true;
 	}
 	
 	// debug pathfing ------------------
@@ -601,6 +601,7 @@ bool j1Scene::PostUpdate(float dt)
 		change_scene(StageList.start->data->GetString());
 		firstStage = true;
 		secondStage = false;
+		no_continue = false;
 	}
 
 	// --- In Game SETTINGS TRIGGER ---
@@ -692,7 +693,7 @@ bool j1Scene::PostUpdate(float dt)
 	{
 		*App->gui->UIelements.At(0)->data->GetActive() = true;
 
-		if (Existant_SaveGame)
+		if (Existant_SaveGame && !no_continue)
 		{
 			*App->gui->UIelements.At(40)->data->GetActive() = true;
 			*App->gui->UIelements.At(41)->data->GetActive() = true;

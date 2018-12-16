@@ -87,6 +87,7 @@ public:
 	int score_sum = 0;
 	std::string auxstr;
 
+	bool no_continue = false;
 	//---------------
 
 	p2List<p2SString*> StageList;

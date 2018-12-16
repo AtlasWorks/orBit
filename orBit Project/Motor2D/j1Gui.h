@@ -81,7 +81,7 @@ private:
 	iPoint drag_Ref = { 0,0 };
 	uint first_children = 0;
 
-	bool debug = true;
+	bool debug = false;
 	bool skip_drag = false;
 };
 

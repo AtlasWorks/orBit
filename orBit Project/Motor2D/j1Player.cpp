@@ -211,7 +211,7 @@ void j1Player::Handle_Ground_Animations()
 
 	//testing life system
 
-		if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
+	/*	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
 		{
 			playerinfo.deathRight->Reset();
 			playerinfo.deathLeft->Reset();
@@ -220,17 +220,23 @@ void j1Player::Handle_Ground_Animations()
 			dead = true;
 			score -= 100;
 			
-		}
+		}*/
 		
+
+		if (lifes == 0)
+		{
+			App->scene->Activate_MainMenu = true;
+			App->scene->Activate_HUD = false;
+		}
+
 		if (lifes < 0 && CurrentAnimation->Finished())
 		{
 			lifes = 0;
 			dead = false;
-
 		}
-		else if (dead==true && CurrentAnimation->Finished())
+		else if (dead == true && CurrentAnimation->Finished())
 		{
-			
+
 			dead = false;
 			bool success = App->LoadGame("save_game.xml");
 			if (!success)
@@ -239,15 +245,12 @@ void j1Player::Handle_Ground_Animations()
 				App->scene->firstStage = true;
 				App->scene->secondStage = false;
 			}
-		else
-			App->LoadGame("save_game.xml");
+			else
+				App->LoadGame("save_game.xml");
 
-		CurrentAnimation = playerinfo.idleRight;
-
-
-
-			
+			CurrentAnimation = playerinfo.idleRight;
 		}
+		
 }
 
 
