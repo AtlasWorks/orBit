@@ -7,18 +7,21 @@
 void j1Label::FixedUpdate()
 {
 
-	// --- Controlling deactivated elements ---
-	if (parent == nullptr && active == false)
+	//// --- Controlling deactivated elements ---
+	//if (parent == nullptr && active == false)
+	//	return;
+	//else if (parent != nullptr && *parent->GetActive() == false)
+	//{
+	//	active = false;
+	//	return;
+	//}
+	//else
+	//{
+	//	active = true;
+	//}
+
+	if (!active)
 		return;
-	else if (parent != nullptr && *parent->GetActive() == false)
-	{
-		active = false;
-		return;
-	}
-	else
-	{
-		active = true;
-	}
 
 	if (!this->GetBooleans()->dragging)
 	{
@@ -141,7 +144,7 @@ inline void j1Label::PlaceAtLeft()
 
 inline void j1Label::PlaceAtRight()
 {
-	position.x = parent->position.x + parent->Getrects()->current_rect.w;
+	position.x = parent->position.x + parent->Getrects()->current_rect.w + 20;
 	position.y = parent->position.y + parent->Getrects()->current_rect.h / 2 - Data.rects.rect_normal.h / 2;
 }
 
@@ -149,6 +152,12 @@ inline void j1Label::PlaceAtMiddle()
 {
 	position.x = parent->Getrects()->logic_rect.x + parent->Getrects()->current_rect.w / 2 - Data.rects.rect_normal.w / 2;
 	position.y = parent->position.y + parent->Getrects()->current_rect.h / 2 - Data.rects.rect_normal.h / 2;
+
+	if (parent->Getrects()->rect_normal.w == 330)
+	{
+		position.y = parent->position.y + parent->Getrects()->current_rect.h / 2 - Data.rects.rect_normal.h / 2 - 50;
+
+	}
 }
 
 void j1Label::ShapeLabel(const char * text)

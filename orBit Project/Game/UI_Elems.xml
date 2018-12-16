@@ -90,10 +90,10 @@
     <click_rect x="696" y="1093" w="236" h="140"/>
   </Element>
 
-  <Element> 8 - PANEL SETTINGS
+  <Element> 8 - PANEL CREDITS MAIN MENU
     <type id="0" />
-    <parent id="6"/>
-    <position x="287" y="-400"/>
+    <parent id="5"/>
+    <position x="-50" y="-400"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="425" h="451" />
     <normal_rect x="500" y="299" w="425" h="451"/>
@@ -169,7 +169,7 @@
   <Element> 15 - SLIDER CREDITS
     <type id="4" />
     <parent id="14"/>
-    <position x="-5" y="0"/>
+    <position x="-5" y="-9"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="29" h="18" />
     <normal_rect x="1040" y="307" w="29" h="18"/>
@@ -179,11 +179,31 @@
 
   <Element> 16 - LABEL LICENSE
     <type id="2" />
-    <parent id="14"/>
+    <parent id="15"/>
     <position x="0" y="0"/>
-    <place id="0"/>
-    <color r="255" g="0" b="0" a="255" />
-    <textA value="LICENSE"/>
+    <place id="3"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="MIT License
+
+Copyright (c) 2018 Andres Ricardo Saladrigas Perez and Aitor Simona Bouzas
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the 'Software'), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE."/>
     <textB value="LICENSE"/>
   </Element>
 
@@ -207,6 +227,141 @@
     <normal_rect x="528" y="906" w="40" h="40"/>
     <hover_rect x="528" y="906" w="40" h="40"/>
     <click_rect x="528" y="906" w="40" h="40"/>
+  </Element>
+  
+  <Element> 19 - LABEL START
+    <type id="2" />
+    <parent id="4"/>
+    <position x="0" y="0"/>
+    <place id="4"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="PLAY"/>
+    <textB value="PLAY"/>
+  </Element>
+  
+    <Element> 20 - BUTTON CONTINUE IN GAME TRIGGER
+    <type id="1" />
+    <parent id="2"/>
+    <position x="0" y="-400"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="236" h="140" />
+    <normal_rect x="696" y="1093" w="236" h="140"/>
+    <hover_rect x="663" y="1232" w="236" h="140"/>
+    <click_rect x="696" y="1093" w="236" h="140"/>
+  </Element>
+
+  <Element> 21 - LABEL CONTINUE MAIN MENU
+    <type id="2" />
+    <parent id="1"/>
+    <position x="0" y="0"/>
+    <place id="4"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="CONTINUE"/>
+    <textB value="CONTINUE"/>
+  </Element>
+  
+   <Element> 22 - LABEL CONTINUE IN GAME
+    <type id="2" />
+    <parent id="20"/>
+    <position x="0" y="0"/>
+    <place id="4"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="CONTINUE"/>
+    <textB value="CONTINUE"/>
+  </Element>
+
+  <Element> 23 - LABEL BACK TO MAIN MENU (IN GAME)
+    <type id="2" />
+    <parent id="2"/>
+    <position x="0" y="0"/>
+    <place id="4"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="MAIN MENU"/>
+    <textB value="MAIN MENU"/>
+  </Element>
+
+  <Element> 24 - LABEL SETTINGS IN GAME
+    <type id="2" />
+    <parent id="7"/>
+    <position x="0" y="0"/>
+    <place id="4"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="SETTINGS"/>
+    <textB value="SETTINGS"/>
+  </Element>
+  
+ <Element> 25 - LABEL SETTINGS MAIN MENU
+    <type id="2" />
+    <parent id="6"/>
+    <position x="0" y="0"/>
+    <place id="4"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="SETTINGS"/>
+    <textB value="SETTINGS"/>
+  </Element>
+  
+<Element> 26 - LABEL CREDITS MAIN MENU
+    <type id="2" />
+    <parent id="5"/>
+    <position x="0" y="0"/>
+    <place id="4"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="CREDITS"/>
+    <textB value="CREDITS"/>
+  </Element>
+  
+<Element> 27 - PANEL SETTINGS MAIN MENU
+    <type id="0" />
+    <parent id="6"/>
+    <position x="100" y="-280"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="425" h="254" />
+    <normal_rect x="500" y="34" w="425" h="254"/>
+    <hover_rect x="500" y="34" w="425" h="254"/>
+    <click_rect x="50" y="34"  w="425" h="254"/>
+  </Element>
+  
+  <Element> 28 - BUTTON SCROLLBAR VOLUME
+    <type id="1" />
+    <parent id="27"/>
+    <position x="200" y="40"/> 
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="15" h="179" />
+    <normal_rect x="979" y="78" w="15" h="179"/>
+    <hover_rect  x="979" y="78" w="15" h="179"/>
+    <click_rect  x="979" y="78" w="15" h="179"/>
+  </Element>
+
+  <Element> 29 - SLIDER VOLUME
+    <type id="4" />
+    <parent id="28"/>
+    <position x="-5" y="0"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="23" h="15" />
+    <normal_rect x="1030" y="78" w="23" h="15"/>
+    <hover_rect  x="1030" y="78" w="23" h="15"/>
+    <click_rect  x="945" y="78" w="23" h="16"/>
+  </Element>
+
+  <Element> 30 - LABEL VOLUME
+    <type id="2" />
+    <parent id="28"/>
+    <position x="0" y="0"/>
+    <place id="2"/>
+    <color r="255" g="0" b="0" a="255" />
+    <textA value="VOLUME"/>
+    <textB value=""/>
+  </Element>
+  
+  <Element> 31 - BUTTON BACK TO MAIN MENU TRIGGER (SETTINGS)
+    <type id="1" />
+    <parent id="27"/>
+    <position x="35" y="180"/>
+    <Texture path="gui/atlas.png"/>
+    <logic_rect w="44" h="44" />
+    <normal_rect x="984" y="676" w="44" h="44"/>
+    <hover_rect x="984" y="676" w="44" h="44"/>
+    <click_rect x="984" y="676" w="44" h="44"/>
   </Element>
 
 </config>

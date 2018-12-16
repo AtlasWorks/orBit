@@ -237,30 +237,30 @@ bool j1Scene::PreUpdate()
 	}
 	
 	// debug pathfing ------------------
-	static iPoint origin;
-	static bool origin_selected = false;
+	//static iPoint origin;
+	//static bool origin_selected = false;
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	if(firstStage)
-	p = App->map->WorldToMap(p.x, p.y, App->map->data);
-	else
-	p = App->map->WorldToMap(p.x, p.y, App->map->data2);
+	//int x, y;
+	//App->input->GetMousePosition(x, y);
+	//iPoint p = App->render->ScreenToWorld(x, y);
+	//if(firstStage)
+	//p = App->map->WorldToMap(p.x, p.y, App->map->data);
+	//else
+	//p = App->map->WorldToMap(p.x, p.y, App->map->data2);
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (origin_selected == true)
-		{
-			App->pathfinding->CreatePath(origin, p);
-			origin_selected = false;
-		}
-		else
-		{
-			origin = p;
-			origin_selected = true;
-		}
-	}
+	//if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	//{
+	//	if (origin_selected == true)
+	//	{
+	//		App->pathfinding->CreatePath(origin, p);
+	//		origin_selected = false;
+	//	}
+	//	else
+	//	{
+	//		origin = p;
+	//		origin_selected = true;
+	//	}
+	//}
 
 			//Checkpoint
 			// Player pos    ------------------------------   area around checkpoint
@@ -369,7 +369,7 @@ bool j1Scene::Update(float dt)
 			}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) 
+	/*if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) 
 	{
 		App->audio->ChangeVolume_music(10);
 		App->audio->ChangeVolume_fx(10);
@@ -381,7 +381,7 @@ bool j1Scene::Update(float dt)
 		App->audio->ChangeVolume_music(-10);
 		App->audio->ChangeVolume_fx(-10);
 		LOG("volume down");
-	}
+	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{	
@@ -480,8 +480,6 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-
-
 	return true;
 }
 
@@ -492,42 +490,224 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
-	// --- Controlling menus ---
-
-	// --- Quit Button ---
-	if (App->gui->focus == App->gui->UIelements.At(18)->data)
-		ret = false;
-
-	// --- Controlling Main Menu ---
-
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !Activate_MainMenu)
-		Activate_Ingamemenu = !Activate_Ingamemenu;
-
-	if (Activate_Ingamemenu)
-	{
-		*App->gui->UIelements.At(2)->data->GetActive() = true;
-	}
-	else
-	{
-		*App->gui->UIelements.At(2)->data->GetActive() = false;
-	}
-
-	// --- Controlling In-Game Menu ---
+		Activate_Ingamemenu = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && !Activate_Ingamemenu)
 		Activate_MainMenu = !Activate_MainMenu;
 
-	if (Activate_MainMenu)
+	// --- Check if there is any Save Game ---
+
+	pugi::xml_parse_result SaveGame;
+	pugi::xml_document SaveGamedoc;
+
+	SaveGame = SaveGamedoc.load_file("save_game.xml");
+
+	if (SaveGame != NULL)
+		Existant_SaveGame = true;
+	else
+		Existant_SaveGame = false;
+
+	// --- Controlling UI BEHAVIOUR ---
+
+	// --- Quit Button ---
+	if (App->gui->focus == App->gui->UIelements.At(18)->data)
 	{
-		*App->gui->UIelements.start->data->GetActive() = true;
-		*App->gui->UIelements.At(1)->data->GetActive() = true;
+		App->gui->focus = nullptr;
+		ret = false;
+	}
+
+	// --- In Game Continue ---
+	if (App->gui->focus == App->gui->UIelements.At(20)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_Ingamemenu = false;
+	}
+
+	// --- In Game SETTINGS TRIGGER ---
+	if (App->gui->focus == App->gui->UIelements.At(7)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_Ingamemenu = false;
+		Activate_InGameSettings = true;
+	}
+
+	// --- Main Menu SETTINGS TRIGGER ---
+	if (App->gui->focus == App->gui->UIelements.At(6)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_MainMenu = false;
+		Activate_MainMenuSettings = true;
+	}
+
+	// --- Main Menu CREDITS TRIGGER ---
+	if (App->gui->focus == App->gui->UIelements.At(5)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_MainMenu = false;
+		Activate_Credits = true;
+	}
+
+	// --- In Game BACK TO IN GAME MENU ---
+	if (App->gui->focus == App->gui->UIelements.At(13)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_Ingamemenu = true;
+		Activate_InGameSettings = false;
+	}
+	// --- In Game BACK TO MAIN MENU TRIGGER ---
+	if (App->gui->focus == App->gui->UIelements.At(2)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_MainMenu = true;
+		Activate_Ingamemenu = false;
+	}
+
+	// --- Main Menu BACK TO MAIN MENU TRIGGER (CREDITS) ---
+	if (App->gui->focus == App->gui->UIelements.At(17)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_MainMenu = true;
+		Activate_Credits = false;
+	}
+
+	// --- Main Menu BACK TO MAIN MENU TRIGGER (SETTINGS) ---
+	if (App->gui->focus == App->gui->UIelements.At(31)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_MainMenu = true;
+		Activate_MainMenuSettings = false;
+	}
+
+	// --- Controlling In-Game Menu ---
+
+	if (Activate_Ingamemenu)
+	{
+		*App->gui->UIelements.At(2)->data->GetActive() = true;
+		*App->gui->UIelements.At(7)->data->GetActive() = true;
+		*App->gui->UIelements.At(20)->data->GetActive() = true;
+
+		// --- Labels ---
+		*App->gui->UIelements.At(22)->data->GetActive() = true;
+		*App->gui->UIelements.At(23)->data->GetActive() = true;
+		*App->gui->UIelements.At(24)->data->GetActive() = true;
 	}
 	else
 	{
-		*App->gui->UIelements.start->data->GetActive() = false;
-		*App->gui->UIelements.At(1)->data->GetActive() = false;
+		*App->gui->UIelements.At(2)->data->GetActive() = false;
+		*App->gui->UIelements.At(7)->data->GetActive() = false;
+		*App->gui->UIelements.At(20)->data->GetActive() = false;
+
+		// --- Labels ---
+		*App->gui->UIelements.At(22)->data->GetActive() = false;
+		*App->gui->UIelements.At(23)->data->GetActive() = false;
+		*App->gui->UIelements.At(24)->data->GetActive() = false;
 	}
 
+	// --- Controlling Main Menu ---
+
+	if (Activate_MainMenu)
+	{
+		*App->gui->UIelements.At(0)->data->GetActive() = true;
+
+		if (Existant_SaveGame)
+		{
+			*App->gui->UIelements.At(1)->data->GetActive() = true;
+			*App->gui->UIelements.At(21)->data->GetActive() = true;
+		}
+		else
+		{
+			*App->gui->UIelements.At(1)->data->GetActive() = false;
+			*App->gui->UIelements.At(21)->data->GetActive() = false;
+		}
+
+		*App->gui->UIelements.At(3)->data->GetActive() = true;
+		*App->gui->UIelements.At(4)->data->GetActive() = true;
+		*App->gui->UIelements.At(5)->data->GetActive() = true;
+		*App->gui->UIelements.At(6)->data->GetActive() = true;
+		*App->gui->UIelements.At(18)->data->GetActive() = true;
+
+		// --- Labels ---
+		*App->gui->UIelements.At(19)->data->GetActive() = true;
+		*App->gui->UIelements.At(25)->data->GetActive() = true;
+		*App->gui->UIelements.At(26)->data->GetActive() = true;
+
+	}
+	else
+	{
+		*App->gui->UIelements.At(0)->data->GetActive() = false;
+														
+		*App->gui->UIelements.At(1)->data->GetActive() = false;
+														
+		*App->gui->UIelements.At(3)->data->GetActive() = false;
+		*App->gui->UIelements.At(4)->data->GetActive() = false;
+		*App->gui->UIelements.At(5)->data->GetActive() = false;
+		*App->gui->UIelements.At(6)->data->GetActive() = false;
+		*App->gui->UIelements.At(18)->data->GetActive() = false;
+
+		// --- Labels ---
+		*App->gui->UIelements.At(19)->data->GetActive() = false;
+		*App->gui->UIelements.At(21)->data->GetActive() = false;
+		*App->gui->UIelements.At(25)->data->GetActive() = false;
+		*App->gui->UIelements.At(26)->data->GetActive() = false;
+	}
+
+	// --- SETTINGS IN GAME PANEL
+
+	if (Activate_InGameSettings)
+	{
+		*App->gui->UIelements.At(9)->data->GetActive() = true;
+		*App->gui->UIelements.At(10)->data->GetActive() = true;
+		*App->gui->UIelements.At(11)->data->GetActive() = true;
+		*App->gui->UIelements.At(12)->data->GetActive() = true;
+		*App->gui->UIelements.At(13)->data->GetActive() = true;
+	}
+	else
+	{
+		*App->gui->UIelements.At(9)->data->GetActive() = false;
+		*App->gui->UIelements.At(10)->data->GetActive() =false;
+		*App->gui->UIelements.At(11)->data->GetActive() =false;
+		*App->gui->UIelements.At(12)->data->GetActive() =false;
+		*App->gui->UIelements.At(13)->data->GetActive() =false;
+	}
+
+	// --- SETTINGS MAIN MENU PANEL ---
+
+	if (Activate_MainMenuSettings)
+	{
+		*App->gui->UIelements.At(27)->data->GetActive() = true;
+		*App->gui->UIelements.At(28)->data->GetActive() = true;
+		*App->gui->UIelements.At(29)->data->GetActive() = true;
+		*App->gui->UIelements.At(30)->data->GetActive() = true;
+		*App->gui->UIelements.At(31)->data->GetActive() = true;
+	}
+	else
+	{
+		*App->gui->UIelements.At(27)->data->GetActive() = false;
+		*App->gui->UIelements.At(28)->data->GetActive() = false;
+		*App->gui->UIelements.At(29)->data->GetActive() = false;
+		*App->gui->UIelements.At(30)->data->GetActive() = false;
+		*App->gui->UIelements.At(31)->data->GetActive() = false;
+	}
+
+	// --- CREDITS MAIN MENU PANEL ---
+
+	if (Activate_Credits)
+	{
+		*App->gui->UIelements.At(8)->data->GetActive() = true;
+		*App->gui->UIelements.At(14)->data->GetActive() = true;
+		*App->gui->UIelements.At(15)->data->GetActive() = true;
+		*App->gui->UIelements.At(16)->data->GetActive() = true;
+		*App->gui->UIelements.At(17)->data->GetActive() = true;
+	}
+	else
+	{
+		*App->gui->UIelements.At(8)->data->GetActive() = false;
+		*App->gui->UIelements.At(14)->data->GetActive() =false;
+		*App->gui->UIelements.At(15)->data->GetActive() =false;
+		*App->gui->UIelements.At(16)->data->GetActive() =false;
+		*App->gui->UIelements.At(17)->data->GetActive() =false;
+	}
 
 	// --- Controlling camera Bounds---
 
@@ -1082,18 +1262,23 @@ void j1Scene::ONdrag(j1UI_Element & element)
 			element.position.y = element.Getparent()->position.y - element.Getrects()->current_rect.h / 2;
 		}
 
-		if (parentindex == 0)
+		if (parentindex == 0 && &element == App->gui->UIelements.At(11)->data || &element == App->gui->UIelements.At(29)->data)
 		{
-			Volume_changer = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
-			if (Volume_changer > 1)
-				Volume_changer = 1;
-			else if (Volume_changer < 0.1)
-				Volume_changer = 0;
-			LOG("Volume_changer: %f", Volume_changer);
+			App->audio->VolumeChanger_music = App->audio->VolumeChanger_fx = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
+			if (App->audio->VolumeChanger_music > 1)
+				App->audio->VolumeChanger_music = 1;
+			else if (App->audio->VolumeChanger_music < 0.1)
+				App->audio->VolumeChanger_music = 0;
+			LOG("Volume_changer: %f", App->audio->VolumeChanger_music);
+
+			App->audio->ChangeVolume_music(App->audio->VolumeChanger_music);
+			App->audio->ChangeVolume_fx(App->audio->VolumeChanger_fx);
 		}
 		else if (parentindex == 1)
 		{
-			element.Getchild(0)->position.y = element.Getparent()->Getrects()->logic_rect.y + (element.Getrects()->logic_rect.y + element.Getrects()->logic_rect.h / 2 - element.Getparent()->Getrects()->logic_rect.y);
+			element.Getchild(0)->position.y = element.Getparent()->Getrects()->logic_rect.y + ((element.Getrects()->logic_rect.y - element.Getparent()->Getrects()->logic_rect.y
+				)* (element.Getchild(0)->Getrects()->rect_normal.h / element.Getparent()->Getrects()->logic_rect.h));
+			//element.Getchild(0)->position.y = element.Getparent()->Getrects()->logic_rect.y + (element.Getrects()->logic_rect.y + element.Getrects()->logic_rect.h / 2 - element.Getparent()->Getrects()->logic_rect.y);
 		}
 		break;
 

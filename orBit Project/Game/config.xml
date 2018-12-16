@@ -48,11 +48,11 @@
       <folder>audio/music/</folder>
       <song name="stage1.ogg"/>
       <song name="stage2.ogg"/>
-      <VolumeChanger_music value="0.2"/>
+      <VolumeChanger_music value="1.0"/>
     </music>
     <fx>
       <folder>audio/fx/</folder>
-      <VolumeChanger_fx value="0.2"/>
+      <VolumeChanger_fx value="1.0"/>
       <sound death="death.wav" doubleJump="doble jump.wav" jump="jump.wav"/>
     </fx>
   </audio>
