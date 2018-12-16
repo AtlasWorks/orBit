@@ -1264,12 +1264,15 @@ void j1Scene::ONdrag(j1UI_Element & element)
 
 		if (parentindex == 0)
 		{
-			Volume_changer = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
-			if (Volume_changer > 1)
-				Volume_changer = 1;
-			else if (Volume_changer < 0.1)
-				Volume_changer = 0;
-			LOG("Volume_changer: %f", Volume_changer);
+			App->audio->VolumeChanger_music = App->audio->VolumeChanger_fx = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
+			if (App->audio->VolumeChanger_music > 1)
+				App->audio->VolumeChanger_music = 1;
+			else if (App->audio->VolumeChanger_music < 0.1)
+				App->audio->VolumeChanger_music = 0;
+			LOG("Volume_changer: %f", App->audio->VolumeChanger_music);
+
+			App->audio->ChangeVolume_music(App->audio->VolumeChanger_music);
+			App->audio->ChangeVolume_fx(App->audio->VolumeChanger_fx);
 		}
 		else if (parentindex == 1)
 		{

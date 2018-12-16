@@ -96,8 +96,8 @@ bool j1Gui::PreUpdate()
 		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			ret = RecursiveOnClick(item);
 
-			if (ret)
-				break;
+			/*if (ret)
+				break;*/
 
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 				ret = RecursiveOnDrag(item);
