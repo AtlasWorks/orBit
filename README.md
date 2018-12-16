@@ -1,4 +1,4 @@
-# orBit
+﻿# orBit
 
 orBit is a singleplayer platfomer game developed by Andres Saladrigas and Aitor Simona, two students at second year of Video Game Design and Development degree in UPC Barcelona, Spain.
 The game includes two levels, with usual mechanics. player can move right, left and jump 
@@ -19,23 +19,22 @@ Decompress the .zip file in any directory. Open the file directoy and double cli
 
 - S: while in GodMode going down
 
-- SPACE: jump
+- SPACE: jump If on air, press SPACE again to DOUBLE JUMP
+
 
 ### Debug keys:
 
-```markdown
 - F1: start from the very first level
-- F2: start from th beginning of current level
+- F2: start from the beginning of the current level
 - F5: save current state
 - F6: Load the previous state
+- F8: view UI Rectangles (UI Debug mode)
 - F9: view colliders and pathfinding
 - F10: GodMode (allows to fly around)
 - F11: Enable/Disable FPS cap to 30
-- Keypad PLUS: Volume UP
-- Keypad MINUS: Volume DOWN
 - 1: Go to 1st Stage
 - 2: Go to 2nd Stage
-```
+- ESC: Open In-Game Menu
 
 ### Authors
  - Andrés Saladrigas
@@ -51,6 +50,10 @@ github: https://github.com/AitorSimona
 ### Project Trello
 
 	https://trello.com/b/M2TV7zXz/development
+
+### Project Website
+
+	https://atlasworks.github.io/orBit/
 
 ### Disclosure
 
@@ -72,6 +75,7 @@ https://www.bfxr.net/
 
 Licensed under the [MIT License](LICENSE.txt)
 
+### Apart from the minimum requirements, we have added the following features
 
 ### Innovation First Assignment
 
@@ -103,31 +107,77 @@ Additional fetures added:
 
 - FX: implemented sound effects to player.
 
-### Bugs fixed
+### Innovation Second Assignment
 
-- Parallax based on camera: parallax now moves according to camera, not to player
+Additional fetures added:
 
-- Player collider: player collider smaller.
+- Checkpoint Areas: creating checkpoints to save progress.
 
-- Collision: colliders are not changing Y position of the player.
+
+- Animations Loaded from Tiled: loaded animations from xml document save from Tiled.
+
+
+- Collisions system: collisions are only checked near entities.
+
+
+- Entity Update Area: enemies update just when the enemy is in the player depth of field.
+
+
+- Tiled: Animations, collisions, entities, and areas loaded from tiled.
+
+
+- UI from xml: Elements from the Ui are created from a xml.
+
+
+- Entity management: avoid destroying and creating entities by active or inactive system.
 
 ### Task List
 
-- Implement flying enemy  (Andres)
-- Implement ground Enemy  (Andres)
-- Implement entity module (Aitor)
-- Player to entity 	    (Aitor)
-- Save enemies states     (Andres)
-- Load enemies states     (Andres)
-- Pathfinding enemies    (Aitor)
-- Pathfinding module     (Aitor)
-- Entity UML                   (Andres)
-- Framerate Control 	    (Aitor)
-- Debug key FPS 	    (Aitor)
-- Brofiler                           (Aitor)
-- Debug GodMode           (Aitor)
-- README                  (Andres)
-- Window Title            (Andres)
+## Tasks
+
+### Aitor
+
+
+- Entity System 
+
+- UI System 
+
+- Pathfinding
+ 
+- Player 
+
+- Collisions  
+
+- Metadata  
+
+- Framerate control  
+
+- Camera, parallax  
+
+- Volume Control  
+
+
+### Andres
+
+
+- Enemies  
+
+- Loading TMX System (sprites, game objects)  
+
+- Collectibles, Score, UI Timer, Lifes  
+
+- Maps   
+
+- Website  
+
+- Change_Scene Management  
+
+- Collisions near entity
+
+- Load & Save  
+
+- Art Management (sprites, tileset, atlas, logo)
+
 
 
 

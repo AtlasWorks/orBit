@@ -259,6 +259,8 @@ void j1Slime::OnCollision(Collider * c1, Collider * c2)
 		{
 			if (dead == false)
 			{
+				App->audio->PlayFx(App->audio->enemydeathfx);
+
 				Slimeinfo.explote->Reset();
 				CurrentAnimation = Slimeinfo.explote;
 				
