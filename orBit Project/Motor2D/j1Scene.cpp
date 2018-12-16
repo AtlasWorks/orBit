@@ -535,8 +535,8 @@ bool j1Scene::PostUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !Activate_MainMenu)
 		Activate_Ingamemenu = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && !Activate_Ingamemenu)
-		Activate_MainMenu = !Activate_MainMenu;
+	//if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN && !Activate_Ingamemenu)
+	//	Activate_MainMenu = !Activate_MainMenu;
 
 	// --- Check if there is any Save Game ---
 
@@ -579,6 +579,17 @@ bool j1Scene::PostUpdate(float dt)
 		App->gui->focus = nullptr;
 		Activate_MainMenu = false;
 		App->LoadGame("save_game.xml");
+	}
+
+	// --- Main Menu START ---
+	if (App->gui->focus == App->gui->UIelements.At(4)->data)
+	{
+		App->gui->focus = nullptr;
+		Activate_MainMenu = false;
+
+		change_scene(StageList.start->data->GetString());
+		firstStage = true;
+		secondStage = false;
 	}
 
 	// --- In Game SETTINGS TRIGGER ---
