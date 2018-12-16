@@ -30,6 +30,8 @@ struct Playerdata {
 	fPoint Velocity = { 0.0f,0.0f };
 	float jump_force = 0.0f;
 	float gravity = 0;
+
+	bool dontShow = false;
 };
 
 enum class MOVEMENT 
@@ -122,6 +124,9 @@ public:
 
 	// auxiliar for timer
 	uint32 TimeAuxload;
+
+	//--- Aux ----
+	
 };
 
 #endif // __j1Player_H__

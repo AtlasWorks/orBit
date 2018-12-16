@@ -75,6 +75,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 	playerinfo.deathRight->loop = false;
 	playerinfo.deathLeft->loop = false;
+	
 
 	//--Slime data load ------------
 
@@ -230,13 +231,15 @@ bool j1EntityManager::PostUpdate(float dt)
 	BROFILER_CATEGORY("EntityManager_Post_Update", Profiler::Color::Coral);
 
 	p2List_item <j1Entity*> *entity = entities.start;
-
-	while (entity != NULL)
+	
+	while (entity != NULL )
 	{
 	    entity->data->FixedUpdate(dt);
 
 	    entity = entity->next;
     }
+	
+
 
 	return true;
 }
