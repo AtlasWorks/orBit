@@ -313,8 +313,11 @@ Text j1Gui::FillLabel(pugi::xml_node & UIconfig)
 		Data.rects.rect_normal.w = 250;
 	}
 
-	Data.rects.logic_rect = { 0 , 0 , Data.rects.rect_normal.w , 324 };
+	Data.rects.logic_rect = { 0 , 0 , Data.rects.rect_normal.w ,324};
 	Data.texts.current_text = Data.texts.text;
+
+	if (Data.rects.rect_normal.w < 250)
+		Data.rects.logic_rect.h = Data.rects.rect_normal.h;
 
 	return Data;
 }
