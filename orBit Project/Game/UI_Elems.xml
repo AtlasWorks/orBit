@@ -139,7 +139,7 @@
     <parent id="10"/>
     <position x="0" y="0"/>
     <place id="2"/>
-    <color r="255" g="255" b="255" a="150" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="MUSIC"/>
     <textB value=""/>
   </Element>
@@ -182,7 +182,7 @@
     <parent id="15"/>
     <position x="0" y="0"/>
     <place id="3"/>
-    <color r="255" g="255" b="255" a="150" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="MIT License
 
 Copyright (c) 2018 Andres Ricardo Saladrigas Perez and Aitor Simona Bouzas
@@ -234,7 +234,7 @@ SOFTWARE."/>
     <parent id="4"/>
     <position x="0" y="0"/>
     <place id="4"/>
-    <color r="255" g="0" b="0" a="255" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="PLAY"/>
     <textB value="PLAY"/>
   </Element>
@@ -277,7 +277,7 @@ SOFTWARE."/>
     <parent id="20"/>
     <position x="0" y="0"/>
     <place id="4"/>
-    <color r="255" g="0" b="0" a="255" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="CONTINUE"/>
     <textB value="CONTINUE"/>
   </Element>
@@ -287,7 +287,7 @@ SOFTWARE."/>
     <parent id="2"/>
     <position x="0" y="0"/>
     <place id="4"/>
-    <color r="255" g="0" b="0" a="255" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="MAIN MENU"/>
     <textB value="MAIN MENU"/>
   </Element>
@@ -297,7 +297,7 @@ SOFTWARE."/>
     <parent id="7"/>
     <position x="0" y="0"/>
     <place id="4"/>
-    <color r="255" g="0" b="0" a="255" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="SETTINGS"/>
     <textB value="SETTINGS"/>
   </Element>
@@ -307,7 +307,7 @@ SOFTWARE."/>
     <parent id="6"/>
     <position x="0" y="0"/>
     <place id="4"/>
-    <color r="255" g="0" b="0" a="255" />
+   <color r="245" g="245" b="220" a="55" />
     <textA value="SETTINGS"/>
     <textB value="SETTINGS"/>
   </Element>
@@ -317,7 +317,7 @@ SOFTWARE."/>
     <parent id="5"/>
     <position x="0" y="0"/>
     <place id="4"/>
-    <color r="255" g="0" b="0" a="255" />
+  <color r="245" g="245" b="220" a="55" />
     <textA value="CREDITS"/>
     <textB value="CREDITS"/>
   </Element>
@@ -360,7 +360,7 @@ SOFTWARE."/>
     <parent id="29"/>
     <position x="0" y="0"/>
     <place id="2"/>
-    <color r="255" g="255" b="255" a="150" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="MUSIC"/>
     <textB value=""/>
   </Element>
@@ -381,7 +381,7 @@ SOFTWARE."/>
     <parent id="8"/>
     <position x="0" y="0"/>
     <place id="0"/>
-    <color r="255" g="255" b="255" a="150" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="WEBSITE"/>
     <textB value="PLAY"/>
   </Element>
@@ -445,7 +445,7 @@ SOFTWARE."/>
     <parent id="37"/>
     <position x="0" y="0"/>
     <place id="2"/>
-    <color r="255" g="255" b="255" a="150" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="FX"/>
     <textB value=""/>
   </Element>
@@ -466,7 +466,7 @@ SOFTWARE."/>
     <parent id="40"/>
     <position x="0" y="0"/>
     <place id="4"/>
-    <color r="255" g="0" b="0" a="255" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="CONTINUE"/>
     <textB value="CONTINUE"/>
   </Element>
@@ -509,7 +509,7 @@ SOFTWARE."/>
     <parent id="1"/>
     <position x="300" y="-75"/>
     <place id="5"/>
-    <color r="255" g="255" b="255" a="150" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value="SCORE"/>
     <textB value="SCORE"/>
   </Element>
@@ -519,9 +519,29 @@ SOFTWARE."/>
     <parent id="1"/>
     <position x="375" y="-75"/>
     <place id="5"/>
-    <color r="255" g="255" b="255" a="150" />
+    <color r="245" g="245" b="220" a="55" />
     <textA value=""/>
     <textB value=""/>
   </Element>
 
+  <Element> 47 - LABEL TIMER
+    <type id="2" />
+    <parent id="1"/>
+    <position x="500" y="-75"/>
+    <place id="5"/>
+    <color r="245" g="245" b="220" a="55" />
+    <textA value="TIME"/>
+    <textB value="TIME"/>
+  </Element>
+
+  <Element> 48 - LABEL TIMER
+    <type id="2" />
+    <parent id="1"/>
+    <position x="575" y="-75"/>
+    <place id="5"/>
+    <color r="245" g="245" b="220" a="55" />
+    <textA value=""/>
+    <textB value=""/>
+  </Element>
+  
 </config>

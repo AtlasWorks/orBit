@@ -830,14 +830,38 @@ bool j1Scene::PostUpdate(float dt)
 
 		// --- LIFES ---
 
-		if(player->lifes >=1)
+		if(player->lifes >= 1)
 		*App->gui->UIelements.At(42)->data->GetActive() = true;
+		else
+		*App->gui->UIelements.At(42)->data->GetActive() = false;
 
 		if (player->lifes >= 2)
 		*App->gui->UIelements.At(43)->data->GetActive() = true;
+		else
+		*App->gui->UIelements.At(43)->data->GetActive() = false;
 
 		if (player->lifes >= 3)
 		*App->gui->UIelements.At(44)->data->GetActive() = true;
+		else
+		*App->gui->UIelements.At(44)->data->GetActive() = false;
+
+		// --- Timer ---
+
+		*App->gui->UIelements.At(47)->data->GetActive() = true;
+		*App->gui->UIelements.At(48)->data->GetActive() = true;
+
+		if (App->on_GamePause)
+		{
+			auxstr = std::to_string(timeWhenPaused);
+			scorestring = auxstr.data();
+			App->gui->UIelements.At(48)->data->ShapeLabel(scorestring);
+		}
+		else
+		{
+			auxstr = std::to_string(sceneTimer.ReadSec());
+			scorestring = auxstr.data();
+			App->gui->UIelements.At(48)->data->ShapeLabel(scorestring);
+		}
 	}
 	else
 	{
@@ -850,6 +874,8 @@ bool j1Scene::PostUpdate(float dt)
 
 		*App->gui->UIelements.At(45)->data->GetActive() = false;
 		*App->gui->UIelements.At(46)->data->GetActive() = false;
+		*App->gui->UIelements.At(47)->data->GetActive() = false;
+		*App->gui->UIelements.At(48)->data->GetActive() = false;
 	}
 
 	// --- Controlling camera Bounds---
@@ -1466,9 +1492,9 @@ void j1Scene::ONdrag(j1UI_Element & element)
 			element.position.y = element.Getparent()->position.y - element.Getrects()->current_rect.h / 2;
 		}
 
-		if (parentindex == 0 && &element == App->gui->UIelements.At(11)->data || &element == App->gui->UIelements.At(29)->data)
+		if (parentindex == 0 && &element == App->gui->UIelements.At(11)->data || &element == App->gui->UIelements.At(30)->data)
 		{
-			App->audio->VolumeChanger_music /*= App->audio->VolumeChanger_fx*/ = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
+			App->audio->VolumeChanger_music = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
 			if (App->audio->VolumeChanger_music > 1)
 				App->audio->VolumeChanger_music = 1;
 			else if (App->audio->VolumeChanger_music < 0.1)
@@ -1476,7 +1502,7 @@ void j1Scene::ONdrag(j1UI_Element & element)
 			LOG("Volume_changer: %f", App->audio->VolumeChanger_music);
 
 			App->audio->ChangeVolume_music(App->audio->VolumeChanger_music);
-			//App->audio->ChangeVolume_fx(App->audio->VolumeChanger_fx);
+		
 		}
 		else if (parentindex == 0)
 		{
@@ -1487,7 +1513,7 @@ void j1Scene::ONdrag(j1UI_Element & element)
 				App->audio->VolumeChanger_fx = 0;
 			LOG("Volume_changer: %f", App->audio->VolumeChanger_fx);
 
-			//App->audio->ChangeVolume_music(App->audio->VolumeChanger_music);
+			
 			App->audio->ChangeVolume_fx(App->audio->VolumeChanger_fx);
 		}
 		else if (parentindex == 1)

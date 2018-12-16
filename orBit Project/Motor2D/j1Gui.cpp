@@ -307,7 +307,7 @@ Text j1Gui::FillLabel(pugi::xml_node & UIconfig)
 
 	if (Data.rects.rect_normal.w > 250)
 	{
-		Data.rects.rect_normal.h *= Data.rects.rect_normal.w / 200;
+		Data.rects.rect_normal.h *= Data.rects.rect_normal.w / 250;
 
 		//Data.rects.rect_normal.h = 324;
 		Data.rects.rect_normal.w = 250;
