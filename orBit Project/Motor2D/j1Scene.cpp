@@ -1281,6 +1281,8 @@ void j1Scene::ONclick(j1UI_Element & element)
 {
 	ELEMENTS TYPE = element.GetType();
 
+	App->audio->PlayFx(App->audio->buttonpopfx);
+
 	switch (TYPE)
 	{
 	case ELEMENTS::PANEL:

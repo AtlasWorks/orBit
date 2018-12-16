@@ -9,6 +9,7 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 #include "j1EntityManager.h"
+#include "j1Audio.h"
 
 
 j1Player::j1Player() : j1Entity("player",entity_type::PLAYER)
@@ -313,12 +314,14 @@ bool j1Player::Update(float dt)
 		// --- IMPULSE ---
 		if (!on_air && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
+			App->audio->PlayFx(App->audio->jumpfx);
 			Apply_Vertical_Impulse(dt);
 			on_air = true;
 		}
 
 		else if (on_air && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && double_jump==false)
 		{
+			App->audio->PlayFx(App->audio->doublejumpfx);
 			double_jump = true;
 			Velocity.y = 0.0f;
 			Apply_Vertical_Impulse(dt);
