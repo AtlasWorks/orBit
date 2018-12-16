@@ -340,45 +340,67 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && firstStage == false) //can only press during second stage. goes to first stage
 	{	
+		if (!Activate_MainMenu
+			&& !Activate_Ingamemenu
+			&& !Activate_Credits
+			&& !Activate_InGameSettings
+			&& !Activate_MainMenuSettings)
+		{
 			change_scene(StageList.start->data->GetString());
 			firstStage = true;
 			secondStage = false;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && secondStage== false) //can only press during first stage. goes to second stage
 	{	
-		change_scene(StageList.start->next->data->GetString());
-		firstStage = false;
-		secondStage = true;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN ) //test sounds
-	{
-		App->audio->PlayFx(App->audio->doublejumpfx, 0);
+		if (!Activate_MainMenu
+			&& !Activate_Ingamemenu
+			&& !Activate_Credits
+			&& !Activate_InGameSettings
+			&& !Activate_MainMenuSettings)
+		{
+			change_scene(StageList.start->next->data->GetString());
+			firstStage = false;
+			secondStage = true;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) //reload stage1
 	{
-		
-		change_scene(StageList.start->data->GetString());
-		firstStage = true;
-		secondStage = false;
+		if (!Activate_MainMenu
+			&& !Activate_Ingamemenu
+			&& !Activate_Credits
+			&& !Activate_InGameSettings
+			&& !Activate_MainMenuSettings)
+		{
+			change_scene(StageList.start->data->GetString());
+			firstStage = true;
+			secondStage = false;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) // beginning of current level
 	{
-		if (firstStage)
+		if (!Activate_MainMenu
+			&& !Activate_Ingamemenu
+			&& !Activate_Credits
+			&& !Activate_InGameSettings
+			&& !Activate_MainMenuSettings)
+		{
+			if (firstStage)
 			{
 				change_scene(StageList.start->data->GetString());
 				firstStage = true;
 				secondStage = false;
 			}
-		else if (secondStage)
+			else if (secondStage)
 			{
 				change_scene(StageList.start->next->data->GetString());
 				firstStage = false;
 				secondStage = true;
 			}
+		}
 	}
 
 	/*if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) 
@@ -397,27 +419,42 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{	
-
-		bool ret = App->LoadGame("save_game.xml");
+		if (!Activate_MainMenu
+			&& !Activate_Ingamemenu
+			&& !Activate_Credits
+			&& !Activate_InGameSettings
+			&& !Activate_MainMenuSettings)
+		{
+			bool ret = App->LoadGame("save_game.xml");
+		}
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) 
-		App->SaveGame("save_game.xml");
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
+		if (!Activate_MainMenu
+			&& !Activate_Ingamemenu
+			&& !Activate_Credits
+			&& !Activate_InGameSettings
+			&& !Activate_MainMenuSettings)
+		{
+			App->SaveGame("save_game.xml");
+		}
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		App->cap_on = !App->cap_on;
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 2;
+	//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	//	App->render->camera.y += 2;
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 2;
+	//if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	//	App->render->camera.y -= 2;
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 2;
+	//if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	//	App->render->camera.x -= 2;
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 2;
+	//if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	//	App->render->camera.x += 2;
 
 	int x, y;
 	App->input->GetMousePosition(x, y);

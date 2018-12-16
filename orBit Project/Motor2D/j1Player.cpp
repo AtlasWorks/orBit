@@ -290,7 +290,14 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		god_mode = !god_mode;
+		if (!App->scene->Activate_MainMenu
+			&& !App->scene->Activate_Ingamemenu
+			&& !App->scene->Activate_Credits
+			&& !App->scene->Activate_InGameSettings
+			&& !App->scene->Activate_MainMenuSettings)
+		{
+			god_mode = !god_mode;
+		}
 	}
 
 	if (god_mode)
