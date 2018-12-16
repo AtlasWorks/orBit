@@ -63,9 +63,7 @@ Download [Here](https://github.com/AtlasWorks/orBit/releases)
 <html>
 <body>
 
-<iframe width="645" height="520"
-src="https://youtu.be/hxSv7Yk8KYc" frameborder="0" allowfullscreen>
-</iframe>
+<iframe width="1160" height="870" src="https://www.youtube.com/embed/hxSv7Yk8KYc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 </body>
 </html>
