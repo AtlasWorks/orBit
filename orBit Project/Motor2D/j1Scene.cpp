@@ -1107,6 +1107,7 @@ bool j1Scene::change_scene(const char* map_name) {
 		RELEASE_ARRAY(buffer_data);
 	}
 
+	player->CurrentAnimation = player->playerinfo.idleRight;
 
 	setStandarEntityPosition(map_name);
 
