@@ -798,6 +798,7 @@ bool j1Scene::PostUpdate(float dt)
 	if (Activate_HUD)
 	{
 		// --- ORBS ---
+
 		if (player->orbs_number >= 1)
 		*App->gui->UIelements.At(1)->data->GetActive() = true;
 
@@ -807,7 +808,17 @@ bool j1Scene::PostUpdate(float dt)
 		if(player->orbs_number >= 3)
 		*App->gui->UIelements.At(22)->data->GetActive() = true;
 
+		// --- SCORE ---
+		*App->gui->UIelements.At(45)->data->GetActive() = true;
+		*App->gui->UIelements.At(46)->data->GetActive() = true;
+
+		score_sum = player->score + player->totalscore;
+		auxstr = std::to_string(score_sum);
+		scorestring=auxstr.data();
+		App->gui->UIelements.At(46)->data->ShapeLabel(scorestring);
+
 		// --- LIFES ---
+
 		if(player->lifes >=1)
 		*App->gui->UIelements.At(42)->data->GetActive() = true;
 
@@ -825,6 +836,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(42)->data->GetActive() = false;
 		*App->gui->UIelements.At(43)->data->GetActive() = false;
 		*App->gui->UIelements.At(44)->data->GetActive() = false;
+
+		*App->gui->UIelements.At(45)->data->GetActive() = false;
+		*App->gui->UIelements.At(46)->data->GetActive() = false;
 	}
 
 	// --- Controlling camera Bounds---

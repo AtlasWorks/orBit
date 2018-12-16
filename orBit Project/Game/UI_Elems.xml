@@ -504,4 +504,24 @@ SOFTWARE."/>
     <click_rect  x="764" y="761" w="50" h="50"/>
   </Element>
 
+  <Element> 45 - LABEL SCORE
+    <type id="2" />
+    <parent id="1"/>
+    <position x="300" y="-75"/>
+    <place id="5"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="SCORE"/>
+    <textB value="SCORE"/>
+  </Element>
+
+  <Element> 46 - LABEL SCORE
+    <type id="2" />
+    <parent id="1"/>
+    <position x="375" y="-75"/>
+    <place id="5"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value=""/>
+    <textB value=""/>
+  </Element>
+
 </config>

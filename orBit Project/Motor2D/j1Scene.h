@@ -82,6 +82,11 @@ public:
 	p2SString stage1Music;
 	p2SString stage2Music;
 
+
+	const char * scorestring = nullptr;
+	int score_sum = 0;
+	std::string auxstr;
+
 	//---------------
 
 	p2List<p2SString*> StageList;
