@@ -54,7 +54,7 @@
     <fx>
       <folder>audio/fx/</folder>
       <VolumeChanger_fx value="1.0"/>
-      <sound enemydeath="others/enemy-death.wav" orb ="others/star.wav" death="others/hurt.wav" doubleJump="doble jump.wav" jump="jump.wav" buttonpop="pop_button.wav"/>
+      <sound enemydeath="others/enemy-death.wav" orb ="others/star.wav" death="others/hurt.wav" doubleJump="doublejump.wav" jump="jump.wav" buttonpop="pop_button.wav"/>
     </fx>
   </audio>
 

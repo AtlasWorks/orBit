@@ -37,8 +37,8 @@ bool j1Bat::Start()
 	entitycoll = App->coll->AddCollider(entitycollrect, COLLIDER_TYPE::COLLIDER_ENEMY_BAT, (j1Module*)manager);
 
 	CurrentAnimation = BatInfo.flyRight;
-	BatInfo.flyLeft->speed = BatInfo.animationspeed;
-	BatInfo.flyRight->speed = BatInfo.animationspeed;
+	BatInfo.flyLeft->speed = BatInfo.animationspeed/2.0f;
+	BatInfo.flyRight->speed = BatInfo.animationspeed/2.0f;
  	BatInfo.explote->speed = BatInfo.animationspeed;
 
 
