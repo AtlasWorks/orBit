@@ -124,6 +124,7 @@ public:
 
 	// auxiliar for timer
 	uint32 TimeAuxload;
+	uint32 TimePausedSave;
 
 	//--- Aux ----
 	

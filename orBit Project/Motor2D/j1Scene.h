@@ -126,9 +126,14 @@ public:
 
 	// -- Timer --
 	j1Timer sceneTimer;
-	j1Timer timeWhenPaused;
+
+	uint32 timeWhenPaused=0;
+
 	j1Timer timeBeingPaused;
-	uint32 timeAccumulated;
+
+	uint32 timeAccumulated=0; 
+
+	bool taketime = false;
 
 	private:
 	p2SString map_name=nullptr;
