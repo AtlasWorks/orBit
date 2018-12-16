@@ -60,30 +60,30 @@ bool j1Gui::PreUpdate()
 		skip_drag = false;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
-	{
-		App->scene->ONFocus();
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	//{
+	//	App->scene->ONFocus();
+	//}
 
-	if (focus != nullptr && focus->GetType() == ELEMENTS::INPUT && SDL_IsTextInputActive() == false)
-	{
-		App->input->StartTextInput();
-	}
+	//if (focus != nullptr && focus->GetType() == ELEMENTS::INPUT && SDL_IsTextInputActive() == false)
+	//{
+	//	App->input->StartTextInput();
+	//}
 
-	else if (focus != nullptr && focus->GetType() != ELEMENTS::INPUT && SDL_IsTextInputActive() == true)
-	{
-		App->input->StopTextInput();
-	}
+	//else if (focus != nullptr && focus->GetType() != ELEMENTS::INPUT && SDL_IsTextInputActive() == true)
+	//{
+	//	App->input->StopTextInput();
+	//}
 
-	if (SDL_IsTextInputActive() == true)
-	{
-		if (App->input->inputtext.Length() != 0)
-		{
-			focus->children.start->data->GetTexts()->current_text += App->input->inputtext.GetString();
-			LOG("string is: %s", focus->children.start->data->GetTexts()->current_text.GetString());
-			focus->children.start->data->ShapeLabel(focus->children.start->data->GetTexts()->current_text.GetString());
-		}
-	}
+	//if (SDL_IsTextInputActive() == true)
+	//{
+	//	if (App->input->inputtext.Length() != 0)
+	//	{
+	//		focus->children.start->data->GetTexts()->current_text += App->input->inputtext.GetString();
+	//		LOG("string is: %s", focus->children.start->data->GetTexts()->current_text.GetString());
+	//		focus->children.start->data->ShapeLabel(focus->children.start->data->GetTexts()->current_text.GetString());
+	//	}
+	//}
 
 	p2List_item <j1UI_Element*> * item = UIelements.At(first_children - 1);
 
@@ -93,7 +93,11 @@ bool j1Gui::PreUpdate()
 	{
 		ret = false;
 
+		if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 			ret = RecursiveOnClick(item);
+
+			if (ret)
+				break;
 
 			if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 				ret = RecursiveOnDrag(item);

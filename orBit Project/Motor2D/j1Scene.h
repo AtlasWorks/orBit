@@ -68,7 +68,11 @@ public:
 	float Volume_changer = 0.5f;
 	int parentindex = 0;
 	bool Activate_Ingamemenu = false;
-	bool Activate_MainMenu = false;
+	bool Activate_MainMenu = true;
+	bool Activate_InGameSettings = false;
+	bool Activate_MainMenuSettings = false;
+	bool Activate_Credits = false;
+	bool Existant_SaveGame = false;
 
 	//---------------
 
