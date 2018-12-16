@@ -369,7 +369,7 @@ bool j1Scene::Update(float dt)
 			}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) 
+	/*if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) 
 	{
 		App->audio->ChangeVolume_music(10);
 		App->audio->ChangeVolume_fx(10);
@@ -381,7 +381,7 @@ bool j1Scene::Update(float dt)
 		App->audio->ChangeVolume_music(-10);
 		App->audio->ChangeVolume_fx(-10);
 		LOG("volume down");
-	}
+	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{	
@@ -1262,7 +1262,7 @@ void j1Scene::ONdrag(j1UI_Element & element)
 			element.position.y = element.Getparent()->position.y - element.Getrects()->current_rect.h / 2;
 		}
 
-		if (parentindex == 0)
+		if (parentindex == 0 && &element == App->gui->UIelements.At(11)->data || &element == App->gui->UIelements.At(29)->data)
 		{
 			App->audio->VolumeChanger_music = App->audio->VolumeChanger_fx = float(float(element.position.y + (float)element.Getrects()->current_rect.h / 2 - element.Getparent()->position.y) / element.Getparent()->Getrects()->current_rect.h);
 			if (App->audio->VolumeChanger_music > 1)
@@ -1276,7 +1276,9 @@ void j1Scene::ONdrag(j1UI_Element & element)
 		}
 		else if (parentindex == 1)
 		{
-			element.Getchild(0)->position.y = element.Getparent()->Getrects()->logic_rect.y + (element.Getrects()->logic_rect.y + element.Getrects()->logic_rect.h / 2 - element.Getparent()->Getrects()->logic_rect.y);
+			element.Getchild(0)->position.y = element.Getparent()->Getrects()->logic_rect.y + ((element.Getrects()->logic_rect.y - element.Getparent()->Getrects()->logic_rect.y
+				)* (element.Getchild(0)->Getrects()->rect_normal.h / element.Getparent()->Getrects()->logic_rect.h));
+			//element.Getchild(0)->position.y = element.Getparent()->Getrects()->logic_rect.y + (element.Getrects()->logic_rect.y + element.Getrects()->logic_rect.h / 2 - element.Getparent()->Getrects()->logic_rect.y);
 		}
 		break;
 

@@ -169,7 +169,7 @@
   <Element> 15 - SLIDER CREDITS
     <type id="4" />
     <parent id="14"/>
-    <position x="-5" y="0"/>
+    <position x="-5" y="-9"/>
     <Texture path="gui/atlas.png"/>
     <logic_rect w="29" h="18" />
     <normal_rect x="1040" y="307" w="29" h="18"/>
@@ -179,11 +179,31 @@
 
   <Element> 16 - LABEL LICENSE
     <type id="2" />
-    <parent id="14"/>
+    <parent id="15"/>
     <position x="0" y="0"/>
-    <place id="0"/>
-    <color r="255" g="0" b="0" a="255" />
-    <textA value="LICENSE"/>
+    <place id="3"/>
+    <color r="255" g="255" b="255" a="150" />
+    <textA value="MIT License
+
+Copyright (c) 2018 Andres Ricardo Saladrigas Perez and Aitor Simona Bouzas
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the 'Software'), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE."/>
     <textB value="LICENSE"/>
   </Element>
 

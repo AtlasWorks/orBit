@@ -144,7 +144,7 @@ inline void j1Label::PlaceAtLeft()
 
 inline void j1Label::PlaceAtRight()
 {
-	position.x = parent->position.x + parent->Getrects()->current_rect.w;
+	position.x = parent->position.x + parent->Getrects()->current_rect.w + 20;
 	position.y = parent->position.y + parent->Getrects()->current_rect.h / 2 - Data.rects.rect_normal.h / 2;
 }
 
