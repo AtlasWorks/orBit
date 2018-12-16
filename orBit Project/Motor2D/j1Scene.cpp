@@ -552,7 +552,7 @@ bool j1Scene::PostUpdate(float dt)
 	// --- Controlling UI BEHAVIOUR ---
 
 	// --- WEBSITE LABEL ---
-	if (App->gui->focus == App->gui->UIelements.At(32)->data)
+	if (App->gui->focus == App->gui->UIelements.At(33)->data)
 	{
 		App->gui->focus = nullptr;
 		ShellExecuteA(NULL, "open", "https://atlasworks.github.io/orBit/", NULL, NULL, SW_SHOWNORMAL);
@@ -573,10 +573,11 @@ bool j1Scene::PostUpdate(float dt)
 	}
 
 	// --- Main Menu Continue ---
-	if (App->gui->focus == App->gui->UIelements.At(1)->data)
+	if (App->gui->focus == App->gui->UIelements.At(40)->data)
 	{
 		App->gui->focus = nullptr;
 		Activate_MainMenu = false;
+		Activate_HUD = true;
 		App->LoadGame("save_game.xml");
 	}
 
@@ -585,7 +586,7 @@ bool j1Scene::PostUpdate(float dt)
 	{
 		App->gui->focus = nullptr;
 		Activate_MainMenu = false;
-
+		Activate_HUD = true;
 		change_scene(StageList.start->data->GetString());
 		firstStage = true;
 		secondStage = false;
@@ -627,6 +628,7 @@ bool j1Scene::PostUpdate(float dt)
 	{
 		App->gui->focus = nullptr;
 		Activate_MainMenu = true;
+		Activate_HUD = false;
 		Activate_Ingamemenu = false;
 	}
 
@@ -635,14 +637,16 @@ bool j1Scene::PostUpdate(float dt)
 	{
 		App->gui->focus = nullptr;
 		Activate_MainMenu = true;
+		Activate_HUD = false;
 		Activate_Credits = false;
 	}
 
 	// --- Main Menu BACK TO MAIN MENU TRIGGER (SETTINGS) ---
-	if (App->gui->focus == App->gui->UIelements.At(31)->data)
+	if (App->gui->focus == App->gui->UIelements.At(32)->data)
 	{
 		App->gui->focus = nullptr;
 		Activate_MainMenu = true;
+		Activate_HUD = false;
 		Activate_MainMenuSettings = false;
 	}
 
@@ -655,9 +659,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(20)->data->GetActive() = true;
 
 		// --- Labels ---
-		*App->gui->UIelements.At(22)->data->GetActive() = true;
 		*App->gui->UIelements.At(23)->data->GetActive() = true;
 		*App->gui->UIelements.At(24)->data->GetActive() = true;
+		*App->gui->UIelements.At(25)->data->GetActive() = true;
 	}
 	else
 	{
@@ -666,9 +670,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(20)->data->GetActive() = false;
 
 		// --- Labels ---
-		*App->gui->UIelements.At(22)->data->GetActive() = false;
 		*App->gui->UIelements.At(23)->data->GetActive() = false;
 		*App->gui->UIelements.At(24)->data->GetActive() = false;
+		*App->gui->UIelements.At(25)->data->GetActive() = false;
 	}
 
 	// --- Controlling Main Menu ---
@@ -679,13 +683,13 @@ bool j1Scene::PostUpdate(float dt)
 
 		if (Existant_SaveGame)
 		{
-			*App->gui->UIelements.At(1)->data->GetActive() = true;
-			*App->gui->UIelements.At(21)->data->GetActive() = true;
+			*App->gui->UIelements.At(40)->data->GetActive() = true;
+			*App->gui->UIelements.At(41)->data->GetActive() = true;
 		}
 		else
 		{
-			*App->gui->UIelements.At(1)->data->GetActive() = false;
-			*App->gui->UIelements.At(21)->data->GetActive() = false;
+			*App->gui->UIelements.At(40)->data->GetActive() = false;
+			*App->gui->UIelements.At(41)->data->GetActive() = false;
 		}
 
 		*App->gui->UIelements.At(3)->data->GetActive() = true;
@@ -696,15 +700,15 @@ bool j1Scene::PostUpdate(float dt)
 
 		// --- Labels ---
 		*App->gui->UIelements.At(19)->data->GetActive() = true;
-		*App->gui->UIelements.At(25)->data->GetActive() = true;
 		*App->gui->UIelements.At(26)->data->GetActive() = true;
+		*App->gui->UIelements.At(27)->data->GetActive() = true;
 
 	}
 	else
 	{
 		*App->gui->UIelements.At(0)->data->GetActive() = false;
 														
-		*App->gui->UIelements.At(1)->data->GetActive() = false;
+		*App->gui->UIelements.At(40)->data->GetActive() = false;
 														
 		*App->gui->UIelements.At(3)->data->GetActive() = false;
 		*App->gui->UIelements.At(4)->data->GetActive() = false;
@@ -714,9 +718,9 @@ bool j1Scene::PostUpdate(float dt)
 
 		// --- Labels ---
 		*App->gui->UIelements.At(19)->data->GetActive() = false;
-		*App->gui->UIelements.At(21)->data->GetActive() = false;
-		*App->gui->UIelements.At(25)->data->GetActive() = false;
+		*App->gui->UIelements.At(41)->data->GetActive() = false;
 		*App->gui->UIelements.At(26)->data->GetActive() = false;
+		*App->gui->UIelements.At(27)->data->GetActive() = false;
 	}
 
 	// --- SETTINGS IN GAME PANEL
@@ -728,9 +732,9 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(11)->data->GetActive() = true;
 		*App->gui->UIelements.At(12)->data->GetActive() = true;
 		*App->gui->UIelements.At(13)->data->GetActive() = true;
-		*App->gui->UIelements.At(36)->data->GetActive() = true;
 		*App->gui->UIelements.At(37)->data->GetActive() = true;
 		*App->gui->UIelements.At(38)->data->GetActive() = true;
+		*App->gui->UIelements.At(39)->data->GetActive() = true;
 	}
 	else
 	{
@@ -739,35 +743,35 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(11)->data->GetActive() =false;
 		*App->gui->UIelements.At(12)->data->GetActive() =false;
 		*App->gui->UIelements.At(13)->data->GetActive() =false;
-		*App->gui->UIelements.At(36)->data->GetActive() = false;
 		*App->gui->UIelements.At(37)->data->GetActive() = false;
 		*App->gui->UIelements.At(38)->data->GetActive() = false;
+		*App->gui->UIelements.At(39)->data->GetActive() = false;
 	}
 
 	// --- SETTINGS MAIN MENU PANEL ---
 
 	if (Activate_MainMenuSettings)
 	{
-		*App->gui->UIelements.At(27)->data->GetActive() = true;
 		*App->gui->UIelements.At(28)->data->GetActive() = true;
 		*App->gui->UIelements.At(29)->data->GetActive() = true;
 		*App->gui->UIelements.At(30)->data->GetActive() = true;
 		*App->gui->UIelements.At(31)->data->GetActive() = true;
-		*App->gui->UIelements.At(33)->data->GetActive() = true;
+		*App->gui->UIelements.At(32)->data->GetActive() = true;
 		*App->gui->UIelements.At(34)->data->GetActive() = true;
 		*App->gui->UIelements.At(35)->data->GetActive() = true;
+		*App->gui->UIelements.At(36)->data->GetActive() = true;
 		
 	}
 	else
 	{
-		*App->gui->UIelements.At(27)->data->GetActive() = false;
 		*App->gui->UIelements.At(28)->data->GetActive() = false;
 		*App->gui->UIelements.At(29)->data->GetActive() = false;
 		*App->gui->UIelements.At(30)->data->GetActive() = false;
 		*App->gui->UIelements.At(31)->data->GetActive() = false;
-		*App->gui->UIelements.At(33)->data->GetActive() = false;
+		*App->gui->UIelements.At(32)->data->GetActive() = false;
 		*App->gui->UIelements.At(34)->data->GetActive() = false;
 		*App->gui->UIelements.At(35)->data->GetActive() = false;
+		*App->gui->UIelements.At(36)->data->GetActive() = false;
 	}
 
 	// --- CREDITS MAIN MENU PANEL ---
@@ -779,7 +783,7 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(15)->data->GetActive() = true;
 		*App->gui->UIelements.At(16)->data->GetActive() = true;
 		*App->gui->UIelements.At(17)->data->GetActive() = true;
-		*App->gui->UIelements.At(32)->data->GetActive() = true;
+		*App->gui->UIelements.At(33)->data->GetActive() = true;
 	}
 	else
 	{
@@ -788,7 +792,39 @@ bool j1Scene::PostUpdate(float dt)
 		*App->gui->UIelements.At(15)->data->GetActive() =false;
 		*App->gui->UIelements.At(16)->data->GetActive() =false;
 		*App->gui->UIelements.At(17)->data->GetActive() =false;
-		*App->gui->UIelements.At(32)->data->GetActive() = false;
+		*App->gui->UIelements.At(33)->data->GetActive() = false;
+	}
+
+	if (Activate_HUD)
+	{
+		// --- ORBS ---
+		if (player->orbs_number >= 1)
+		*App->gui->UIelements.At(1)->data->GetActive() = true;
+
+		if (player->orbs_number >= 2)
+		*App->gui->UIelements.At(21)->data->GetActive() = true;
+
+		if(player->orbs_number >= 3)
+		*App->gui->UIelements.At(22)->data->GetActive() = true;
+
+		// --- LIFES ---
+		if(player->lifes >=1)
+		*App->gui->UIelements.At(42)->data->GetActive() = true;
+
+		if (player->lifes >= 2)
+		*App->gui->UIelements.At(43)->data->GetActive() = true;
+
+		if (player->lifes >= 3)
+		*App->gui->UIelements.At(44)->data->GetActive() = true;
+	}
+	else
+	{
+		*App->gui->UIelements.At(1)->data->GetActive() = false;
+		*App->gui->UIelements.At(21)->data->GetActive() = false;
+		*App->gui->UIelements.At(22)->data->GetActive() = false;
+		*App->gui->UIelements.At(42)->data->GetActive() = false;
+		*App->gui->UIelements.At(43)->data->GetActive() = false;
+		*App->gui->UIelements.At(44)->data->GetActive() = false;
 	}
 
 	// --- Controlling camera Bounds---

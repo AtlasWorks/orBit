@@ -72,6 +72,7 @@ public:
 	bool Activate_InGameSettings = false;
 	bool Activate_MainMenuSettings = false;
 	bool Activate_Credits = false;
+	bool Activate_HUD = false;
 	bool Existant_SaveGame = false;
 
 	p2SString MenuMusic;
