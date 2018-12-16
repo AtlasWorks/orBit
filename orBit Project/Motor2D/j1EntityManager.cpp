@@ -197,7 +197,7 @@ bool j1EntityManager::Update(float dt)
 	//	do_logic = true;
 	//}
 
-	if(dt<update_ms_cycle*1.25f)
+	if(dt<update_ms_cycle*1.25f && dt > 0.0f)
 	UpdateEntity(dt);
 
 	//if (do_logic == true)
