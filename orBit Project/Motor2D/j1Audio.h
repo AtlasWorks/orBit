@@ -54,11 +54,14 @@ public:
 	p2SString fxJump = nullptr;
 	p2SString fxdoubleJump = nullptr;
 	p2SString fxbuttonpop = nullptr;
+	p2SString fxorb = nullptr;
 
 	unsigned int deathfx = NULL;
 	unsigned int jumpfx = NULL;
 	unsigned int doublejumpfx = NULL;
 	unsigned int buttonpopfx = NULL;
+	unsigned int orbfx = NULL;
+
 private:
 
 	_Mix_Music*			music = NULL;

@@ -514,6 +514,7 @@ void j1Player::Down_Collision(Collider * entitycollider, const Collider * to_che
 		
 			if (!dead)
 			{
+				App->audio->PlayFx(App->audio->deathfx);
 				LOG("actual lifes. %i", lifes);
 				playerinfo.deathRight->Reset();
 				CurrentAnimation = playerinfo.deathRight;

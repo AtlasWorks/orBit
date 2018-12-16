@@ -502,7 +502,6 @@ bool j1Scene::PostUpdate(float dt)
 
 	bool ret = true;
 
-
 	// --- Controlling Music ---
 
 	if (!playing_menu && dt == 0.0f)
