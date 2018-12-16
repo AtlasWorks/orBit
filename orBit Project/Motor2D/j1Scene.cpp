@@ -1016,7 +1016,7 @@ bool j1Scene::change_scene(const char* map_name) {
 	sceneTimer.Start();
 
 
-	//Fade(245, 245, 245, 2.0);
+	Fade(245, 245, 245, 2.0);
 
 	App->map->paralaxRef[0] = App->map->offset;
 	App->map->paralaxRef[1] = App->map->offset;
