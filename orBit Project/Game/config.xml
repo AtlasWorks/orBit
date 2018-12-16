@@ -86,7 +86,7 @@
    <bat>
          <folder>animation/enemies.tmx</folder>
          <texture>textures/monster.png</texture>
-         <collider x="31" y="7" width="15" height="12"/>
+         <collider x="31" y="7" width="18" height="12"/>
          <animationspeed value="10.0"/>
          <areaofaction value="100"/>
          <Velocity x="50" y="25" initalVx="50.0"/>
